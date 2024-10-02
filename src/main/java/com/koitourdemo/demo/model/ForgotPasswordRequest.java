@@ -1,17 +1,15 @@
 package com.koitourdemo.demo.model;
 
+import jakarta.validation.constraints.Email;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class KoiRequest {
+public class ForgotPasswordRequest {
 
-    String koiName;
-    String koiColor;
-    String koiWeight;
-    String koiSize;
-    String koiOrigin;
-    String koiDescription;
+    @Email(message = "Email not valid!")
+    String userEmail;
+
 }

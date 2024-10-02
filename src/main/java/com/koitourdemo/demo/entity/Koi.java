@@ -3,11 +3,14 @@ package com.koitourdemo.demo.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.experimental.FieldDefaults;
 
 @Data
 @Table(name = "KoiList")
 @Entity
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Koi {
 
     @Id

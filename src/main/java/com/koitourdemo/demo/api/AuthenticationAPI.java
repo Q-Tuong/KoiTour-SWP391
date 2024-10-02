@@ -1,9 +1,7 @@
 package com.koitourdemo.demo.api;
 
 import com.koitourdemo.demo.entity.User;
-import com.koitourdemo.demo.model.UserResponse;
-import com.koitourdemo.demo.model.LoginRequest;
-import com.koitourdemo.demo.model.RegisterRequest;
+import com.koitourdemo.demo.model.*;
 import com.koitourdemo.demo.service.AuthenticationService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
@@ -37,5 +35,17 @@ public class AuthenticationAPI {
     public ResponseEntity getAllUser(){
         List<User> users = authenticationService.getAllUser();
         return ResponseEntity.ok(users);
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity forgotPassword(@RequestBody @Valid ForgotPasswordRequest forgotPasswordRequest){
+        authenticationService.forgotPassword(forgotPasswordRequest);
+        return ResponseEntity.ok("Forgot password sucessfully!");
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity resetPassword(@RequestBody ResetPasswordRequest resetPasswordRequest){
+        authenticationService.resetPassword(resetPasswordRequest);
+        return ResponseEntity.ok("Reset password sucessfully!");
     }
 }

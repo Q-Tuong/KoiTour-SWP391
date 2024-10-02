@@ -3,10 +3,8 @@ package com.koitourdemo.demo.service;
 import com.koitourdemo.demo.entity.Role;
 import com.koitourdemo.demo.entity.User;
 import com.koitourdemo.demo.exception.DuplicateEntity;
-import com.koitourdemo.demo.model.EmailDetail;
-import com.koitourdemo.demo.model.UserResponse;
-import com.koitourdemo.demo.model.LoginRequest;
-import com.koitourdemo.demo.model.RegisterRequest;
+import com.koitourdemo.demo.exception.NotFoundException;
+import com.koitourdemo.demo.model.*;
 import com.koitourdemo.demo.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
@@ -56,7 +54,7 @@ public class AuthenticationService implements UserDetailsService {
             emailDetail.setReceiver(newUser);
             emailDetail.setSubject("Welcome to rạp xiếc trung ương! we are excited to have you");
             emailDetail.setLink("https://www.google.com/");
-            //emailService.sendEmail(emailDetail);
+            emailService.sendEmail(emailDetail);
 
             return modelMapper.map(newUser, UserResponse.class);
         }catch (Exception e){
@@ -104,4 +102,26 @@ public class AuthenticationService implements UserDetailsService {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userRepository.findUserByUserId(user.getUserId());
     }
+
+    public void forgotPassword(ForgotPasswordRequest forgotPasswordRequest){
+
+        User user = userRepository.findUserByEmail(forgotPasswordRequest.getUserEmail());
+
+        if(user == null){
+            throw new NotFoundException("email not found!");
+        }else{
+            EmailDetail emailDetail = new EmailDetail();
+            emailDetail.setReceiver(user);
+            emailDetail.setSubject("Reset password");
+            emailDetail.setLink("https://www.facebook.com/" + tokenService.generateToken(user));
+            emailService.sendEmail(emailDetail);
+        }
+    }
+
+    public void resetPassword(ResetPasswordRequest resetPasswordRequest){
+        User user = getCurrentUser();
+        user.setUserPassword(passwordEncoder.encode(resetPasswordRequest.getUserPassword()));
+        userRepository.save(user);
+    }
+
 }

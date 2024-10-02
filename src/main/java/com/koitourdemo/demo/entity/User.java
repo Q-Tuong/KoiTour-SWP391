@@ -7,9 +7,11 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,12 +26,13 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "Users")
 @Entity
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private long userId;
+    long userId;
 
     @Enumerated(EnumType.STRING)
     Role role;
@@ -39,24 +42,24 @@ public class User implements UserDetails {
     @Column(unique = true)
     String userCode;
 
-//    private String userName;
+//  String userName;
 
     @NotBlank(message = "Password cannot blank!")
     @Size(min = 6, message = "Password must be at least 6 digits!")
-    private String userPassword;
+    String userPassword;
 
     @Email(message = "Email not valid!")
     @Column(unique = true)
-    private String userEmail;
+    String userEmail;
 
     @Pattern(regexp = "(84|0[3|5|7|8|9])+(\\d{8})", message = "Phone invalid!")
     @Column(unique = true)
-    private String userPhone;
+    String userPhone;
 
-    private Date createAt;
+    Date createAt;
 
     @NotBlank(message = "Address cannot blank!")
-    private String userAddress;
+    String userAddress;
 
 //    private boolean isVerified;
 

@@ -1,5 +1,6 @@
 package com.koitourdemo.demo.service;
 
+import com.koitourdemo.demo.entity.Role;
 import com.koitourdemo.demo.entity.User;
 import com.koitourdemo.demo.exception.DuplicateEntity;
 import com.koitourdemo.demo.model.EmailDetail;
@@ -48,13 +49,14 @@ public class AuthenticationService implements UserDetailsService {
         try{
             String originPassword = user.getUserPassword();
             user.setUserPassword(passwordEncoder.encode(originPassword));
+            user.setRole(Role.CUSTOMER);
             User newUser = userRepository.save(user);
 
             EmailDetail emailDetail = new EmailDetail();
             emailDetail.setReceiver(newUser);
             emailDetail.setSubject("Welcome to rạp xiếc trung ương! we are excited to have you");
             emailDetail.setLink("https://www.google.com/");
-            emailService.sendEmail(emailDetail);
+            //emailService.sendEmail(emailDetail);
 
             return modelMapper.map(newUser, UserResponse.class);
         }catch (Exception e){

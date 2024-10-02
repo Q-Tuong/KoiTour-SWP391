@@ -30,7 +30,7 @@ public class Filter extends OncePerRequestFilter {
 
     @Autowired
     @Qualifier("handlerExceptionResolver")
-    HandlerExceptionResolver resolver;
+    HandlerExceptionResolver handlerExceptionResolver;
 
     private final List<String> AUTH_PERMISSION = List.of(
             "/swagger-ui/**",
@@ -56,7 +56,7 @@ public class Filter extends OncePerRequestFilter {
         }else{
             String token = getToken(request);
             if(token == null){
-                resolver.resolveException(request, response, null, new AuthException("Empty token!"));
+                handlerExceptionResolver.resolveException(request, response, null, new AuthException("Empty token!"));
                 return;
             }
 
@@ -64,10 +64,10 @@ public class Filter extends OncePerRequestFilter {
             try{
                 user = tokenService.getUserByToken(token);
             }catch (ExpiredJwtException e){
-                resolver.resolveException(request, response, null, new AuthException("Expired token!"));
+                handlerExceptionResolver.resolveException(request, response, null, new AuthException("Expired token!"));
                 return;
             }catch (MalformedJwtException malformedJwtException){
-                resolver.resolveException(request, response, null, new AuthException("Invalid token!"));
+                handlerExceptionResolver.resolveException(request, response, null, new AuthException("Invalid token!"));
                 return;
             }
 

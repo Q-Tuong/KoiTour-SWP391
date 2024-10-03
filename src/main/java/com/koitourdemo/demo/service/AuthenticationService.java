@@ -105,7 +105,7 @@ public class AuthenticationService implements UserDetailsService {
 
     public void forgotPassword(ForgotPasswordRequest forgotPasswordRequest){
 
-        User user = userRepository.findUserByEmail(forgotPasswordRequest.getUserEmail());
+        User user = userRepository.findUserByUserEmail(forgotPasswordRequest.getUserEmail());
 
         if(user == null){
             throw new NotFoundException("email not found!");

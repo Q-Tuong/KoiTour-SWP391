@@ -27,6 +27,7 @@ public class Koi {
     String koiSize;
     String koiOrigin;
     String koiDescription;
+    String koiImageURL;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

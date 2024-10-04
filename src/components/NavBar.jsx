@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Container, Nav, Navbar } from "react-bootstrap";
+import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function NavBar() {
@@ -7,7 +7,7 @@ function NavBar() {
 		<Navbar collapseOnSelect expand="md" bg="dark" data-bs-theme="dark">
 			<Container>
 				<Navbar.Brand>
-					<Link to={"/"}>LAB1</Link>
+					<Link to={"/"}>KoiTripCo.</Link>
 				</Navbar.Brand>
 				<Navbar.Toggle aria-controls="navbar-nav" />
 				<Navbar.Collapse id="navbar-nav">
@@ -19,14 +19,22 @@ function NavBar() {
 							<Link to={"/About"}>About</Link>
 						</Nav.Link>
 						<Nav.Link>
-							<Link to={"/Original"}>Original</Link>
+							<Link to={"/Guidelines"}>Guidelines</Link>
 						</Nav.Link>
+						<NavDropdown title="Services" id="collapsible-nav-dropdown">
+							<NavDropdown.Item>
+								<Link to={"/KoiList"}>Koi List</Link>
+							</NavDropdown.Item>
+							<NavDropdown.Item>
+								<Link to={"/FarmList"}>Farm Site</Link>
+							</NavDropdown.Item>
+							<NavDropdown.Item>
+								<Link to={"/TourList"}>Farm Tour</Link>
+							</NavDropdown.Item>
+						</NavDropdown>
 						<Nav.Link>
-							<Link to={"/Contact"}>Contact</Link>
+							<Link to={"/Login"}>Login</Link>
 						</Nav.Link>
-					</Nav>
-					<Nav>
-						<Button variant="secondary">Change mode</Button>
 					</Nav>
 				</Navbar.Collapse>
 			</Container>

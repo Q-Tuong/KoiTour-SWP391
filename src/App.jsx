@@ -1,23 +1,33 @@
 import { Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import OrchidDetail from "./components/OrchidDetail";
-import OrchidsMenu from "./components/OrchidsMenu";
 import NavBar from "./components/NavBar";
-import Contact from "./components/Contact";
-import About from "./components/About";
-import OriginalOrchids from "./components/OriginalOrchids";
+import Guidelines from "./pages/Guidelines";
+import About from "./pages/About";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import KoiPage from "./pages/KoiPage";
+import KoiDetail from "./pages/KoiDetail";
+import FarmPage from "./pages/FarmPage";
+import FarmDetail from "./pages/FarmDetail";
+import TourPage from "./pages/TourPage";
+import TourDetail from "./pages/TourDetail";
 
 function App() {
 	return (
 		<div className="App">
 			<NavBar />
 			<Routes>
-				<Route path="/" element={<OrchidsMenu />} />
-				<Route path="/OrchidDetail/:id" element={<OrchidDetail />} />
+				<Route path="/" element={<Home />} />
 				<Route path="/About" element={<About />} />
-				<Route path="/Original" element={<OriginalOrchids />} />
-				<Route path="/Contact" element={<Contact />} />
+				<Route path="/Guidelines" element={<Guidelines />} />
+				<Route path="/KoiList" element={<KoiPage />} />
+				<Route path="/KoiDetail/:id" element={<KoiDetail />} />
+				<Route path="/FarmList" element={<FarmPage />} />
+				<Route path="/FarmDetail/:id" element={<FarmDetail />} />
+				<Route path="/TourList" element={<TourPage />} />
+				<Route path="/TourDetail/:id" element={<TourDetail />} />
+				<Route path="/Login" element={<Login />} />
 			</Routes>
 		</div>
 	);

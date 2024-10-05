@@ -13,6 +13,8 @@ import FarmDetail from "./pages/FarmDetail";
 import TourPage from "./pages/TourPage";
 import TourDetail from "./pages/TourDetail";
 import Register from "./pages/Register";
+import AdminPage from "./pages/AdminPage";
+import AdminStuff from "./components/AdminStuff";
 
 function App() {
 	return (
@@ -29,6 +31,8 @@ function App() {
 				<Route path="/TourDetail/:id" element={<TourDetail />} />
 				<Route path="/Login" element={<Login />} />
 				<Route path="/Register" element={<Register />} />
+
+				<Route path="/Admin" element={<AdminPage cmp={AdminStuff} />} />
 			</Routes>
 		</div>
 	);

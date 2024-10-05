@@ -1,14 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
 function Login() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	const api = ""; //api link goes here
+	const navigate = useNavigate();
 
-	async function handleLogin() {}
+	const api = "https://66fe49e22b9aac9c997b30ef.mockapi.io/User"; //api link goes here
+
+	async function handleLogin() {
+		let user = { username, password };
+		let result = await fetch(api, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json",
+			},
+			body: JSON.stringify(user),
+		});
+		result = await result.json();
+		localStorage.setItem("user-info", JSON.stringify(result));
+		navigate("/");
+	}
+
+	useEffect(() => {
+		if (localStorage.getItem("user-info")) {
+			navigate("/");
+		}
+	}, []);
 
 	return (
 		<>
@@ -30,13 +51,13 @@ function Login() {
 						<Col>
 							<Form.Group className="mb-3" controlId="formGroupUsername">
 								<Form.Label>Username</Form.Label>
-								<Form.Control type="text" placeholder="Username" />
+								<Form.Control type="text" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
 							</Form.Group>
 							<Form.Group className="mb-3" controlId="formGroupPassword">
 								<Form.Label>Password</Form.Label>
-								<Form.Control type="password" placeholder="Password" />
+								<Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
 							</Form.Group>
-							<Button type="submit">Login</Button>
+							<Button onClick={handleLogin}>Login</Button>
 						</Col>
 					</Row>
 				</Form>

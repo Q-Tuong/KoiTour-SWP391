@@ -1,8 +1,16 @@
 import React from "react";
-import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 
 function NavBar() {
+	let user = JSON.parse(localStorage.getItem("user-info"));
+	const navigate = useNavigate();
+
+	function logOut() {
+		localStorage.clear();
+		navigate("/Login");
+	}
+
 	return (
 		<Navbar collapseOnSelect expand="md" bg="dark" data-bs-theme="dark">
 			<Container>
@@ -42,9 +50,13 @@ function NavBar() {
 						</NavDropdown>
 						{localStorage.getItem("user-info") ? (
 							//After login, it will show this.
-							<>You Login</>
+							<>
+								<NavDropdown title={user && user.username} id="collapsible-nav-dropdown">
+									<NavDropdown.Item onClick={logOut}>Logout</NavDropdown.Item>
+								</NavDropdown>
+							</>
 						) : (
-							//Not login will show the login link
+							//Not login will show this
 							<>
 								<Link to={"/Login"} className="nav-link">
 									Login

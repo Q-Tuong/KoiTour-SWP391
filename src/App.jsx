@@ -12,11 +12,11 @@ import FarmPage from "./pages/FarmPage";
 import FarmDetail from "./pages/FarmDetail";
 import TourPage from "./pages/TourPage";
 import TourDetail from "./pages/TourDetail";
+import Register from "./pages/Register";
 
 function App() {
 	return (
 		<div className="App">
-			<NavBar />
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/About" element={<About />} />
@@ -28,6 +28,7 @@ function App() {
 				<Route path="/TourList" element={<TourPage />} />
 				<Route path="/TourDetail/:id" element={<TourDetail />} />
 				<Route path="/Login" element={<Login />} />
+				<Route path="/Register" element={<Register />} />
 			</Routes>
 		</div>
 	);

@@ -7,34 +7,53 @@ function NavBar() {
 		<Navbar collapseOnSelect expand="md" bg="dark" data-bs-theme="dark">
 			<Container>
 				<Navbar.Brand>
-					<Link to={"/"}>KoiTripCo.</Link>
+					<Link to={"/"} className="nav-link">
+						KoiTripCo.
+					</Link>
 				</Navbar.Brand>
 				<Navbar.Toggle aria-controls="navbar-nav" />
 				<Navbar.Collapse id="navbar-nav">
-					<Nav className="me-auto">
-						<Nav.Link>
-							<Link to={"/"}>Home</Link>
-						</Nav.Link>
-						<Nav.Link>
-							<Link to={"/About"}>About</Link>
-						</Nav.Link>
-						<Nav.Link>
-							<Link to={"/Guidelines"}>Guidelines</Link>
-						</Nav.Link>
+					<Nav className="me-auto navbar-wrapper">
+						<Link to={"/"} className="nav-link">
+							Home
+						</Link>
+						<Link to={"/About"} className="nav-link">
+							About
+						</Link>
+						<Link to={"/Guidelines"} className="nav-link">
+							Guidelines
+						</Link>
 						<NavDropdown title="Services" id="collapsible-nav-dropdown">
 							<NavDropdown.Item>
-								<Link to={"/KoiList"}>Koi List</Link>
+								<Link to={"/KoiList"} className="nav-link">
+									Koi List
+								</Link>
 							</NavDropdown.Item>
 							<NavDropdown.Item>
-								<Link to={"/FarmList"}>Farm Site</Link>
+								<Link to={"/FarmList"} className="nav-link">
+									Farm Site
+								</Link>
 							</NavDropdown.Item>
 							<NavDropdown.Item>
-								<Link to={"/TourList"}>Farm Tour</Link>
+								<Link to={"/TourList"} className="nav-link">
+									Farm Tour
+								</Link>
 							</NavDropdown.Item>
 						</NavDropdown>
-						<Nav.Link>
-							<Link to={"/Login"}>Login</Link>
-						</Nav.Link>
+						{localStorage.getItem("user-info") ? (
+							//After login, it will show this.
+							<>You Login</>
+						) : (
+							//Not login will show the login link
+							<>
+								<Link to={"/Login"} className="nav-link">
+									Login
+								</Link>
+								<Link to={"/Register"} className="nav-link">
+									Register
+								</Link>
+							</>
+						)}
 					</Nav>
 				</Navbar.Collapse>
 			</Container>

@@ -1,32 +1,41 @@
 package com.koitourdemo.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AccessLevel;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "KoiFarms")
 @Entity
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class KoiFarm {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private long koiFarmId;
+    long koiFarmId;
 
-    private String koiFarmName;
-    private String koiFarmAddress;
-    private String koiFarmPhone;
+    @JsonIgnore
+    boolean isDeleted = false;
 
-    @Email(message = "Email not valid!")
+    @NotBlank(message = "Koi farm name cannot be blank!")
+    String koiFarmName;
+
+    @NotBlank(message = "Koi farm address cannot be blank!")
+    String koiFarmAddress;
+
+    @NotBlank(message = "Invalid phone number!")
+    String koiFarmPhone;
+
+    @Email(message = "Invalid email!")
     @Column(unique = true)
-    private String koiFarmEmail;
+    String koiFarmEmail;
 
-    private String koiFarmDescription;
-    private String koiFarmImageURL;
+    String koiFarmDescription;
+//  String koiFarmImageURL;
 }

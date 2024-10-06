@@ -14,4 +14,5 @@ public class KoiRequest {
     String koiSize;
     String koiOrigin;
     String koiDescription;
+
 }

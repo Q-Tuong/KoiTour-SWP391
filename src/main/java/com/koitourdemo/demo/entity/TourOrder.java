@@ -10,8 +10,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "TourOders")
 @Entity
 public class TourOrder {

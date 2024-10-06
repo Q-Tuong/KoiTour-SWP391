@@ -32,4 +32,10 @@ public class AdminAPI {
         List<User> users = adminService.getAllUser();
         return ResponseEntity.ok(users);
     }
+
+    @DeleteMapping("{userId}")
+    public ResponseEntity deleteUser(@PathVariable long userId){
+        User deleteUser = adminService.deleteUser(userId);
+        return ResponseEntity.ok(deleteUser);
+    }
 }

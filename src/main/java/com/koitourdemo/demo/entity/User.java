@@ -19,8 +19,6 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "Users")
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -34,6 +32,9 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     Role role;
 
+    @JsonIgnore
+    boolean isDeleted = false;
+
     @NotBlank(message = "Code cannot be blank!")
     @Pattern(regexp = "KH\\d{6}", message = "Code invalid!")
     @Column(unique = true)
@@ -41,7 +42,7 @@ public class User implements UserDetails {
 
 //  String userName;
 
-    @NotBlank(message = "Password cannot blank!")
+    @NotBlank(message = "Password cannot be blank!")
     @Size(min = 6, message = "Password must be at least 6 digits!")
     String userPassword;
 
@@ -49,13 +50,13 @@ public class User implements UserDetails {
     @Column(unique = true)
     String userEmail;
 
-    @Pattern(regexp = "(84|0[3|5|7|8|9])+(\\d{8})", message = "Phone invalid!")
+    @Pattern(regexp = "(84|0[3|5|7|8|9])+(\\d{8})", message = "Invalid phone number!")
     @Column(unique = true)
     String userPhone;
 
     Date createAt;
 
-    @NotBlank(message = "Address cannot blank!")
+    @NotBlank(message = "Address cannot be blank!")
     String userAddress;
 
 //    private boolean isVerified;

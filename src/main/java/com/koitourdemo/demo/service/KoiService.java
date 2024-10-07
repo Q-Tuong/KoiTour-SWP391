@@ -1,14 +1,17 @@
 package com.koitourdemo.demo.service;
 
 import com.koitourdemo.demo.entity.Koi;
+import com.koitourdemo.demo.entity.User;
 import com.koitourdemo.demo.exception.NotFoundException;
 import com.koitourdemo.demo.model.KoiRequest;
 import com.koitourdemo.demo.repository.KoiRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class KoiService {
 
     @Autowired
@@ -22,8 +25,8 @@ public class KoiService {
 
     public Koi createNewKoi(KoiRequest koiRequest){
         Koi koi = modelMapper.map(koiRequest, Koi.class);
-//        User userRequest = authenticationService.getCurrentUser();
-//        koi.setUser(userRequest);
+        User userRequest = authenticationService.getCurrentUser();
+        koi.setUser(userRequest);
         
         try{
             Koi newKoi = koiRepository.save(koi);

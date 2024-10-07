@@ -29,7 +29,7 @@ public class KoiAPI {
     }
 
     @GetMapping
-    public ResponseEntity get(){
+    public ResponseEntity getAllKoi(){
         List<Koi> kois = koiService.getAllKoi();
         return ResponseEntity.ok(kois);
     }

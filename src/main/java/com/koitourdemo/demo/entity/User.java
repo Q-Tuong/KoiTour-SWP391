@@ -105,4 +105,8 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     List<Koi> kois;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    List<KoiFarm> koiFarms;
 }

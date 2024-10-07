@@ -39,7 +39,7 @@ public class Filter extends OncePerRequestFilter {
             "/api/login",
             "/api/register",
             "/api/user",
-            "/api/admin/user"
+            "/api/forgot-password"
     );
 
     public boolean checkIsPublicAPI(String uri){
@@ -66,7 +66,7 @@ public class Filter extends OncePerRequestFilter {
             }catch (ExpiredJwtException e){
                 handlerExceptionResolver.resolveException(request, response, null, new AuthException("Expired token!"));
                 return;
-            }catch (MalformedJwtException malformedJwtException){
+            }catch (MalformedJwtException e){
                 handlerExceptionResolver.resolveException(request, response, null, new AuthException("Invalid token!"));
                 return;
             }

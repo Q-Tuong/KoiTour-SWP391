@@ -38,4 +38,8 @@ public class KoiFarm {
 
     String koiFarmDescription;
 //  String koiFarmImageURL;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    User user;
 }

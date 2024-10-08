@@ -10,6 +10,6 @@ import lombok.experimental.FieldDefaults;
 public class ResetPasswordRequest {
 
     @Size(min = 6, message = "Password must be at least 6 digits!")
-    String userPassword;
+    String password;
 
 }

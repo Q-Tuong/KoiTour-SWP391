@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface KoiFarmRepository extends JpaRepository<KoiFarm, Long> {
 
-    KoiFarm findKoiFarmByKoiFarmId(long koiFarmId);
+    KoiFarm findKoiFarmById(long id);
 
     List<KoiFarm> findKoiFarmsByIsDeletedFalse();
 }

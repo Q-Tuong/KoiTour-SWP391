@@ -2,9 +2,11 @@ package com.koitourdemo.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -12,16 +14,17 @@ import java.util.Date;
 @Data
 @Table(name = "TourOders")
 @Entity
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class TourOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private long tourOrderId;
+    long id;
 
-    private Date dateStarted;
-    private Date dateEnded;
-    private BigDecimal totalPrice;
-    private String note;
-    private Boolean status;
+    Date dateStarted;
+    Date dateEnded;
+    BigDecimal totalPrice;
+    String note;
+    Boolean status;
 }

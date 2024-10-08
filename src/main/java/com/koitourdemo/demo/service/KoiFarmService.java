@@ -43,23 +43,25 @@ public class KoiFarmService {
         return koiFarms;
     }
 
-    public KoiFarm updateKoiFarm(KoiFarm koiFarm, long koiFarmId){
-        KoiFarm oldKoiFarm = getKoiFarmByKoiFarmId(koiFarmId);
-        oldKoiFarm.setKoiFarmName(koiFarm.getKoiFarmName());
-        oldKoiFarm.setKoiFarmAddress(koiFarm.getKoiFarmAddress());
-        oldKoiFarm.setKoiFarmPhone(koiFarm.getKoiFarmPhone());
-        oldKoiFarm.setKoiFarmDescription(koiFarm.getKoiFarmDescription());
+    public KoiFarm updateKoiFarm(KoiFarm koiFarm, long id){
+        KoiFarm oldKoiFarm = getKoiFarmById(id);
+        oldKoiFarm.setName(koiFarm.getName());
+        oldKoiFarm.setAddress(koiFarm.getAddress());
+        oldKoiFarm.setPhone(koiFarm.getPhone());
+        oldKoiFarm.setDescription(koiFarm.getDescription());
+        oldKoiFarm.setEmail(koiFarm.getEmail());
+        oldKoiFarm.setImage(koiFarm.getImage());
         return koiFarmRepository.save(oldKoiFarm);
     }
 
-    public KoiFarm deleteKoiFarm(long koiFarmId){
-        KoiFarm oldKoiFarm = getKoiFarmByKoiFarmId(koiFarmId);
+    public KoiFarm deleteKoiFarm(long id){
+        KoiFarm oldKoiFarm = getKoiFarmById(id);
         oldKoiFarm.setDeleted(true);
         return koiFarmRepository.save(oldKoiFarm);
     }
 
-    public KoiFarm getKoiFarmByKoiFarmId(long koiFarmId){
-        KoiFarm oldKoiFarm = koiFarmRepository.findKoiFarmByKoiFarmId(koiFarmId);
+    public KoiFarm getKoiFarmById(long id){
+        KoiFarm oldKoiFarm = koiFarmRepository.findKoiFarmById(id);
         if(oldKoiFarm == null)
             throw new NotFoundException("Koi not found!");
         return oldKoiFarm;

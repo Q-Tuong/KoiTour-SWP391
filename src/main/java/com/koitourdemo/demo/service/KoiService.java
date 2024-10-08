@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class KoiService {
@@ -42,24 +43,27 @@ public class KoiService {
         return kois;
     }
 
-    public Koi updateKoi(Koi koi, long koiId){
-        Koi oldKoi = getKoiByKoiId(koiId);
-        oldKoi.setKoiName(koi.getKoiName());
-        oldKoi.setKoiSize(koi.getKoiSize());
-        oldKoi.setKoiWeight(koi.getKoiWeight());
-        oldKoi.setKoiColor(koi.getKoiColor());
-        oldKoi.setKoiDescription(koi.getKoiDescription());
+    public Koi updateKoi(Koi koi, UUID id){
+        Koi oldKoi = getKoiById(id);
+        oldKoi.setName(koi.getName());
+        oldKoi.setSize(koi.getSize());
+        oldKoi.setWeight(koi.getWeight());
+        oldKoi.setColor(koi.getColor());
+        oldKoi.setDescription(koi.getDescription());
+        oldKoi.setPrice(koi.getPrice());
+        oldKoi.setOrigin(koi.getOrigin());
+        oldKoi.setImage(koi.getImage());
         return koiRepository.save(oldKoi);
     }
 
-    public Koi deleteKoi(long koiId){
-        Koi oldKoi = getKoiByKoiId(koiId);
+    public Koi deleteKoi(UUID id){
+        Koi oldKoi = getKoiById(id);
         oldKoi.setDeleted(true);
         return koiRepository.save(oldKoi);
     }
 
-    public Koi getKoiByKoiId(long koiId){
-        Koi oldKoi = koiRepository.findKoiByKoiId(koiId);
+    public Koi getKoiById(UUID id){
+        Koi oldKoi = koiRepository.findKoiById(id);
         if(oldKoi == null)
             throw new NotFoundException("Koi not found!");
         return oldKoi;

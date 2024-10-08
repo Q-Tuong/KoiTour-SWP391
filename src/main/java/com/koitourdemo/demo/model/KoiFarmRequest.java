@@ -8,11 +8,11 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class KoiFarmRequest {
 
-    String koiFarmName;
-    String koiFarmAddress;
-    String koiFarmPhone;
-    String koiFarmEmail;
-    String koiFarmDescription;
-//  String koiFarmImageURL;
+    String name;
+    String address;
+    String phone;
+    String email;
+    String description;
+    String image;
 
 }

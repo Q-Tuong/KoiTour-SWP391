@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @PreAuthorize("hasAuthority('CONSULTING_STAFF')")
@@ -34,15 +35,15 @@ public class KoiAPI {
         return ResponseEntity.ok(kois);
     }
 
-    @PutMapping("{koiId}")
-    public ResponseEntity updateKoi(@Valid @RequestBody Koi koi, @PathVariable long koiId){
-        Koi updateKoi = koiService.updateKoi(koi, koiId);
+    @PutMapping("{id}")
+    public ResponseEntity updateKoi(@Valid @RequestBody Koi koi, @PathVariable UUID id){
+        Koi updateKoi = koiService.updateKoi(koi, id);
         return ResponseEntity.ok(updateKoi);
     }
 
-    @DeleteMapping("{koiId}")
-    public ResponseEntity deleteKoi(@PathVariable long koiId){
-        Koi deleteKoi = koiService.deleteKoi(koiId);
+    @DeleteMapping("{id}")
+    public ResponseEntity deleteKoi(@PathVariable UUID id){
+        Koi deleteKoi = koiService.deleteKoi(id);
         return ResponseEntity.ok(deleteKoi);
     }
 }

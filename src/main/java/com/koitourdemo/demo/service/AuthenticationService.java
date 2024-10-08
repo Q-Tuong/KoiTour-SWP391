@@ -45,8 +45,8 @@ public class AuthenticationService implements UserDetailsService {
     public UserResponse register(RegisterRequest registerRequest){
         User user = modelMapper.map(registerRequest, User.class);
         try{
-            String originPassword = user.getUserPassword();
-            user.setUserPassword(passwordEncoder.encode(originPassword));
+            String originPassword = user.getPassword();
+            user.setPassword(passwordEncoder.encode(originPassword));
             user.setRole(Role.CUSTOMER);
             User newUser = userRepository.save(user);
 
@@ -58,9 +58,9 @@ public class AuthenticationService implements UserDetailsService {
 
             return modelMapper.map(newUser, UserResponse.class);
         }catch (Exception e){
-            if(e.getMessage().contains(user.getUserCode())) {
+            if(e.getMessage().contains(user.getCode())) {
                 throw new DuplicateEntity("Duplicate code!");
-            }else if (e.getMessage().contains(user.getUserEmail())) {
+            }else if (e.getMessage().contains(user.getEmail())) {
                 throw new DuplicateEntity("Duplicate email!");
             }else{
                 throw new DuplicateEntity("Duplicate phone!");
@@ -94,18 +94,18 @@ public class AuthenticationService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String userPhone) throws UsernameNotFoundException {
-        return userRepository.findUserByUserPhone(userPhone);
+    public UserDetails loadUserByUsername(String phone) throws UsernameNotFoundException {
+        return userRepository.findUserByUserPhone(phone);
     }
 
     public User getCurrentUser(){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return userRepository.findUserByUserId(user.getUserId());
+        return userRepository.findUserById(user.getId());
     }
 
     public void forgotPassword(ForgotPasswordRequest forgotPasswordRequest){
 
-        User user = userRepository.findUserByUserEmail(forgotPasswordRequest.getUserEmail());
+        User user = userRepository.findUserByEmail(forgotPasswordRequest.getEmail());
 
         if(user == null){
             throw new NotFoundException("email not found!");
@@ -120,7 +120,7 @@ public class AuthenticationService implements UserDetailsService {
 
     public void resetPassword(ResetPasswordRequest resetPasswordRequest){
         User user = getCurrentUser();
-        user.setUserPassword(passwordEncoder.encode(resetPasswordRequest.getUserPassword()));
+        user.setPassword(passwordEncoder.encode(resetPasswordRequest.getPassword()));
         userRepository.save(user);
     }
 

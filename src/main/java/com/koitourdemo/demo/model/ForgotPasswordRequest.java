@@ -10,6 +10,6 @@ import lombok.experimental.FieldDefaults;
 public class ForgotPasswordRequest {
 
     @Email(message = "Email not valid!")
-    String userEmail;
+    String email;
 
 }

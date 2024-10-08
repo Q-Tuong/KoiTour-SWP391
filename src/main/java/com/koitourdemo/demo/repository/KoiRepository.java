@@ -4,10 +4,11 @@ import com.koitourdemo.demo.entity.Koi;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.UUID;
 
-public interface KoiRepository extends JpaRepository<Koi, Long> {
+public interface KoiRepository extends JpaRepository<Koi, UUID> {
 
-    Koi findKoiByKoiId(long koiId);
+    Koi findKoiById(UUID id);
 
     List<Koi> findKoisByIsDeletedFalse();
 }

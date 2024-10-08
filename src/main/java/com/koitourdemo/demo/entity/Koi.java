@@ -8,6 +8,8 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.util.UUID;
+
 @Data
 @Table(name = "KoiList")
 @Entity
@@ -15,30 +17,31 @@ import lombok.experimental.FieldDefaults;
 public class Koi {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    long koiId;
+    UUID id;
 
     @JsonIgnore
     boolean isDeleted = false;
 
     @NotBlank(message = "Koi name cannot be blank!")
-    String koiName;
+    String name;
 
     @NotBlank(message = "Koi color cannot be blank!")
-    String koiColor;
+    String color;
 
     @NotBlank(message = "Koi weight cannot be blank!")
-    String koiWeight;
+    String weight;
 
     @NotBlank(message = "Koi size cannot be blank!")
-    String koiSize;
+    String size;
 
     @NotBlank(message = "Koi origin cannot be blank!")
-    String koiOrigin;
+    String origin;
 
-    String koiDescription;
-    String koiImageURL;
+    String description;
+    String image;
+    float price;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

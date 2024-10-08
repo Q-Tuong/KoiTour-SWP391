@@ -13,6 +13,7 @@ import java.util.List;
 
 @RequestMapping("api")
 @RestController
+@CrossOrigin("*")
 @SecurityRequirement(name = "api")
 public class AuthenticationAPI {
 

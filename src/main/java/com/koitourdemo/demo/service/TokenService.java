@@ -27,7 +27,7 @@ public class TokenService {
 
     public String generateToken(User user){
         String token = Jwts.builder()
-                .subject(user.getUserId()+"")
+                .subject(user.getId()+"")
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
                 .signWith(getSigninKey())
@@ -43,8 +43,8 @@ public class TokenService {
                 .getPayload();
 
         String idString = claims.getSubject();
-        long userId = Long.parseLong(idString);
+        long id = Long.parseLong(idString);
 
-        return userRepository.findUserByUserId(userId);
+        return userRepository.findUserById(id);
     }
 }

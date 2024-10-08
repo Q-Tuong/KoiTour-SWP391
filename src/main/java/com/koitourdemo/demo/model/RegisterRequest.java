@@ -17,21 +17,21 @@ public class RegisterRequest {
     @NotBlank(message = "Code cannot be blank!")
     @Pattern(regexp = "KH\\d{6}", message = "Code invalid!")
     @Column(unique = true)
-    String userCode;
+    String code;
 
     @Email(message = "Email not valid!")
     @Column(unique = true)
-    String userEmail;
+    String email;
 
     @Pattern(regexp = "(84|0[3|5|7|8|9])+(\\d{8})", message = "Phone invalid!")
     @Column(unique = true)
-    String userPhone;
+    String phone;
     Date createAt;
 
     @NotBlank(message = "Password cannot blank!")
     @Size(min = 6, message = "Password must be at least 6 digits!")
-    String userPassword;
+    String password;
 
     @NotBlank(message = "Address cannot blank!")
-    String userAddress;
+    String address;
 }

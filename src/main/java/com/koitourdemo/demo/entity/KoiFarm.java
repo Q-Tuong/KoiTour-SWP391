@@ -18,26 +18,26 @@ public class KoiFarm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    long koiFarmId;
+    long id;
 
     @JsonIgnore
     boolean isDeleted = false;
 
     @NotBlank(message = "Koi farm name cannot be blank!")
-    String koiFarmName;
+    String name;
 
     @NotBlank(message = "Koi farm address cannot be blank!")
-    String koiFarmAddress;
+    String address;
 
     @NotBlank(message = "Invalid phone number!")
-    String koiFarmPhone;
+    String phone;
 
     @Email(message = "Invalid email!")
     @Column(unique = true)
-    String koiFarmEmail;
+    String email;
 
-    String koiFarmDescription;
-//  String koiFarmImageURL;
+    String description;
+    String image;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

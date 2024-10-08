@@ -27,7 +27,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    long userId;
+    long id;
 
     @Enumerated(EnumType.STRING)
     Role role;
@@ -38,26 +38,26 @@ public class User implements UserDetails {
     @NotBlank(message = "Code cannot be blank!")
     @Pattern(regexp = "KH\\d{6}", message = "Code invalid!")
     @Column(unique = true)
-    String userCode;
+    String code;
 
 //  String userName;
 
     @NotBlank(message = "Password cannot be blank!")
     @Size(min = 6, message = "Password must be at least 6 digits!")
-    String userPassword;
+    String password;
 
     @Email(message = "Email not valid!")
     @Column(unique = true)
-    String userEmail;
+    String email;
 
     @Pattern(regexp = "(84|0[3|5|7|8|9])+(\\d{8})", message = "Invalid phone number!")
     @Column(unique = true)
-    String userPhone;
+    String phone;
 
     Date createAt;
 
     @NotBlank(message = "Address cannot be blank!")
-    String userAddress;
+    String address;
 
 //    private boolean isVerified;
 
@@ -74,12 +74,12 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.userPassword;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return this.userPhone;
+        return this.phone;
     }
 
     @Override

@@ -23,7 +23,7 @@ public class EmailService {
 
         try{
             Context context = new Context();
-            context.setVariable("name", emailDetail.getReceiver().getUserEmail());
+            context.setVariable("name", emailDetail.getReceiver().getEmail());
             context.setVariable("button", "return to homepage");
             context.setVariable("link", emailDetail.getLink());
 
@@ -35,7 +35,7 @@ public class EmailService {
 
             // setting up necessary details
             mimeMessageHelper.setFrom("CentralCircus@gmail.com");
-            mimeMessageHelper.setTo(emailDetail.getReceiver().getUserEmail());
+            mimeMessageHelper.setTo(emailDetail.getReceiver().getEmail());
             mimeMessageHelper.setText(template, true);
             mimeMessageHelper.setSubject(emailDetail.getSubject());
             javaMailSender.send(mimeMessage);

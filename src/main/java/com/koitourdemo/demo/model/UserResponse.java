@@ -7,9 +7,9 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserResponse {
-    long userId;
-    String userCode;
-    String userPhone;
-    String userEmail;
+    long id;
+    String code;
+    String phone;
+    String email;
     String token;
 }

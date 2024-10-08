@@ -16,8 +16,8 @@ public class AdminService {
     @Autowired
     UserRepository userRepository;
 
-    public User updateUserRole(Role newRole, long userId) {
-        User user = userRepository.findUserByUserId(userId);
+    public User updateUserRole(Role newRole, long id) {
+        User user = userRepository.findUserById(id);
         if (user == null) {
             throw new EntityNotFoundException("User not found");
         }
@@ -30,14 +30,14 @@ public class AdminService {
         return users;
     }
 
-    public User deleteUser(long userId){
-        User oldUser = getUserByUserId(userId);
+    public User deleteUser(long id){
+        User oldUser = getUserById(id);
         oldUser.setDeleted(true);
         return userRepository.save(oldUser);
     }
 
-    public User getUserByUserId(long userId){
-        User oldUser = userRepository.findUserByUserId(userId);
+    public User getUserById(long id){
+        User oldUser = userRepository.findUserById(id);
         if(oldUser == null)
             throw new NotFoundException("User not found!");
         return oldUser;

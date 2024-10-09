@@ -20,7 +20,7 @@ function AdminStuff() {
   };
 
   useEffect(() => {
-    fetchUser;
+    fetchUser();
   }, []);
 
   const columns = [
@@ -59,11 +59,46 @@ function AdminStuff() {
       dataIndex: "isVerifiled",
       key: "isVerifiled",
     },
+    {
+      title: "Action",
+      dataIndex: "id",
+      key: "id",
+      render: (id) => {
+        return (
+          <>
+            <Popconfirm
+              title="Delete"
+              description="Do you want to delete this account?"
+              onConfirm={() => handleDeleteUser(id)}
+            >
+              <Button type="primary" danger>
+                Delete
+              </Button>
+            </Popconfirm>
+          </>
+        );
+      },
+    },
   ];
+
+  const handleCreateAccount = async () => {};
+
+  const handleDeleteUser = async (id) => {
+    try {
+      await axios.delete(`${api}/${id}`);
+      toast.success("Delete successfully");
+      fetchUser();
+    } catch (ex) {
+      toast.error("Delete failed");
+    }
+  };
 
   return (
     <div>
       <h1>welcome admin: </h1>
+      <Button type="primary" onClick={handleCreateAccount}>
+        Create new account
+      </Button>
       <Table dataSource={user} columns={columns}></Table>
     </div>
   );

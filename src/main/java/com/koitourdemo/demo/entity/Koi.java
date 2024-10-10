@@ -8,10 +8,11 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
-@Table(name = "KoiList")
+@Table(name = "Kois")
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Koi {
@@ -46,4 +47,15 @@ public class Koi {
     @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
+
+    @ManyToMany
+    @JoinTable(name = "Kois_Farms",
+        joinColumns = @JoinColumn(name = "koi_id"),
+        inverseJoinColumns = @JoinColumn(name = "koiFarm_id")
+    )
+    List<KoiFarm> koiFarms;
+
+    @OneToMany(mappedBy = "koi")
+    @JsonIgnore
+    List<OrderDetail> orderDetails;
 }

@@ -1,13 +1,16 @@
 package com.koitourdemo.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Table(name = "Tours")
@@ -20,8 +23,24 @@ public class Tour {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     long id;
 
+    @JsonIgnore
+    boolean isDeleted = false;
+
+    @NotBlank(message = "Tour name cannot be blank!")
     String name;
+
+    @NotBlank(message = "Tour price cannot be blank!")
     float price;
+
     Date createAt;
+    String image;
     String description;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    User user;
+
+    @OneToMany(mappedBy = "tour")
+    @JsonIgnore
+    List<OrderDetail> orderDetails;
 }

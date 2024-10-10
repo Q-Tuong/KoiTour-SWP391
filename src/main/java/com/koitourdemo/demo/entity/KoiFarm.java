@@ -9,6 +9,8 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+
 @Data
 @Table(name = "KoiFarms")
 @Entity
@@ -42,4 +44,8 @@ public class KoiFarm {
     @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
+
+    @ManyToMany(mappedBy = "koiFarms")
+    @JsonIgnore
+    List<Koi> kois;
 }

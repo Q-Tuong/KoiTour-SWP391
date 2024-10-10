@@ -14,6 +14,7 @@ import java.util.Date;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RegisterRequest {
+
     @NotBlank(message = "Code cannot be blank!")
     @Pattern(regexp = "KH\\d{6}", message = "Code invalid!")
     @Column(unique = true)

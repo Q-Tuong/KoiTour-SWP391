@@ -44,7 +44,7 @@ public class TokenService {
 
         String idString = claims.getSubject();
         long id = Long.parseLong(idString);
-
         return userRepository.findUserById(id);
     }
+
 }

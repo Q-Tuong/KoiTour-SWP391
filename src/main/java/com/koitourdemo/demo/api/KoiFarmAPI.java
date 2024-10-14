@@ -1,6 +1,7 @@
 package com.koitourdemo.demo.api;
 
 import com.koitourdemo.demo.entity.KoiFarm;
+import com.koitourdemo.demo.model.ApiResponse;
 import com.koitourdemo.demo.model.KoiFarmRequest;
 import com.koitourdemo.demo.service.KoiFarmService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -22,28 +23,28 @@ public class KoiFarmAPI {
     @Autowired
     KoiFarmService koiFarmService;
 
-    @PostMapping
-    public ResponseEntity createKoiFarm(@Valid @RequestBody KoiFarmRequest koiFarm){
+    @PostMapping("/create")
+    public ResponseEntity<ApiResponse> createKoiFarm(@Valid @RequestBody KoiFarmRequest koiFarm){
         KoiFarm newKoiFarm = koiFarmService.createNewKoiFarm(koiFarm);
-        return ResponseEntity.ok(newKoiFarm);
+        return ResponseEntity.ok(new ApiResponse("Create new koi farm successfully!", newKoiFarm));
     }
 
-    @GetMapping
-    public ResponseEntity getAllKoiFarm(){
+    @GetMapping("/get-all")
+    public ResponseEntity<ApiResponse> getAllKoiFarm(){
         List<KoiFarm> koiFarms = koiFarmService.getAllKoiFarm();
-        return ResponseEntity.ok(koiFarms);
+        return ResponseEntity.ok(new ApiResponse("Successfully!", koiFarms));
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity updateKoi(@Valid @RequestBody KoiFarm koiFarm, @PathVariable long id){
-        KoiFarm updateKoiFarm = koiFarmService.updateKoiFarm(koiFarm, id);
-        return ResponseEntity.ok(updateKoiFarm);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ApiResponse> updateKoi(@Valid @RequestBody KoiFarm koiFarm, @PathVariable long id){
+        KoiFarm updated = koiFarmService.updateKoiFarm(koiFarm, id);
+        return ResponseEntity.ok(new ApiResponse("Update Koi information successfully!", updated));
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity deleteKoiFarm(@PathVariable long id){
-        KoiFarm deleteKoiFarm = koiFarmService.deleteKoiFarm(id);
-        return ResponseEntity.ok(deleteKoiFarm);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<ApiResponse> deleteKoiFarm(@PathVariable long id){
+        KoiFarm deleted = koiFarmService.deleteKoiFarm(id);
+        return ResponseEntity.ok(new ApiResponse("Delete koi successfully!", deleted));
     }
 
 }

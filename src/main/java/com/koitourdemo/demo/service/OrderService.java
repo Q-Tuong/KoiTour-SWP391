@@ -31,7 +31,7 @@ public class OrderService {
         float total = 0;
 
         order.setCustomer(customer);
-        order.setDate(new Date()); // current date
+        order.setDate(new Date());
 
         for(OrderDetailRequest orderDetailRequest : orderRequest.getDetail()){
             Koi koi = koiRepository.findKoiById(orderDetailRequest.getKoiID());
@@ -47,7 +47,6 @@ public class OrderService {
 
         order.setOrderDetails(orderDetails);
         order.setTotal(total);
-
         return orderRepository.save(order);
     }
 
@@ -56,4 +55,5 @@ public class OrderService {
         List<Orders> orders = orderRepository.findOrderssByCustomer(user);
         return orders;
     }
+
 }

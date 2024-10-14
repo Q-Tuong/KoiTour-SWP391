@@ -89,10 +89,6 @@ public class AuthenticationService implements UserDetailsService {
         return users;
     }
 
-    public User login() {
-        return null;
-    }
-
     @Override
     public UserDetails loadUserByUsername(String phone) throws UsernameNotFoundException {
         return userRepository.findUserByPhone(phone);
@@ -104,9 +100,7 @@ public class AuthenticationService implements UserDetailsService {
     }
 
     public void forgotPassword(ForgotPasswordRequest forgotPasswordRequest){
-
         User user = userRepository.findUserByEmail(forgotPasswordRequest.getEmail());
-
         if(user == null){
             throw new NotFoundException("email not found!");
         }else{

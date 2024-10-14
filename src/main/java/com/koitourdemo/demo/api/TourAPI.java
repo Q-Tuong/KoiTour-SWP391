@@ -1,6 +1,7 @@
 package com.koitourdemo.demo.api;
 
 import com.koitourdemo.demo.entity.Tour;
+import com.koitourdemo.demo.model.ApiResponse;
 import com.koitourdemo.demo.model.TourRequest;
 import com.koitourdemo.demo.service.TourService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -22,27 +23,27 @@ public class TourAPI {
     @Autowired
     TourService tourService;
 
-    @PostMapping
-    public ResponseEntity createTour(@Valid @RequestBody TourRequest tour){
+    @PostMapping("/create")
+    public ResponseEntity<ApiResponse> createTour(@Valid @RequestBody TourRequest tour){
         Tour newTour = tourService.createNewTour(tour);
-        return ResponseEntity.ok(newTour);
+        return ResponseEntity.ok(new ApiResponse("Create new tour successfully!", newTour));
     }
 
-    @GetMapping
-    public ResponseEntity getAllTour(){
+    @GetMapping("/get-all")
+    public ResponseEntity<ApiResponse> getAllTour(){
         List<Tour> tours = tourService.getAllTour();
-        return ResponseEntity.ok(tours);
+        return ResponseEntity.ok(new ApiResponse("Successfully!", tours));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity updateTour(@Valid @RequestBody Tour tour, @PathVariable long id){
-        Tour updateTour = tourService.updateTour(tour, id);
-        return ResponseEntity.ok(updateTour);
+    public ResponseEntity<ApiResponse> updateTour(@Valid @RequestBody Tour tour, @PathVariable long id){
+        Tour updated = tourService.updateTour(tour, id);
+        return ResponseEntity.ok(new ApiResponse("Update tour successfully!", updated));
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity deleteTour(@PathVariable long id){
-        Tour deleteTour = tourService.deleteTour(id);
-        return ResponseEntity.ok(deleteTour);
+    public ResponseEntity<ApiResponse> deleteTour(@PathVariable long id){
+        Tour deleted = tourService.deleteTour(id);
+        return ResponseEntity.ok(new ApiResponse("Delete tour successfully!", deleted));
     }
 }

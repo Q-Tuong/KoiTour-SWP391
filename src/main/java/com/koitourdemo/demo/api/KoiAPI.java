@@ -1,6 +1,7 @@
 package com.koitourdemo.demo.api;
 
 import com.koitourdemo.demo.entity.Koi;
+import com.koitourdemo.demo.model.ApiResponse;
 import com.koitourdemo.demo.model.KoiRequest;
 import com.koitourdemo.demo.service.KoiService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -23,27 +24,27 @@ public class KoiAPI {
     @Autowired
     KoiService koiService;
 
-    @PostMapping
-    public ResponseEntity createKoi(@Valid @RequestBody KoiRequest koi){
+    @PostMapping("/create")
+    public ResponseEntity<ApiResponse> createKoi(@Valid @RequestBody KoiRequest koi){
         Koi newKoi = koiService.createNewKoi(koi);
-        return ResponseEntity.ok(newKoi);
+        return ResponseEntity.ok(new ApiResponse("Create new Koi successfully!", newKoi));
     }
 
-    @GetMapping
-    public ResponseEntity getAllKoi(){
+    @GetMapping("/get-all")
+    public ResponseEntity<ApiResponse> getAllKoi(){
         List<Koi> kois = koiService.getAllKoi();
-        return ResponseEntity.ok(kois);
+        return ResponseEntity.ok(new ApiResponse("Successfully!", kois));
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity updateKoi(@Valid @RequestBody Koi koi, @PathVariable UUID id){
-        Koi updateKoi = koiService.updateKoi(koi, id);
-        return ResponseEntity.ok(updateKoi);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ApiResponse> updateKoi(@Valid @RequestBody Koi koi, @PathVariable UUID id){
+        Koi updated = koiService.updateKoi(koi, id);
+        return ResponseEntity.ok(new ApiResponse("Update Koi information successfully!", updated));
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity deleteKoi(@PathVariable UUID id){
-        Koi deleteKoi = koiService.deleteKoi(id);
-        return ResponseEntity.ok(deleteKoi);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<ApiResponse> deleteKoi(@PathVariable UUID id){
+        Koi deleted = koiService.deleteKoi(id);
+        return ResponseEntity.ok(new ApiResponse("Delete koi successfully!", deleted));
     }
 }

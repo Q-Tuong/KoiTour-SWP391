@@ -64,8 +64,9 @@ public class KoiService {
 
     public Koi getKoiById(UUID id){
         Koi oldKoi = koiRepository.findKoiById(id);
-        if(oldKoi == null)
+        if(oldKoi == null) {
             throw new NotFoundException("Koi not found!");
+        }
         return oldKoi;
     }
 

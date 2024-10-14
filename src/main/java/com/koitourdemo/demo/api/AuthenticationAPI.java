@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("api")
+@RequestMapping("api/user")
 @RestController
 @CrossOrigin("*")
 @SecurityRequirement(name = "api")
@@ -21,21 +21,21 @@ public class AuthenticationAPI {
     AuthenticationService authenticationService;
 
     @PostMapping("register")
-    public ResponseEntity register(@Valid @RequestBody RegisterRequest registerRequest){
+    public ResponseEntity<ApiResponse> register(@Valid @RequestBody RegisterRequest registerRequest){
         UserResponse newUser = authenticationService.register(registerRequest);
-        return ResponseEntity.ok(newUser);
+        return ResponseEntity.ok(new ApiResponse("Register successfully!", newUser));
     }
 
     @PostMapping("login")
-    public ResponseEntity login(@Valid @RequestBody LoginRequest loginRequest){
+    public ResponseEntity<ApiResponse> login(@Valid @RequestBody LoginRequest loginRequest){
         UserResponse newUser = authenticationService.login(loginRequest);
-        return ResponseEntity.ok(newUser);
+        return ResponseEntity.ok(new ApiResponse("Login successfully!", newUser));
     }
 
-    @GetMapping("user")
-    public ResponseEntity getAllUser(){
+    @GetMapping("/get-all")
+    public ResponseEntity<ApiResponse> getAllUser(){
         List<User> users = authenticationService.getAllUser();
-        return ResponseEntity.ok(users);
+        return ResponseEntity.ok(new ApiResponse("Successfully!", users));
     }
 
     @PostMapping("/forgot-password")

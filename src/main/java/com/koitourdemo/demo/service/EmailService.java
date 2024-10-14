@@ -20,7 +20,6 @@ public class EmailService {
     JavaMailSender javaMailSender;
 
     public void sendEmail(EmailDetail emailDetail){
-
         try{
             Context context = new Context();
             context.setVariable("name", emailDetail.getReceiver().getEmail());
@@ -43,4 +42,5 @@ public class EmailService {
             System.out.println("ERROR SENT MAIL!");
         }
     }
+
 }

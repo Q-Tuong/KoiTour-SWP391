@@ -1,7 +1,6 @@
 package com.koitourdemo.demo.api;
 
 import com.koitourdemo.demo.entity.Koi;
-import com.koitourdemo.demo.model.ApiResponse;
 import com.koitourdemo.demo.model.KoiRequest;
 import com.koitourdemo.demo.service.KoiService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

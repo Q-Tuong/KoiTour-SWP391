@@ -1,7 +1,6 @@
 package com.koitourdemo.demo.api;
 
 import com.koitourdemo.demo.entity.Orders;
-import com.koitourdemo.demo.model.ApiResponse;
 import com.koitourdemo.demo.model.OrderRequest;
 import com.koitourdemo.demo.service.OrderService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

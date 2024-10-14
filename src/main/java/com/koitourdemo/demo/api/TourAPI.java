@@ -1,7 +1,6 @@
 package com.koitourdemo.demo.api;
 
 import com.koitourdemo.demo.entity.Tour;
-import com.koitourdemo.demo.model.ApiResponse;
 import com.koitourdemo.demo.model.TourRequest;
 import com.koitourdemo.demo.service.TourService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

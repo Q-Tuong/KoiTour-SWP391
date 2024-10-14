@@ -24,26 +24,26 @@ public class TourAPI {
     TourService tourService;
 
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse> createTour(@Valid @RequestBody TourRequest tour){
+    public ResponseEntity createTour(@Valid @RequestBody TourRequest tour){
         Tour newTour = tourService.createNewTour(tour);
-        return ResponseEntity.ok(new ApiResponse("Create new tour successfully!", newTour));
+        return ResponseEntity.ok(newTour);
     }
 
     @GetMapping("/get-all")
-    public ResponseEntity<ApiResponse> getAllTour(){
+    public ResponseEntity getAllTour(){
         List<Tour> tours = tourService.getAllTour();
-        return ResponseEntity.ok(new ApiResponse("Successfully!", tours));
+        return ResponseEntity.ok(tours);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ApiResponse> updateTour(@Valid @RequestBody Tour tour, @PathVariable long id){
+    public ResponseEntity updateTour(@Valid @RequestBody Tour tour, @PathVariable long id){
         Tour updated = tourService.updateTour(tour, id);
-        return ResponseEntity.ok(new ApiResponse("Update tour successfully!", updated));
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<ApiResponse> deleteTour(@PathVariable long id){
+    public ResponseEntity deleteTour(@PathVariable long id){
         Tour deleted = tourService.deleteTour(id);
-        return ResponseEntity.ok(new ApiResponse("Delete tour successfully!", deleted));
+        return ResponseEntity.ok(deleted);
     }
 }

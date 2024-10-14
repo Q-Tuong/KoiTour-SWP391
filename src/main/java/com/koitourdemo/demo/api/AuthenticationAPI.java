@@ -21,21 +21,21 @@ public class AuthenticationAPI {
     AuthenticationService authenticationService;
 
     @PostMapping("register")
-    public ResponseEntity<ApiResponse> register(@Valid @RequestBody RegisterRequest registerRequest){
+    public ResponseEntity register(@Valid @RequestBody RegisterRequest registerRequest){
         UserResponse newUser = authenticationService.register(registerRequest);
-        return ResponseEntity.ok(new ApiResponse("Register successfully!", newUser));
+        return ResponseEntity.ok(newUser);
     }
 
     @PostMapping("login")
-    public ResponseEntity<ApiResponse> login(@Valid @RequestBody LoginRequest loginRequest){
+    public ResponseEntity login(@Valid @RequestBody LoginRequest loginRequest){
         UserResponse newUser = authenticationService.login(loginRequest);
-        return ResponseEntity.ok(new ApiResponse("Login successfully!", newUser));
+        return ResponseEntity.ok(newUser);
     }
 
     @GetMapping("/get-all")
-    public ResponseEntity<ApiResponse> getAllUser(){
+    public ResponseEntity getAllUser(){
         List<User> users = authenticationService.getAllUser();
-        return ResponseEntity.ok(new ApiResponse("Successfully!", users));
+        return ResponseEntity.ok(users);
     }
 
     @PostMapping("/forgot-password")

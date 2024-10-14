@@ -25,26 +25,26 @@ public class KoiAPI {
     KoiService koiService;
 
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse> createKoi(@Valid @RequestBody KoiRequest koi){
+    public ResponseEntity createKoi(@Valid @RequestBody KoiRequest koi){
         Koi newKoi = koiService.createNewKoi(koi);
-        return ResponseEntity.ok(new ApiResponse("Create new Koi successfully!", newKoi));
+        return ResponseEntity.ok(newKoi);
     }
 
     @GetMapping("/get-all")
-    public ResponseEntity<ApiResponse> getAllKoi(){
+    public ResponseEntity getAllKoi(){
         List<Koi> kois = koiService.getAllKoi();
-        return ResponseEntity.ok(new ApiResponse("Successfully!", kois));
+        return ResponseEntity.ok(kois);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<ApiResponse> updateKoi(@Valid @RequestBody Koi koi, @PathVariable UUID id){
+    public ResponseEntity updateKoi(@Valid @RequestBody Koi koi, @PathVariable UUID id){
         Koi updated = koiService.updateKoi(koi, id);
-        return ResponseEntity.ok(new ApiResponse("Update Koi information successfully!", updated));
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ApiResponse> deleteKoi(@PathVariable UUID id){
+    public ResponseEntity deleteKoi(@PathVariable UUID id){
         Koi deleted = koiService.deleteKoi(id);
-        return ResponseEntity.ok(new ApiResponse("Delete koi successfully!", deleted));
+        return ResponseEntity.ok(deleted);
     }
 }

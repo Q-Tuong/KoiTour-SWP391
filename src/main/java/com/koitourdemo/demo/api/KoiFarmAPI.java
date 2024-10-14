@@ -24,27 +24,27 @@ public class KoiFarmAPI {
     KoiFarmService koiFarmService;
 
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse> createKoiFarm(@Valid @RequestBody KoiFarmRequest koiFarm){
+    public ResponseEntity createKoiFarm(@Valid @RequestBody KoiFarmRequest koiFarm){
         KoiFarm newKoiFarm = koiFarmService.createNewKoiFarm(koiFarm);
-        return ResponseEntity.ok(new ApiResponse("Create new koi farm successfully!", newKoiFarm));
+        return ResponseEntity.ok(newKoiFarm);
     }
 
     @GetMapping("/get-all")
-    public ResponseEntity<ApiResponse> getAllKoiFarm(){
+    public ResponseEntity getAllKoiFarm(){
         List<KoiFarm> koiFarms = koiFarmService.getAllKoiFarm();
-        return ResponseEntity.ok(new ApiResponse("Successfully!", koiFarms));
+        return ResponseEntity.ok(koiFarms);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<ApiResponse> updateKoi(@Valid @RequestBody KoiFarm koiFarm, @PathVariable long id){
+    public ResponseEntity updateKoi(@Valid @RequestBody KoiFarm koiFarm, @PathVariable long id){
         KoiFarm updated = koiFarmService.updateKoiFarm(koiFarm, id);
-        return ResponseEntity.ok(new ApiResponse("Update Koi information successfully!", updated));
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ApiResponse> deleteKoiFarm(@PathVariable long id){
+    public ResponseEntity deleteKoiFarm(@PathVariable long id){
         KoiFarm deleted = koiFarmService.deleteKoiFarm(id);
-        return ResponseEntity.ok(new ApiResponse("Delete koi successfully!", deleted));
+        return ResponseEntity.ok(deleted);
     }
 
 }

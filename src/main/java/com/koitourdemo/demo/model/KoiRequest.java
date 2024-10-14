@@ -9,7 +9,6 @@ import java.util.Date;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class KoiRequest {
-
     String name;
     String color;
     String weight;

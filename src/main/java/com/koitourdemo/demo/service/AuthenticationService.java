@@ -47,7 +47,7 @@ public class AuthenticationService implements UserDetailsService {
         try{
             String originPassword = user.getPassword();
             user.setPassword(passwordEncoder.encode(originPassword));
-            user.setRole(Role.CUSTOMER);
+            user.setRole(Role.ADMIN);
             User newUser = userRepository.save(user);
 
             EmailDetail emailDetail = new EmailDetail();

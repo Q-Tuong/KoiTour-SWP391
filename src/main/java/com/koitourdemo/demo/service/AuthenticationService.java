@@ -45,24 +45,25 @@ public class AuthenticationService implements UserDetailsService {
     EmailService emailService;
 
     public UserResponse register(RegisterRequest registerRequest){
-            User user = modelMapper.map(registerRequest, User.class);
+            // Kiểm tra xem email đã tồn tại chưa
             User existingUser = userRepository.findUserByEmail(registerRequest.getEmail());
-                if (existingUser != null) {
-                    if (existingUser.isEmailVerified()) {
-                        throw new DuplicateEntity("Email đã được sử dụng!");
-                    } else {
-                        // Nếu tài khoản tồn tại nhưng chưa xác thực, gửi lại email xác thực
-                        resendVerificationEmail(existingUser.getEmail());
-                        throw new AuthException("Tài khoản đã tồn tại nhưng chưa xác thực. Email xác thực đã được gửi lại.");
-                    }
+            if (existingUser != null) {
+                if (existingUser.isEmailVerified()) {
+                    throw new DuplicateEntity("This email has been used!");
+                } else {
+                    // Nếu tài khoản tồn tại nhưng chưa xác thực, gửi lại email xác thực
+                    resendVerificationEmail(existingUser.getEmail());
+                    throw new AuthException("Account already exists but has not been verified. The verification email has been resent!");
                 }
+            }
+            User user = modelMapper.map(registerRequest, User.class);
             try {
                 String originPassword = user.getPassword();
                 user.setPassword(passwordEncoder.encode(originPassword));
                 user.setRole(Role.ADMIN);
                 user.setEmailVerified(false);
                 user.setVerificationToken(tokenService.generateToken(user));
-                user.setVerificationTokenExpiry(new Date(System.currentTimeMillis() + 1000 * 60 * 30)); // 30 phút
+                user.setVerificationTokenExpiry(new Date(System.currentTimeMillis() + 1000 * 60 * 5)); // 5 phút
                 User newUser = userRepository.save(user);
 
                 EmailDetail emailDetail = new EmailDetail();
@@ -171,7 +172,7 @@ public class AuthenticationService implements UserDetailsService {
 
         // Tạo token mới và cập nhật thời gian hết hạn
         user.setVerificationToken(tokenService.generateToken(user));
-        user.setVerificationTokenExpiry(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000)); // 24 giờ
+        user.setVerificationTokenExpiry(new Date(System.currentTimeMillis() + 1000 * 60 * 5)); // 5 phút
         userRepository.save(user);
 
         // Gửi lại email xác thực

@@ -1,10 +1,12 @@
 package com.koitourdemo.demo.api;
 
 import com.koitourdemo.demo.entity.User;
+import com.koitourdemo.demo.exception.NotFoundException;
 import com.koitourdemo.demo.model.request.ForgotPasswordRequest;
 import com.koitourdemo.demo.model.request.LoginRequest;
 import com.koitourdemo.demo.model.request.RegisterRequest;
 import com.koitourdemo.demo.model.request.ResetPasswordRequest;
+import com.koitourdemo.demo.model.response.ApiResponse;
 import com.koitourdemo.demo.model.response.UserResponse;
 import com.koitourdemo.demo.service.AuthenticationService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 @RequestMapping("api/user")
 @RestController
 @CrossOrigin("*")
@@ -24,13 +28,17 @@ public class AuthenticationAPI {
     @Autowired
     AuthenticationService authenticationService;
 
-    @PostMapping("register")
-    public ResponseEntity register(@Valid @RequestBody RegisterRequest registerRequest){
-        UserResponse newUser = authenticationService.register(registerRequest);
-        return ResponseEntity.ok(newUser);
+    @PostMapping("/register")
+    public ResponseEntity<ApiResponse> register(@Valid @RequestBody RegisterRequest registerRequest){
+        try {
+            UserResponse newUser = authenticationService.register(registerRequest);
+            return ResponseEntity.ok(new ApiResponse("Update Item Success", newUser));
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("Failed", null));
+        }
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public ResponseEntity login(@Valid @RequestBody LoginRequest loginRequest){
         UserResponse newUser = authenticationService.login(loginRequest);
         return ResponseEntity.ok(newUser);
@@ -43,7 +51,7 @@ public class AuthenticationAPI {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<String> logout(@RequestHeader("Authorization") String token) {
+    public ResponseEntity logout(@RequestHeader("Authorization") String token) {
         if (token != null && token.startsWith("Bearer ")) {
             token = token.substring(7);
         }

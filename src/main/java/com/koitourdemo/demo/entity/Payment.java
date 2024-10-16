@@ -3,13 +3,16 @@ package com.koitourdemo.demo.entity;
 import com.koitourdemo.demo.enums.PaymentEnums;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.experimental.FieldDefaults;
 
 import java.util.Date;
 import java.util.Set;
 
 @Data
 @Entity
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Payment {
 
     @Id

@@ -8,6 +8,10 @@ import com.koitourdemo.demo.exception.NotFoundException;
 import com.koitourdemo.demo.model.*;
 import com.koitourdemo.demo.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -43,6 +47,12 @@ public class AuthenticationService implements UserDetailsService {
 
     @Autowired
     EmailService emailService;
+
+    @Autowired
+    HttpServletRequest request;
+
+    @Autowired
+    HttpServletResponse response;
 
     public UserResponse register(RegisterRequest registerRequest){
             // Kiểm tra xem email đã tồn tại chưa
@@ -122,6 +132,33 @@ public class AuthenticationService implements UserDetailsService {
     public User getCurrentUser(){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userRepository.findUserById(user.getId());
+    }
+
+    public void logout(String token) {
+        // Vô hiệu hóa token
+        tokenService.invalidateToken(token);
+
+        // Xóa thông tin người dùng khỏi SecurityContext
+        SecurityContextHolder.clearContext();
+
+        // Xóa cookie nếu bạn đang sử dụng
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("auth_token")) {
+                    cookie.setValue("");
+                    cookie.setPath("/");
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                }
+            }
+        }
+
+        // Nếu bạn đang sử dụng session-based authentication, hãy vô hiệu hóa session
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
     }
 
     public void forgotPassword(ForgotPasswordRequest forgotPasswordRequest){

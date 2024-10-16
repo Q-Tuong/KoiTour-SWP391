@@ -38,6 +38,15 @@ public class AuthenticationAPI {
         return ResponseEntity.ok(users);
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(@RequestHeader("Authorization") String token) {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
+        authenticationService.logout(token);
+        return ResponseEntity.ok("Logout successfully!");
+    }
+
     @PostMapping("/forgot-password")
     public ResponseEntity forgotPassword(@RequestBody @Valid ForgotPasswordRequest forgotPasswordRequest){
         authenticationService.forgotPassword(forgotPasswordRequest);

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class TokenService {
@@ -19,6 +21,8 @@ public class TokenService {
     UserRepository userRepository;
 
     public final String SECRET_KEY = "4bb6d1dfbafb64a681139d1586b6f1160d18159afd57c8c79136d7490630407trumpet";
+
+    private Set<String> blacklistedTokens = new HashSet<>();
 
     private SecretKey getSigninKey(){
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
@@ -47,4 +51,19 @@ public class TokenService {
         return userRepository.findUserById(id);
     }
 
+    public void invalidateToken(String token) {
+        blacklistedTokens.add(token);
+    }
+
+    public boolean isTokenValid(String token) {
+        if (blacklistedTokens.contains(token)) {
+            return false;
+        }
+        try {
+            Jwts.parser().verifyWith(getSigninKey()).build().parseSignedClaims(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

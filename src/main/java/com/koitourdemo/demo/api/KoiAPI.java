@@ -35,13 +35,13 @@ public class KoiAPI {
         return ResponseEntity.ok(kois);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}/update")
     public ResponseEntity updateKoi(@Valid @RequestBody Koi koi, @PathVariable UUID id){
         Koi updated = koiService.updateKoi(koi, id);
         return ResponseEntity.ok(updated);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity deleteKoi(@PathVariable UUID id){
         Koi deleted = koiService.deleteKoi(id);
         return ResponseEntity.ok(deleted);

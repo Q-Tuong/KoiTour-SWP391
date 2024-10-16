@@ -22,7 +22,7 @@ public class CartAPI {
     @Autowired
     CartService cartService;
 
-    @GetMapping("/my-cart/{cartId}")
+    @GetMapping("/{cartId}/my-cart")
     public ResponseEntity<ApiResponse> getCart(@PathVariable long cartId) {
         try {
             Cart cart = cartService.getCart(cartId);
@@ -32,7 +32,7 @@ public class CartAPI {
         }
     }
 
-    @DeleteMapping("/clear/{cartId}")
+    @DeleteMapping("/{cartId}/clear")
     public ResponseEntity<ApiResponse> clearCart( @PathVariable long cartId) {
         try {
             cartService.clearCart(cartId);
@@ -42,7 +42,7 @@ public class CartAPI {
         }
     }
 
-    @GetMapping("/total-price/{cartId}")
+    @GetMapping("/{cartId}/total-price")
     public ResponseEntity<ApiResponse> getTotalAmount( @PathVariable Long cartId) {
         try {
             BigDecimal totalPrice = cartService.getTotalPrice(cartId);

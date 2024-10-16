@@ -34,13 +34,13 @@ public class KoiFarmAPI {
         return ResponseEntity.ok(koiFarms);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}/update")
     public ResponseEntity updateKoi(@Valid @RequestBody KoiFarm koiFarm, @PathVariable long id){
         KoiFarm updated = koiFarmService.updateKoiFarm(koiFarm, id);
         return ResponseEntity.ok(updated);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity deleteKoiFarm(@PathVariable long id){
         KoiFarm deleted = koiFarmService.deleteKoiFarm(id);
         return ResponseEntity.ok(deleted);

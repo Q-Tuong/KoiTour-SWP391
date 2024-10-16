@@ -27,10 +27,10 @@ public class TourService {
         User userRequest = authenticationService.getCurrentUser();
         tour.setUser(userRequest);
 
-        try{
+        try {
             Tour newTour = tourRepository.save(tour);
             return newTour;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw new NotFoundException("error when saving tour to db");
         }
@@ -58,8 +58,9 @@ public class TourService {
 
     public Tour getTourById(long id){
         Tour oldTour = tourRepository.findTourById(id);
-        if(oldTour == null)
+        if(oldTour == null) {
             throw new NotFoundException("Tour not found!");
+        }
         return oldTour;
     }
 

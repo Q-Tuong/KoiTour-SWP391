@@ -62,8 +62,9 @@ public class KoiFarmService {
 
     public KoiFarm getKoiFarmById(long id){
         KoiFarm oldKoiFarm = koiFarmRepository.findKoiFarmById(id);
-        if(oldKoiFarm == null)
+        if(oldKoiFarm == null) {
             throw new NotFoundException("Koi not found!");
+        }
         return oldKoiFarm;
     }
 

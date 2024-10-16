@@ -35,12 +35,11 @@ public class User implements UserDetails {
     @JsonIgnore
     boolean isDeleted = false;
 
-    @NotBlank(message = "Code cannot be blank!")
-    @Pattern(regexp = "KH\\d{6}", message = "Code invalid!")
-    @Column(unique = true)
-    String code;
-
-//  String userName;
+//    @NotBlank(message = "FirstName cannot be blank!")
+//    String firstName;
+//
+//    @NotBlank(message = "LastName cannot be blank!")
+//    String lastName;
 
     @NotBlank(message = "Password cannot be blank!")
     @Size(min = 6, message = "Password must be at least 6 digits!")
@@ -54,16 +53,14 @@ public class User implements UserDetails {
     @Column(unique = true)
     String phone;
 
-    Date createAt;
-
     @NotBlank(message = "Address cannot be blank!")
     String address;
 
-//    private boolean isVerified;
-
-//    public String getFullName(){
-//        return firstName + " " + lastName;
-//    }
+    @JsonIgnore
+    boolean emailVerified;
+    Date createAt;
+    String verificationToken;
+    Date verificationTokenExpiry;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

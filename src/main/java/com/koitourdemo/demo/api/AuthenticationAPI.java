@@ -49,4 +49,16 @@ public class AuthenticationAPI {
         authenticationService.resetPassword(resetPasswordRequest);
         return ResponseEntity.ok("Reset password sucessfully!");
     }
+
+    @GetMapping("/verify")
+    public ResponseEntity<String> verifyEmail(@RequestParam("token") String token) {
+        authenticationService.verifyEmail(token);
+        return ResponseEntity.ok("Email has been successfully verified!");
+    }
+
+    @PostMapping("/resend-verification")
+    public ResponseEntity<String> resendVerificationEmail(@RequestParam("email") String email) {
+        authenticationService.resendVerificationEmail(email);
+        return ResponseEntity.ok("Verify email has been resent. Please check your mail box again!");
+    }
 }

@@ -29,10 +29,10 @@ public class KoiService {
         User userRequest = authenticationService.getCurrentUser();
         koi.setUser(userRequest);
         
-        try{
+        try {
             Koi newKoi = koiRepository.save(koi);
             return newKoi;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw new NotFoundException("error when saving koi to db");
         }

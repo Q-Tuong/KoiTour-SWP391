@@ -1,7 +1,7 @@
 package com.koitourdemo.demo.api;
 
 import com.koitourdemo.demo.entity.KoiFarm;
-import com.koitourdemo.demo.model.KoiFarmRequest;
+import com.koitourdemo.demo.model.request.KoiFarmRequest;
 import com.koitourdemo.demo.service.KoiFarmService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;

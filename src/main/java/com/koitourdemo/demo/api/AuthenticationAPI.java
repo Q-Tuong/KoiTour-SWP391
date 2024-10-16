@@ -1,7 +1,11 @@
 package com.koitourdemo.demo.api;
 
 import com.koitourdemo.demo.entity.User;
-import com.koitourdemo.demo.model.*;
+import com.koitourdemo.demo.model.request.ForgotPasswordRequest;
+import com.koitourdemo.demo.model.request.LoginRequest;
+import com.koitourdemo.demo.model.request.RegisterRequest;
+import com.koitourdemo.demo.model.request.ResetPasswordRequest;
+import com.koitourdemo.demo.model.response.UserResponse;
 import com.koitourdemo.demo.service.AuthenticationService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;

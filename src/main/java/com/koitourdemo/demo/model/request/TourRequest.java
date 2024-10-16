@@ -1,4 +1,4 @@
-package com.koitourdemo.demo.model;
+package com.koitourdemo.demo.model.request;
 
 import lombok.AccessLevel;
 import lombok.Data;
@@ -8,15 +8,10 @@ import java.util.Date;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class KoiRequest {
+public class TourRequest {
     String name;
-    String color;
-    String weight;
-    String size;
-    String origin;
     float price;
+    Date createAt;
     String description;
     String image;
-    Date createAt;
-
 }

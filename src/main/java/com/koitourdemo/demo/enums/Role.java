@@ -1,4 +1,4 @@
-package com.koitourdemo.demo.entity;
+package com.koitourdemo.demo.enums;
 
 public enum Role {
     CUSTOMER,

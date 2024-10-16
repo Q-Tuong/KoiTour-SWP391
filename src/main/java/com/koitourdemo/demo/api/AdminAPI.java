@@ -1,7 +1,7 @@
 package com.koitourdemo.demo.api;
 
 import com.koitourdemo.demo.entity.User;
-import com.koitourdemo.demo.model.RoleUpdateRequest;
+import com.koitourdemo.demo.model.request.RoleUpdateRequest;
 import com.koitourdemo.demo.service.AdminService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;

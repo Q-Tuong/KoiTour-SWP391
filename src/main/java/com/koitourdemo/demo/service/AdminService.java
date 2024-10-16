@@ -1,6 +1,6 @@
 package com.koitourdemo.demo.service;
 
-import com.koitourdemo.demo.entity.Role;
+import com.koitourdemo.demo.enums.Role;
 import com.koitourdemo.demo.entity.User;
 import com.koitourdemo.demo.exception.NotFoundException;
 import com.koitourdemo.demo.repository.UserRepository;

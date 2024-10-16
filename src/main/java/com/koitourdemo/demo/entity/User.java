@@ -2,6 +2,7 @@ package com.koitourdemo.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.koitourdemo.demo.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -13,10 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Data
 @Table(name = "Users")
@@ -58,6 +56,7 @@ public class User implements UserDetails {
 
     @JsonIgnore
     boolean emailVerified;
+    float balance = 0;
     Date createAt;
     String verificationToken;
     Date verificationTokenExpiry;
@@ -114,4 +113,12 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "customer")
     @JsonIgnore
     List<Orders> orders;
+
+    @OneToMany(mappedBy = "from")
+    @JsonIgnore
+    Set<Transactions> transactionsFrom;
+
+    @OneToMany(mappedBy = "to")
+    @JsonIgnore
+    Set<Transactions> transactionsTo;
 }

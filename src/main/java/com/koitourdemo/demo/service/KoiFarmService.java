@@ -1,10 +1,9 @@
 package com.koitourdemo.demo.service;
 
-import com.koitourdemo.demo.entity.Koi;
 import com.koitourdemo.demo.entity.KoiFarm;
 import com.koitourdemo.demo.entity.User;
 import com.koitourdemo.demo.exception.NotFoundException;
-import com.koitourdemo.demo.model.KoiFarmRequest;
+import com.koitourdemo.demo.model.request.KoiFarmRequest;
 import com.koitourdemo.demo.repository.KoiFarmRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

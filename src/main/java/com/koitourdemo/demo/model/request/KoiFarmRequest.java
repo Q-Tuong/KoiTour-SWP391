@@ -1,4 +1,4 @@
-package com.koitourdemo.demo.model;
+package com.koitourdemo.demo.model.request;
 
 import lombok.AccessLevel;
 import lombok.Data;

@@ -3,7 +3,7 @@ package com.koitourdemo.demo.service;
 import com.koitourdemo.demo.entity.Tour;
 import com.koitourdemo.demo.entity.User;
 import com.koitourdemo.demo.exception.NotFoundException;
-import com.koitourdemo.demo.model.TourRequest;
+import com.koitourdemo.demo.model.request.TourRequest;
 import com.koitourdemo.demo.repository.TourRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

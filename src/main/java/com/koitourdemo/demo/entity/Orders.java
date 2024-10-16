@@ -29,4 +29,8 @@ public class Orders {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @JsonIgnore
     List<OrderDetail> orderDetails;
+
+    @OneToOne(mappedBy = "orders")
+    @JsonIgnore
+    Payment payment;
 }

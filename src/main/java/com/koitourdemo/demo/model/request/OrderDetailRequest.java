@@ -1,12 +1,14 @@
-package com.koitourdemo.demo.model;
+package com.koitourdemo.demo.model.request;
 
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.util.UUID;
+
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class LoginRequest {
-    String username;
-    String password;
+public class OrderDetailRequest {
+    UUID koiID;
+    int quantity;
 }

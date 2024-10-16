@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
@@ -16,7 +17,7 @@ public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
-    float price;
+    BigDecimal price;
     int quantity;
 
     @ManyToOne

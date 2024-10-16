@@ -1,11 +1,16 @@
 package com.koitourdemo.demo.service;
 
-import com.koitourdemo.demo.entity.Role;
+import com.koitourdemo.demo.enums.Role;
 import com.koitourdemo.demo.entity.User;
 import com.koitourdemo.demo.exception.AuthException;
 import com.koitourdemo.demo.exception.DuplicateEntity;
 import com.koitourdemo.demo.exception.NotFoundException;
 import com.koitourdemo.demo.model.*;
+import com.koitourdemo.demo.model.request.ForgotPasswordRequest;
+import com.koitourdemo.demo.model.request.LoginRequest;
+import com.koitourdemo.demo.model.request.RegisterRequest;
+import com.koitourdemo.demo.model.request.ResetPasswordRequest;
+import com.koitourdemo.demo.model.response.UserResponse;
 import com.koitourdemo.demo.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.Cookie;

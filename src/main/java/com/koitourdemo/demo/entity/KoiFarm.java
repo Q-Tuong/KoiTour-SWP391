@@ -42,8 +42,8 @@ public class KoiFarm {
     String image;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    User user;
+    @JoinColumn(name = "consulting_id")
+    User consulting;
 
     @ManyToMany(mappedBy = "koiFarms")
     @JsonIgnore

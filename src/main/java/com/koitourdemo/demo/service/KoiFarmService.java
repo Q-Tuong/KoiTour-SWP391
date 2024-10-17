@@ -37,7 +37,7 @@ public class KoiFarmService {
         koiFarm.setImage(koiFarmRequest.getImage());
 
         User userRequest = authenticationService.getCurrentUser();
-        koiFarm.setUser(userRequest);
+        koiFarm.setConsulting(userRequest);
 
         try{
             KoiFarm newKoiFarm = koiFarmRepository.save(koiFarm);

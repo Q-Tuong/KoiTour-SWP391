@@ -1,12 +1,10 @@
 package com.koitourdemo.demo.api;
 
 import com.koitourdemo.demo.entity.User;
-import com.koitourdemo.demo.exception.NotFoundException;
 import com.koitourdemo.demo.model.request.ForgotPasswordRequest;
 import com.koitourdemo.demo.model.request.LoginRequest;
 import com.koitourdemo.demo.model.request.RegisterRequest;
 import com.koitourdemo.demo.model.request.ResetPasswordRequest;
-import com.koitourdemo.demo.model.response.ApiResponse;
 import com.koitourdemo.demo.model.response.UserResponse;
 import com.koitourdemo.demo.service.AuthenticationService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -16,8 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RequestMapping("api/user")
 @RestController
@@ -29,33 +25,21 @@ public class AuthenticationAPI {
     AuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse> register(@Valid @RequestBody RegisterRequest registerRequest){
-        try {
-            UserResponse newUser = authenticationService.register(registerRequest);
-            return ResponseEntity.ok(new ApiResponse("Register successfully! Please check your mailbox for verify!", newUser));
-        } catch (NotFoundException e) {
-            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("Failed to register!", null));
-        }
+    public ResponseEntity register(@Valid @RequestBody RegisterRequest registerRequest){
+        UserResponse newUser = authenticationService.register(registerRequest);
+        return ResponseEntity.ok(newUser);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse> login(@Valid @RequestBody LoginRequest loginRequest){
-        try {
-            UserResponse newUser = authenticationService.login(loginRequest);
-            return ResponseEntity.ok(new ApiResponse("Login successfully!", newUser));
-        } catch (NotFoundException e) {
-            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("Failed to login!", null));
-        }
+    public ResponseEntity login(@Valid @RequestBody LoginRequest loginRequest){
+        UserResponse newUser = authenticationService.login(loginRequest);
+        return ResponseEntity.ok(newUser);
     }
 
     @GetMapping("/get-all")
-    public ResponseEntity<ApiResponse> getAllUser(){
-        try {
-            List<User> users = authenticationService.getAllUser();
-            return ResponseEntity.ok(new ApiResponse("Get all users successfully!", users));
-        } catch (NotFoundException e) {
-            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("Failed to get all users!", null));
-        }
+    public ResponseEntity getAllUser(){
+        List<User> users = authenticationService.getAllUser();
+        return ResponseEntity.ok(users);
     }
 
     @PostMapping("/logout")

@@ -2,6 +2,7 @@ package com.koitourdemo.demo.api;
 
 import com.koitourdemo.demo.entity.Tour;
 import com.koitourdemo.demo.model.request.TourRequest;
+import com.koitourdemo.demo.model.response.TourPageResponse;
 import com.koitourdemo.demo.service.TourService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
@@ -29,9 +30,9 @@ public class TourAPI {
     }
 
     @GetMapping("/get-all")
-    public ResponseEntity getAllTour(){
-        List<Tour> tours = tourService.getAllTour();
-        return ResponseEntity.ok(tours);
+    public ResponseEntity getAllTour(@RequestParam int page, @RequestParam(defaultValue = "5") int size){
+        TourPageResponse tourResponse = tourService.getAllTour(page, size);
+        return ResponseEntity.ok(tourResponse);
     }
 
     @PutMapping("/{id}/update")

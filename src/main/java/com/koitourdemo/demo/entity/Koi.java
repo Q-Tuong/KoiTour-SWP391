@@ -29,11 +29,14 @@ public class Koi {
     @NotBlank(message = "Koi name cannot be blank!")
     String name;
 
+    @NotBlank(message = "Koi farm cannot be blank!")
+    String farmName;
+
+    @NotBlank(message = "Koi type cannot blank!")
+    String type;
+
     @NotBlank(message = "Koi color cannot be blank!")
     String color;
-
-    @NotBlank(message = "Koi weight cannot be blank!")
-    String weight;
 
     @NotBlank(message = "Koi size cannot be blank!")
     String size;
@@ -41,7 +44,6 @@ public class Koi {
     @NotBlank(message = "Koi origin cannot be blank!")
     String origin;
 
-    String description;
     String image;
     BigDecimal price;
 

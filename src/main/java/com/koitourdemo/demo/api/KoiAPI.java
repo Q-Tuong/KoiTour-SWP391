@@ -2,6 +2,7 @@ package com.koitourdemo.demo.api;
 
 import com.koitourdemo.demo.entity.Koi;
 import com.koitourdemo.demo.model.request.KoiRequest;
+import com.koitourdemo.demo.model.response.KoiPageResponse;
 import com.koitourdemo.demo.service.KoiService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
@@ -10,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -30,9 +30,9 @@ public class KoiAPI {
     }
 
     @GetMapping("/get-all")
-    public ResponseEntity getAllKoi(){
-        List<Koi> kois = koiService.getAllKoi();
-        return ResponseEntity.ok(kois);
+    public ResponseEntity getKoiList(@RequestParam int page, @RequestParam(defaultValue = "5") int size){
+        KoiPageResponse koiResponse = koiService.getAllKoi(page, size);
+        return ResponseEntity.ok(koiResponse);
     }
 
     @PutMapping("/{id}/update")

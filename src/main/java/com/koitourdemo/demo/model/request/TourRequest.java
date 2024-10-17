@@ -9,9 +9,10 @@ import java.util.Date;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TourRequest {
+    String code;
     String name;
     float price;
-    Date createAt;
     String description;
     String image;
+    Date createAt;
 }

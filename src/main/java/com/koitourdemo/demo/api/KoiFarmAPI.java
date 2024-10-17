@@ -2,6 +2,7 @@ package com.koitourdemo.demo.api;
 
 import com.koitourdemo.demo.entity.KoiFarm;
 import com.koitourdemo.demo.model.request.KoiFarmRequest;
+import com.koitourdemo.demo.model.response.KoiFarmPageResponse;
 import com.koitourdemo.demo.service.KoiFarmService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
@@ -29,9 +30,9 @@ public class KoiFarmAPI {
     }
 
     @GetMapping("/get-all")
-    public ResponseEntity getAllKoiFarm(){
-        List<KoiFarm> koiFarms = koiFarmService.getAllKoiFarm();
-        return ResponseEntity.ok(koiFarms);
+    public ResponseEntity getAllKoiFarm(@RequestParam int page, @RequestParam(defaultValue = "5") int size){
+        KoiFarmPageResponse koiFarmResponse = koiFarmService.getAllKoiFarm(page, size);
+        return ResponseEntity.ok(koiFarmResponse);
     }
 
     @PutMapping("/{id}/update")

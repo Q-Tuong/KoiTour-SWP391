@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -25,6 +26,11 @@ public class Tour {
 
     @JsonIgnore
     boolean isDeleted = false;
+
+    @NotBlank(message = "Code cannot be blank!")
+    @Pattern(regexp = "DF\\d{6}", message = "Code invalid!")
+    @Column(unique = true)
+    String code;
 
     @NotBlank(message = "Tour name cannot be blank!")
     String name;

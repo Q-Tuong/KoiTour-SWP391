@@ -9,6 +9,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -40,6 +41,7 @@ public class KoiFarm {
 
     String description;
     String image;
+    Date createAt;
 
     @ManyToOne
     @JoinColumn(name = "consulting_id")

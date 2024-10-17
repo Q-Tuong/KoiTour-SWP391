@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.util.Date;
+
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class KoiFarmRequest {
@@ -14,5 +16,6 @@ public class KoiFarmRequest {
     String email;
     String description;
     String image;
+    Date createAt;
 
 }

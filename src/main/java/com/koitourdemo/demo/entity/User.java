@@ -33,11 +33,11 @@ public class User implements UserDetails {
     @JsonIgnore
     boolean isDeleted = false;
 
-//    @NotBlank(message = "FirstName cannot be blank!")
-//    String firstName;
-//
-//    @NotBlank(message = "LastName cannot be blank!")
-//    String lastName;
+    @NotBlank(message = "FirstName cannot be blank!")
+    String firstName;
+
+    @NotBlank(message = "LastName cannot be blank!")
+    String lastName;
 
     @NotBlank(message = "Password cannot be blank!")
     @Size(min = 6, message = "Password must be at least 6 digits!")
@@ -75,7 +75,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.phone;
+        return this.email;
     }
 
     @Override

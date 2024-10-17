@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@PreAuthorize("hasAuthority('CONSULTING_STAFF')")
 @RequestMapping("/api/koi")
 @CrossOrigin("*")
 @SecurityRequirement(name = "api")

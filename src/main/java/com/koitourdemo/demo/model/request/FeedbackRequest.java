@@ -11,5 +11,5 @@ import lombok.experimental.FieldDefaults;
 public class FeedbackRequest {
     String content;
     int rating;
-    long shopId;
+    long FarmId;
 }

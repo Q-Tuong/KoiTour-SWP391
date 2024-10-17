@@ -12,7 +12,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@PreAuthorize("hasAuthority('MANAGER')")
 @RequestMapping("/api/tour")
 @CrossOrigin("*")
 @SecurityRequirement(name = "api")

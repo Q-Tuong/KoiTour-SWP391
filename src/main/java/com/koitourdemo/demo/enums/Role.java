@@ -5,6 +5,5 @@ public enum Role {
     MANAGER,
     CONSULTING_STAFF,
     SALE_STAFF,
-    DELIVERY_STAFF,
     ADMIN,
 }

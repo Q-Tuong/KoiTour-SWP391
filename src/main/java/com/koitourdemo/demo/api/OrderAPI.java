@@ -24,7 +24,7 @@ public class OrderAPI {
     @Autowired
     AuthenticationService authenticationService;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity create(@RequestBody OrderRequest orderRequest) throws Exception {
         String vnPayUrl = orderService.createUrl(orderRequest);
         return ResponseEntity.ok(vnPayUrl);
@@ -36,7 +36,7 @@ public class OrderAPI {
         return ResponseEntity.ok("Success");
     }
 
-    @GetMapping
+    @GetMapping("/get-all")
     public ResponseEntity getAllOrder(){
         List<Orders> orders = orderService.getAllOrder();
         return ResponseEntity.ok(orders);

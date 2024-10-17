@@ -146,19 +146,6 @@ public class AuthenticationService implements UserDetailsService {
         // Xóa thông tin người dùng khỏi SecurityContext
         SecurityContextHolder.clearContext();
 
-        // Xóa cookie nếu bạn đang sử dụng
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("auth_token")) {
-                    cookie.setValue("");
-                    cookie.setPath("/");
-                    cookie.setMaxAge(0);
-                    response.addCookie(cookie);
-                }
-            }
-        }
-
         // Nếu bạn đang sử dụng session-based authentication, hãy vô hiệu hóa session
         HttpSession session = request.getSession(false);
         if (session != null) {

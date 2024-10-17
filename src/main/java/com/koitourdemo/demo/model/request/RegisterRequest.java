@@ -15,10 +15,18 @@ import java.util.Date;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RegisterRequest {
 
+    @NotBlank(message = "Firstname cannot blank!")
+    String firstName;
+
+    @NotBlank(message = "Lastname cannot blank!")
+    String lastName;
+
+    @NotBlank(message = "Email cannot blank!")
     @Email(message = "Email not valid!")
     @Column(unique = true)
     String email;
 
+    @NotBlank(message = "Phone cannot blank!")
     @Pattern(regexp = "(84|0[3|5|7|8|9])+(\\d{8})", message = "Phone invalid!")
     @Column(unique = true)
     String phone;

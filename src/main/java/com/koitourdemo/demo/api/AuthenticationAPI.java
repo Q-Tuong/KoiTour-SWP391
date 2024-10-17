@@ -32,22 +32,30 @@ public class AuthenticationAPI {
     public ResponseEntity<ApiResponse> register(@Valid @RequestBody RegisterRequest registerRequest){
         try {
             UserResponse newUser = authenticationService.register(registerRequest);
-            return ResponseEntity.ok(new ApiResponse("Update Item Success", newUser));
+            return ResponseEntity.ok(new ApiResponse("Register successfully! Please check your mailbox for verify!", newUser));
         } catch (NotFoundException e) {
-            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("Failed", null));
+            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("Failed to register!", null));
         }
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@Valid @RequestBody LoginRequest loginRequest){
-        UserResponse newUser = authenticationService.login(loginRequest);
-        return ResponseEntity.ok(newUser);
+    public ResponseEntity<ApiResponse> login(@Valid @RequestBody LoginRequest loginRequest){
+        try {
+            UserResponse newUser = authenticationService.login(loginRequest);
+            return ResponseEntity.ok(new ApiResponse("Login successfully!", newUser));
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("Failed to login!", null));
+        }
     }
 
     @GetMapping("/get-all")
-    public ResponseEntity getAllUser(){
-        List<User> users = authenticationService.getAllUser();
-        return ResponseEntity.ok(users);
+    public ResponseEntity<ApiResponse> getAllUser(){
+        try {
+            List<User> users = authenticationService.getAllUser();
+            return ResponseEntity.ok(new ApiResponse("Get all users successfully!", users));
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("Failed to get all users!", null));
+        }
     }
 
     @PostMapping("/logout")

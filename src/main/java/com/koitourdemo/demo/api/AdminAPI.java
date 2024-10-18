@@ -21,9 +21,9 @@ public class AdminAPI {
     @Autowired
     AdminService adminService;
 
-    @PutMapping("/{id}/update-role")
-    public ResponseEntity updateUserRole(@PathVariable long id, @RequestBody RoleUpdateRequest roleUpdateRequest) {
-        User updated = adminService.updateUserRole(roleUpdateRequest.getRole(), id);
+    @PutMapping("/{userId}/update-role")
+    public ResponseEntity updateUserRole(@PathVariable long userId, @RequestBody RoleUpdateRequest roleUpdateRequest) {
+        User updated = adminService.updateUserRole(roleUpdateRequest.getRole(), userId);
         return ResponseEntity.ok(updated);
     }
 
@@ -33,9 +33,9 @@ public class AdminAPI {
         return ResponseEntity.ok(users);
     }
 
-    @DeleteMapping("/{id}/delete")
-    public ResponseEntity deleteUser(@PathVariable long id){
-        User deleted = adminService.deleteUser(id);
+    @DeleteMapping("/{userId}/delete")
+    public ResponseEntity deleteUser(@PathVariable long userId){
+        User deleted = adminService.deleteUser(userId);
         return ResponseEntity.ok(deleted);
     }
 

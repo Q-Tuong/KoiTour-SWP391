@@ -34,15 +34,15 @@ public class KoiAPI {
         return ResponseEntity.ok(koiResponse);
     }
 
-    @PutMapping("/{id}/update")
-    public ResponseEntity updateKoi(@Valid @RequestBody Koi koi, @PathVariable UUID id){
-        Koi updated = koiService.updateKoi(koi, id);
+    @PutMapping("/{koiId}/update")
+    public ResponseEntity updateKoi(@Valid @RequestBody Koi koi, @PathVariable UUID koiId){
+        Koi updated = koiService.updateKoi(koi, koiId);
         return ResponseEntity.ok(updated);
     }
 
-    @DeleteMapping("/{id}/delete")
-    public ResponseEntity deleteKoi(@PathVariable UUID id){
-        Koi deleted = koiService.deleteKoi(id);
+    @DeleteMapping("/{koiId}/delete")
+    public ResponseEntity deleteKoi(@PathVariable UUID koiId){
+        Koi deleted = koiService.deleteKoi(koiId);
         return ResponseEntity.ok(deleted);
     }
 }

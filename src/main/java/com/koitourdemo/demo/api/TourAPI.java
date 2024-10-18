@@ -32,15 +32,15 @@ public class TourAPI {
         return ResponseEntity.ok(tourResponse);
     }
 
-    @PutMapping("/{id}/update")
-    public ResponseEntity updateTour(@Valid @RequestBody Tour tour, @PathVariable long id){
-        Tour updated = tourService.updateTour(tour, id);
+    @PutMapping("/{tourId}/update")
+    public ResponseEntity updateTour(@Valid @RequestBody Tour tour, @PathVariable long tourId){
+        Tour updated = tourService.updateTour(tour, tourId);
         return ResponseEntity.ok(updated);
     }
 
-    @DeleteMapping("/{id}/delete")
-    public ResponseEntity deleteTour(@PathVariable long id){
-        Tour deleted = tourService.deleteTour(id);
+    @DeleteMapping("/{tourId}/delete")
+    public ResponseEntity deleteTour(@PathVariable long tourId){
+        Tour deleted = tourService.deleteTour(tourId);
         return ResponseEntity.ok(deleted);
     }
 }

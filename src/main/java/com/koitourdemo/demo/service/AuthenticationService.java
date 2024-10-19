@@ -63,6 +63,9 @@ public class AuthenticationService implements UserDetailsService {
             // Kiểm tra xem email đã tồn tại chưa
             User existingUser = userRepository.findUserByEmail(registerRequest.getEmail());
             if (existingUser != null) {
+                if (existingUser.isDeleted()) {
+                    throw new AuthException("Tài khoản với email này đã bị vô hiệu hóa!");
+                }
                 if (existingUser.isEmailVerified()) {
                     throw new DuplicateEntity("This email has been used!");
                 } else {
@@ -98,23 +101,25 @@ public class AuthenticationService implements UserDetailsService {
     }
 
     public UserResponse login(LoginRequest loginRequest) {
-
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     loginRequest.getUsername(),
                     loginRequest.getPassword()
             ));
-
             User user = (User) authentication.getPrincipal();
+            if (user.isDeleted()) {
+                throw new NotFoundException("!");
+            }
             if (!user.isEmailVerified()) {
-                throw new AuthException("Account is not verified!");
+                throw new AuthException("!");
             }
             UserResponse userResponse = modelMapper.map(user, UserResponse.class);
             userResponse.setToken(tokenService.generateToken(user));
             return userResponse;
+        } catch (NotFoundException e) {
+            throw new NotFoundException("Tài khoản này đã bị vô hiệu hóa!");
         } catch (AuthException e) {
-            // Xử lý riêng cho trường hợp tài khoản chưa xác thực
-            throw e;
+            throw new AuthException("Account is not verified!");
         } catch (Exception e) {
             throw new EntityNotFoundException("Invalid username or password!");
         }
@@ -125,9 +130,8 @@ public class AuthenticationService implements UserDetailsService {
         return users;
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String phone) throws UsernameNotFoundException {
-        User user = userRepository.findUserByPhone(phone);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findUserByEmail(email);
         if (user == null) {
             throw new UsernameNotFoundException("User not existed!");
         }

@@ -37,13 +37,12 @@ public class Tour {
 
     @NotBlank(message = "Tour price cannot be blank!")
     float price;
-
-    Date createAt;
-    String image;
     String description;
+    String image;
+    Date createAt;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "manager_id")
     User user;
 
     @OneToMany(mappedBy = "tour")

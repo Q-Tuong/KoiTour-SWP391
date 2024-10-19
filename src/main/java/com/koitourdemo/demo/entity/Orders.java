@@ -19,8 +19,8 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    Date date;
     float total;
+    Date createAt;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")

@@ -1,0 +1,587 @@
+[
+    {
+     "id": "1",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 650000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://bizweb.dktcdn.net/thumb/grande/100/347/891/products/169-jpeg-1c2c7400-73e6-4b50-b3ec-9aba780734ae.jpg?v=1666716214000",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "2",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://bizweb.dktcdn.net/100/347/891/products/519-jpeg-7608af69-72e9-4421-8034-255546a55ff2.jpg?v=1644034643417",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "3",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://bizweb.dktcdn.net/100/347/891/products/189-jpeg-15d0e2fe-019c-4537-8391-149f6953ea39.jpg?v=1679113818833",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "4",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "//bizweb.dktcdn.net/thumb/grande/100/347/891/products/2346-jpeg.jpg?v=1677155316000",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "5",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "//bizweb.dktcdn.net/thumb/grande/100/347/891/products/169-09db4964-8e72-48a8-bde7-de114d60356f.jpg?v=1628945523000",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "6",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "//bizweb.dktcdn.net/thumb/grande/100/347/891/products/127-jpeg-d72ca6f5-b973-4084-91e2-18697a3e7a2b.jpg?v=1672851111000",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "7",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "//bizweb.dktcdn.net/thumb/grande/100/347/891/products/145-2cb51e98-a2a8-4913-b60e-7d991880b53e.jpg?v=1628945522000",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "8",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "//bizweb.dktcdn.net/thumb/grande/100/347/891/products/1119-jpeg.jpg?v=1649693720000",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "9",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "//bizweb.dktcdn.net/thumb/grande/100/347/891/products/5263e1c9-3ab3-4390-b9bd-010689354d7e.jpg?v=1679468946000",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "10",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "//bizweb.dktcdn.net/thumb/grande/100/347/891/products/105-jpeg-41b446a2-6a06-445c-946d-cbe5662f2966.jpg?v=1678947869000",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "11",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 100000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://bizweb.dktcdn.net/thumb/grande/100/347/891/products/100-jpeg-b5edd267-a52e-4e50-bfd7-a0858dccee0c.jpg?v=1651739806000",
+     "des": "This is the description of Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt"
+    },
+    {
+     "id": "12",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://bizweb.dktcdn.net/thumb/grande/100/347/891/products/a991ce9f-357f-4f7f-806c-eb78da154103.jpg?v=1679468763000",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "13",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://bizweb.dktcdn.net/100/347/891/products/997-jpeg.jpg?v=1668750184010",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "14",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://bizweb.dktcdn.net/100/347/891/products/226-jpeg.jpg?v=1672850350753",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "15",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://bizweb.dktcdn.net/100/347/891/products/220-jpeg-9462946b-9995-4909-9a60-aeedd3f330af.jpg?v=1673367140803",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "16",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://bizweb.dktcdn.net/100/347/891/products/182-jpeg-13484df3-d4be-4358-bbf6-680f23f6b2a7.jpg?v=1666495769960",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "17",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://bizweb.dktcdn.net/100/347/891/products/177-jpeg-92bde91d-27a4-4076-a60f-1e885527e35a.jpg?v=1666973504887",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "18",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://bizweb.dktcdn.net/100/347/891/products/114-jpeg-192adf62-b2fc-40fc-936d-dc2cd7cd3a34.jpg?v=1666586789890",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "19",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://bizweb.dktcdn.net/100/347/891/products/183-jpeg-55358ed1-3823-48b8-8fd7-9aebaa257b02.jpg?v=1666973429007",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "20",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://bizweb.dktcdn.net/100/347/891/products/182-jpeg-13484df3-d4be-4358-bbf6-680f23f6b2a7.jpg?v=1666495769960",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "21",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://bizweb.dktcdn.net/100/347/891/products/192-jpeg-856adfe3-60cb-42b1-8781-c1452613199d.jpg?v=1672850767037",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "22",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://bizweb.dktcdn.net/100/347/891/products/152-jpeg-afd7255b-e8c9-4aa8-a331-83f66a827b71.jpg?v=1672851163750",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "23",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://bizweb.dktcdn.net/100/347/891/products/137-jpeg-21d9a5e2-4355-43c2-9ab0-3500b6e54e41.jpg?v=1654477899730",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "24",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://bizweb.dktcdn.net/100/347/891/products/366-dior-ong.jpg?v=1628945526413",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "25",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://bizweb.dktcdn.net/100/347/891/products/463-cd.jpg?v=1628945538017",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "26",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://photos.google.com/album/AF1QipO9zDpUz36KTcmYd0V2sT-Zoz6fhEisTq5_-Y13/photo/AF1QipNivo62bhEGqmlnta7ZQ8v-RQzcgi4Zw2m-uSOG",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "27",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://photos.google.com/album/AF1QipO9zDpUz36KTcmYd0V2sT-Zoz6fhEisTq5_-Y13/photo/AF1QipOlAMbf0QG3oCFjOoFfXo0VqTB5D5DN-r6T24zT",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "28",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://photos.google.com/album/AF1QipO9zDpUz36KTcmYd0V2sT-Zoz6fhEisTq5_-Y13/photo/AF1QipPvF3Hupzhel7bZ6a_yyU0cQEtTr27MlO9N2hpj",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "29",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://photos.google.com/album/AF1QipO9zDpUz36KTcmYd0V2sT-Zoz6fhEisTq5_-Y13/photo/AF1QipNW8A29S6RVKc99EaIuDTCcvPgOVhOf3yQFu0dv",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "30",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://photos.google.com/album/AF1QipO9zDpUz36KTcmYd0V2sT-Zoz6fhEisTq5_-Y13/photo/AF1QipMeaCW17ofSXeii3nU_hWwsh6BpXOWAaGIE8_qJ",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "31",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://photos.google.com/album/AF1QipPkKCtZPqeotH0NKiXnjahDOix8JiHLiacT4hAS/photo/AF1QipNPPxCdYShhcZSqhGn9FZ5-_FT2w_LrHuyqFn3a",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "32",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://photos.google.com/album/AF1QipPkKCtZPqeotH0NKiXnjahDOix8JiHLiacT4hAS/photo/AF1QipOETb49znhEGFmnh4k4hgffkbuDFHuqjm_FcqIh",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "33",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://photos.google.com/album/AF1QipPkKCtZPqeotH0NKiXnjahDOix8JiHLiacT4hAS/photo/AF1QipNNTttjSEpgKUQ21ZoQQyBx3sm0wEorbp0E0tg4",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "34",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://photos.google.com/album/AF1QipPkKCtZPqeotH0NKiXnjahDOix8JiHLiacT4hAS/photo/AF1QipPcHqlDlkdrNN_tRjTU_NIZ8qYRUSTKmmz948Mr",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "35",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://photos.google.com/album/AF1QipPkKCtZPqeotH0NKiXnjahDOix8JiHLiacT4hAS/photo/AF1QipM_YZFs4QyJ2Cv1-pD7e1samBE5-ejCmlEp7u1g",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "36",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://photos.google.com/album/AF1QipNnu5rE1-DYKQIbaa5Sbio9lJGXQei73VE-HcWo/photo/AF1QipM3vvJT-EOu5h8vgdac0wTVHQDe-0MKr7uMYWBY",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "37",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://photos.google.com/album/AF1QipNnu5rE1-DYKQIbaa5Sbio9lJGXQei73VE-HcWo/photo/AF1QipNLfYMmhhBG53bNG8oBgamcCJM32cJhws_CVDD-",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "38",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://photos.google.com/album/AF1QipNnu5rE1-DYKQIbaa5Sbio9lJGXQei73VE-HcWo/photo/AF1QipNzoXEB6LH44V-vzpcetWPi1c5b5JN6AsNmO_lM",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "39",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://photos.google.com/album/AF1QipNnu5rE1-DYKQIbaa5Sbio9lJGXQei73VE-HcWo/photo/AF1QipMDIaZLcVNTCaHrJKDehWx1SM9m1NZ5HqxIRKG1",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "40",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://photos.google.com/album/AF1QipNnu5rE1-DYKQIbaa5Sbio9lJGXQei73VE-HcWo/photo/AF1QipOlRdoybIwJIm-ZW4kImol27qyylQBqYAHqH9z0",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "41",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://photos.google.com/album/AF1QipMrX1ky0_vKAnn4sVuxxgeHilrhRvIZ1qyTS-l3/photo/AF1QipO2l0lH3oKS4XGdM52Hl96joskDlaZ_9TwjYS6G",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "42",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://photos.google.com/album/AF1QipMrX1ky0_vKAnn4sVuxxgeHilrhRvIZ1qyTS-l3/photo/AF1QipMePGMrfWKtdGP6D3eHKxEjuTUYg2oGofzUiOTv",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "43",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://photos.google.com/album/AF1QipMrX1ky0_vKAnn4sVuxxgeHilrhRvIZ1qyTS-l3/photo/AF1QipOb3O8UExg__gis1B8n_Uapk-lkinSS6Ed1s54d",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "44",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://photos.google.com/album/AF1QipMrX1ky0_vKAnn4sVuxxgeHilrhRvIZ1qyTS-l3/photo/AF1QipPutt8Pyk4GekYCKWnla_1aUnxsunQnsyrxwxSS",
+     "des": "Thương hiệu LakShop"
+    },
+    {
+     "id": "45",
+     "name": "Th0m Br0wne Blue Oxford 4-Bar Straight with Stripe Blue Shirt",
+     "price": 550000,
+     "currency": "VND",
+     "size": [
+      "S",
+      "M",
+      "L"
+     ],
+     "imgUrl": "https://photos.google.com/album/AF1QipMrX1ky0_vKAnn4sVuxxgeHilrhRvIZ1qyTS-l3/photo/AF1QipNIpgIW7c2PiflzidYsbxsDh2x5qfRz6VHt5myz",
+     "des": "Thương hiệu LakShop"
+    }
+   ]

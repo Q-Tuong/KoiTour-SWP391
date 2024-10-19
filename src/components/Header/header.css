@@ -1,0 +1,169 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #4a4a48;
+}
+
+.logo-container {
+  margin-right: auto;
+}
+
+.logo {
+  width: 120px;
+  height: 40px;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  font-size: 14px;
+  color: #ffffff;
+  padding: 3px 5px;
+  border-bottom: solid 1px transparent;
+  font-weight: 400;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin: 0 1rem;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+}
+.nav a {
+  position: relative;
+}
+
+.nav a:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.nav a:hover:before {
+  visibility: visible;
+  transform: scaleX(1);
+}
+.user-menu-container {
+  position: relative;
+  display: inline-block;
+}
+
+.user-menu-container .user-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  z-index: 1; /* Đảm bảo container hiển thị trên phần còn lại của trang */
+}
+
+.user-menu-container:hover .user-menu {
+  display: block;
+}
+
+.user-menu a,
+.user-menu button {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.5rem; /* Tạo khoảng cách giữa các button */
+  padding: 0.5rem; /* Tạo khoảng cách giữa nội dung và viền của button */
+  font-size: 0.9rem; /* Giảm kích thước font chữ để phù hợp với container nhỏ hơn */
+  color: #333; /* Đổi màu chữ từ mặc định sang màu đen */
+  text-align: center; /* Căn giữa nội dung button */
+  border: none; /* Loại bỏ viền button */
+  background-color: transparent; /* Xóa nền button */
+}
+
+.user-menu button {
+  color: #fff; /* Đổi màu chữ cho button đăng xuất */
+  background-color: #fd5f00; /* Thêm màu nền cho button đăng xuất */
+  border-radius: 0.3rem; /* Làm tròn góc của button đăng xuất */
+  transition: background-color 0.2s ease-in-out;
+}
+
+.user-menu button:hover {
+  background-color: #f44336; /* Thay đổi màu nền khi hover vào button đăng xuất */
+}
+.user-menu {
+  width: 200px;
+  padding-top: 12px;
+  margin-right: -168px;
+  background-color: rgba(255, 255, 255, 0.85); /* Đặt opacity cho background */
+  border-radius: 25px;
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  z-index: 1; /* Đảm bảo container hiển thị trên phần còn lại của trang */
+}
+.auth-buttons button {
+  background-color: transparent;
+  border: none;
+  color: white;
+}
+.nav a,
+.signup,
+.signin {
+  position: relative;
+}
+
+.nav a:before,
+.signup:before,
+.signin:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.nav a:hover:before,
+.signup:hover:before,
+.signin:hover:before {
+  visibility: visible;
+  transform: scaleX(1);
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .auth-buttons {
+    margin-left: auto;
+  }
+
+  .logo-container {
+    margin-left: 1rem;
+  }
+}

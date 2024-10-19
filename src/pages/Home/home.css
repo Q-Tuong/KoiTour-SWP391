@@ -1,0 +1,52 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 cột */
+  grid-template-rows: repeat(3, 1fr); /* 3 hàng */
+  grid-gap: 25px;
+  margin: 90px 322px 0px;
+}
+
+.grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.grid-item {
+  position: relative;
+}
+.img-fluid {
+  transition: all 4s;
+}
+
+.img-fluid:hover {
+  transform: scale(1.1);
+  overflow: hidden;
+}
+
+.caption {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  padding: 10px;
+  color: #fff;
+  text-align: center;
+  font-size: 1rem;
+}
+@media (max-width: 767px) {
+  .grid-container {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+  }
+  .img-fluid {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+  }
+}

@@ -11,5 +11,4 @@ public class ResetPasswordRequest {
 
     @Size(min = 6, message = "Password must be at least 6 digits!")
     String password;
-
 }

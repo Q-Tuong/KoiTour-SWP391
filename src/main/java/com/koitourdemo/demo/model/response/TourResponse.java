@@ -1,4 +1,4 @@
-package com.koitourdemo.demo.model.request;
+package com.koitourdemo.demo.model.response;
 
 import lombok.AccessLevel;
 import lombok.Data;
@@ -9,13 +9,11 @@ import java.util.Date;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class KoiRequest {
+public class TourResponse {
+    String code;
     String name;
-    String farmName;
-    String type;
-    String size;
-    String origin;
     BigDecimal price;
+    String description;
     String image;
     Date createAt;
 }

@@ -9,13 +9,10 @@ import java.util.Date;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class KoiFarmRequest {
-
     String name;
     String address;
     String phone;
-    String email;
     String description;
     String image;
     Date createAt;
-
 }

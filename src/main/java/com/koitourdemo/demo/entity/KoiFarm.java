@@ -37,7 +37,6 @@ public class KoiFarm {
 
     @Email(message = "Invalid email!")
     @Column(unique = true)
-    String email;
 
     String description;
     String image;

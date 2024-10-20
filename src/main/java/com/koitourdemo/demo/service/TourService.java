@@ -5,6 +5,7 @@ import com.koitourdemo.demo.entity.User;
 import com.koitourdemo.demo.exception.NotFoundException;
 import com.koitourdemo.demo.model.request.TourRequest;
 import com.koitourdemo.demo.model.response.TourPageResponse;
+import com.koitourdemo.demo.model.response.TourResponse;
 import com.koitourdemo.demo.repository.TourRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -28,11 +30,12 @@ public class TourService {
     public Tour createNewTour(TourRequest tourRequest){
 //        Tour tour = modelMapper.map(tourRequest, Tour.class);
         Tour tour = new Tour();
-        tour.setCode(tour.getCode());
+        tour.setCode(tourRequest.getCode());
         tour.setName(tourRequest.getName());
-        tour.setPrice(tour.getPrice());
-        tour.setDescription(tour.getDescription());
-        tour.setImage(tour.getImage());
+        tour.setPrice(tourRequest.getPrice());
+        tour.setDescription(tourRequest.getDescription());
+        tour.setImage(tourRequest.getImage());
+        tour.setCreateAt(new Date());
 
         User userRequest = authenticationService.getCurrentUser();
         tour.setUser(userRequest);
@@ -47,7 +50,7 @@ public class TourService {
     }
 
     public TourPageResponse getAllTour(int page, int size){
-        Page tourPage = tourRepository.findAllByIsDeletedFalse(PageRequest.of(page, size));
+        Page tourPage = tourRepository.findAll(PageRequest.of(page, size));
         TourPageResponse tourResponse = new TourPageResponse();
         tourResponse.setTotalPages(tourPage.getTotalPages());
         tourResponse.setContent(tourPage.getContent());
@@ -56,13 +59,24 @@ public class TourService {
         return tourResponse;
     }
 
-    public Tour updateTour(Tour tour, long id){
+    public TourResponse updateTour(TourRequest tourRequest, long id){
         Tour oldTour = getTourById(id);
-        oldTour.setName(tour.getName());
-        oldTour.setDescription(tour.getDescription());
-        oldTour.setPrice(tour.getPrice());
-        oldTour.setImage(tour.getImage());
-        return tourRepository.save(oldTour);
+        oldTour.setName(tourRequest.getName());
+        oldTour.setDescription(tourRequest.getDescription());
+        oldTour.setPrice(tourRequest.getPrice());
+        oldTour.setImage(tourRequest.getImage());
+        Tour updatedTour = tourRepository.save(oldTour);
+        return convertToTourResponse(updatedTour);
+    }
+
+    private TourResponse convertToTourResponse(Tour tour) {
+        TourResponse response = new TourResponse();
+        response.setCode(tour.getCode());
+        response.setName(tour.getName());
+        response.setPrice(tour.getPrice());
+        response.setDescription(tour.getDescription());
+        response.setImage(tour.getImage());
+        return response;
     }
 
     public Tour deleteTour(long id){

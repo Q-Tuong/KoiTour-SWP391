@@ -3,6 +3,7 @@ package com.koitourdemo.demo.api;
 import com.koitourdemo.demo.entity.Koi;
 import com.koitourdemo.demo.model.request.KoiRequest;
 import com.koitourdemo.demo.model.response.KoiPageResponse;
+import com.koitourdemo.demo.model.response.KoiResponse;
 import com.koitourdemo.demo.service.KoiService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
@@ -35,8 +36,8 @@ public class KoiAPI {
     }
 
     @PutMapping("/{koiId}/update")
-    public ResponseEntity updateKoi(@Valid @RequestBody Koi koi, @PathVariable UUID koiId){
-        Koi updated = koiService.updateKoi(koi, koiId);
+    public ResponseEntity updateKoi(@Valid @RequestBody KoiRequest koiRequest, @PathVariable UUID koiId){
+        KoiResponse updated = koiService.updateKoi(koiRequest, koiId);
         return ResponseEntity.ok(updated);
     }
 

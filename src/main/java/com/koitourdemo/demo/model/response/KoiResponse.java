@@ -1,4 +1,4 @@
-package com.koitourdemo.demo.model.request;
+package com.koitourdemo.demo.model.response;
 
 import lombok.AccessLevel;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class KoiRequest {
+public class KoiResponse {
     String name;
     String farmName;
     String type;

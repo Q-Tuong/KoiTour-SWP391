@@ -3,6 +3,7 @@ package com.koitourdemo.demo.api;
 import com.koitourdemo.demo.entity.Tour;
 import com.koitourdemo.demo.model.request.TourRequest;
 import com.koitourdemo.demo.model.response.TourPageResponse;
+import com.koitourdemo.demo.model.response.TourResponse;
 import com.koitourdemo.demo.service.TourService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
@@ -33,8 +34,8 @@ public class TourAPI {
     }
 
     @PutMapping("/{tourId}/update")
-    public ResponseEntity updateTour(@Valid @RequestBody Tour tour, @PathVariable long tourId){
-        Tour updated = tourService.updateTour(tour, tourId);
+    public ResponseEntity updateTour(@Valid @RequestBody TourRequest tourRequest, @PathVariable long tourId){
+        TourResponse updated = tourService.updateTour(tourRequest, tourId);
         return ResponseEntity.ok(updated);
     }
 

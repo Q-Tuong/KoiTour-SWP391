@@ -14,5 +14,5 @@ public interface KoiRepository extends JpaRepository<Koi, UUID> {
 
 //    List<Koi> findKoisByIsDeletedFalse();
 
-    Page<Koi> findAllByIsDeletedFalse(Pageable pageable);
+    Page<Koi> findAll(Pageable pageable);
 }

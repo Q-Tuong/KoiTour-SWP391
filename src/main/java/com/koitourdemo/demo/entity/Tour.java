@@ -35,8 +35,7 @@ public class Tour {
     @NotBlank(message = "Tour name cannot be blank!")
     String name;
 
-    @NotBlank(message = "Tour price cannot be blank!")
-    float price;
+    BigDecimal price;
     String description;
     String image;
     Date createAt;

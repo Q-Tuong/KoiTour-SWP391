@@ -36,9 +36,6 @@ public class Koi {
     @NotBlank(message = "Koi type cannot blank!")
     String type;
 
-    @NotBlank(message = "Koi color cannot be blank!")
-    String color;
-
     @NotBlank(message = "Koi size cannot be blank!")
     String size;
 

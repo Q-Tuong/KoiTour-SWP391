@@ -13,7 +13,6 @@ import com.koitourdemo.demo.model.request.ResetPasswordRequest;
 import com.koitourdemo.demo.model.response.UserResponse;
 import com.koitourdemo.demo.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -165,7 +164,7 @@ public class AuthenticationService implements UserDetailsService {
             EmailDetail emailDetail = new EmailDetail();
             emailDetail.setReceiver(user);
             emailDetail.setSubject("Reset password");
-            emailDetail.setLink("https://www.facebook.com?token=" + tokenService.generateToken(user));
+//            emailDetail.setLink("https://www.facebook.com?token=" + tokenService.generateToken(user));
             emailService.sendEmail(emailDetail);
         }
     }
@@ -212,7 +211,7 @@ public class AuthenticationService implements UserDetailsService {
         EmailDetail emailDetail = new EmailDetail();
         emailDetail.setReceiver(user);
         emailDetail.setSubject("Xác thực lại tài khoản của bạn");
-        emailDetail.setLink("https://www.facebook.com?token=" + user.getVerificationToken());
+//        emailDetail.setLink("https://www.facebook.com?token=" + user.getVerificationToken());
         emailService.sendEmail(emailDetail);
     }
 

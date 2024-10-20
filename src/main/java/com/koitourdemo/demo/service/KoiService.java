@@ -5,6 +5,7 @@ import com.koitourdemo.demo.entity.User;
 import com.koitourdemo.demo.exception.NotFoundException;
 import com.koitourdemo.demo.model.request.KoiRequest;
 import com.koitourdemo.demo.model.response.KoiPageResponse;
+import com.koitourdemo.demo.model.response.KoiResponse;
 import com.koitourdemo.demo.repository.KoiRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -33,11 +35,11 @@ public class KoiService {
         koi.setName(koiRequest.getName());
         koi.setFarmName(koiRequest.getFarmName());
         koi.setType(koiRequest.getType());
-        koi.setColor(koiRequest.getColor());
         koi.setSize(koiRequest.getSize());
         koi.setOrigin(koiRequest.getOrigin());
         koi.setPrice(koiRequest.getPrice());
         koi.setImage(koiRequest.getImage());
+        koi.setCreateAt(new Date());
 
         User userRequest = authenticationService.getCurrentUser();
         koi.setUser(userRequest);
@@ -53,7 +55,7 @@ public class KoiService {
 
     public KoiPageResponse getAllKoi(int page, int size){
         // Lấy tất cả student tồn tại trong DB
-        Page koiPage = koiRepository.findAllByIsDeletedFalse(PageRequest.of(page, size));
+        Page koiPage = koiRepository.findAll(PageRequest.of(page, size));
         KoiPageResponse koiResponse = new KoiPageResponse();
         koiResponse.setTotalPages(koiPage.getTotalPages());
         koiResponse.setContent(koiPage.getContent());
@@ -62,16 +64,28 @@ public class KoiService {
         return koiResponse;
     }
 
-    public Koi updateKoi(Koi koi, UUID id){
+    public KoiResponse updateKoi(KoiRequest koiRequest, UUID id){
         Koi oldKoi = getKoiById(id);
-        oldKoi.setName(koi.getName());
-        oldKoi.setFarmName(koi.getFarmName());
-        oldKoi.setSize(koi.getSize());
-        oldKoi.setColor(koi.getColor());
-        oldKoi.setOrigin(koi.getOrigin());
-        oldKoi.setPrice(koi.getPrice());
-        oldKoi.setImage(koi.getImage());
-        return koiRepository.save(oldKoi);
+        oldKoi.setName(koiRequest.getName());
+        oldKoi.setFarmName(koiRequest.getFarmName());
+        oldKoi.setSize(koiRequest.getSize());
+        oldKoi.setOrigin(koiRequest.getOrigin());
+        oldKoi.setPrice(koiRequest.getPrice());
+        oldKoi.setImage(koiRequest.getImage());
+        Koi updatedKoi = koiRepository.save(oldKoi);
+        return convertToKoiResponse(updatedKoi);
+    }
+
+    private KoiResponse convertToKoiResponse(Koi koi) {
+        KoiResponse response = new KoiResponse();
+        response.setName(koi.getName());
+        response.setFarmName(koi.getFarmName());
+        response.setType(koi.getType());
+        response.setSize(koi.getSize());
+        response.setOrigin(koi.getOrigin());
+        response.setPrice(koi.getPrice());
+        response.setImage(koi.getImage());
+        return response;
     }
 
     public Koi deleteKoi(UUID id){

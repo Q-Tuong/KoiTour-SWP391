@@ -50,7 +50,7 @@ public class OrderService {
         BigDecimal total = BigDecimal.ZERO;
 
         order.setCustomer(customer);
-        order.setDate(new Date()); // current date
+        order.setCreateAt(new Date()); // current date
 
         for (OrderDetailRequest orderDetailRequest : orderRequest.getDetail()) {
             Koi koi = koiRepository.findKoiById(orderDetailRequest.getKoiID());

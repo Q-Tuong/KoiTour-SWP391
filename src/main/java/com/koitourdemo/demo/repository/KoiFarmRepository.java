@@ -13,5 +13,5 @@ public interface KoiFarmRepository extends JpaRepository<KoiFarm, Long> {
 
 //    List<KoiFarm> findKoiFarmsByIsDeletedFalse();
 
-    Page<KoiFarm> findAllByIsDeletedFalse(Pageable pageable);
+    Page<KoiFarm> findAll(Pageable pageable);
 }

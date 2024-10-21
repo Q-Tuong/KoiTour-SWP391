@@ -1,0 +1,100 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  margin-top: -100px; /* Để form nằm phía giữa, ta sẽ dịch lên trên 100px so với vị trí bình thường */
+  padding: 40px;
+  width: 50%;
+}
+
+.login-logo {
+  background-color: #ccc;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-top: -50px; /* Để logo nằm phía trên của form, ta sẽ dịch lên trên 50px so với vị trí bình thường */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: #fff;
+}
+
+.form-label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-message {
+  margin-top: 10px;
+  color: #f00;
+  font-weight: bold;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.form-input {
+  width: 240%;
+  padding: 0.5rem;
+  border: none;
+  background-color: #e8f0fe;
+  border-radius: 0.25rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.form-label {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.form-button {
+  padding: 0.5rem 1rem;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.form-button:hover {
+  background-color: #333;
+}
+.form-button2 {
+  background-color: #bd2525;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+.form-button2:hover {
+  background-color: #a32929;
+}

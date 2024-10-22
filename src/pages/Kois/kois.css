@@ -1,0 +1,65 @@
+.sidebar {
+  color: #484848;
+  font-size: 14px;
+  line-height: 25px;
+  padding: 0px 15px;
+  width: 293px;
+  height: 1271px;
+}
+.buttonprice {
+  padding: 0.5rem 1rem;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+.buttonprice:hover {
+  background-color: #4a4a48;
+}
+.span-text {
+  display: inline;
+  font-size: 24px;
+  line-height: 24px;
+}
+.h4-text {
+  font-family: PN;
+  font-size: 20px;
+  line-height: 30px;
+  margin: 0px 0px 10px;
+  font-family: "SVN-Veneer";
+}
+.assit-content {
+  color: #484848;
+  font-size: 20px;
+  line-height: 25px;
+  padding: 32px 2px;
+}
+.navlink-sidebar {
+  color: #434343;
+  font-family: PN;
+  font-size: 14px;
+  line-height: 25px;
+  padding: 5px 20px 5px 0px;
+  text-align: left;
+}
+.imgproduct {
+  height: 23rem;
+  width: 20rem;
+}
+.imgproduct:hover {
+  transform: scale(1.1);
+  overflow: hidden;
+}
+.textdes {
+  border-bottom: 1px solid #eee;
+  border-style: solid;
+  border-color: #eee;
+  border-image: linear-gradient(to right, transparent -19%, #eee 50%);
+  border-image-slice: 1;
+  font-size: 17px;
+}
+.textdes:hover {
+  color: #ff8c00;
+}

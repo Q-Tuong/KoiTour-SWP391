@@ -22,7 +22,7 @@ public class CartService {
 
     public Cart getCart(long id) {
         Cart cart = cartRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Cart not found"));
+                .orElseThrow(() -> new NotFoundException("Không thể tìm thấy giỏ hàng!"));
         BigDecimal totalAmount = cart.getTotalAmount();
         cart.setTotalAmount(totalAmount);
         return cartRepository.save(cart);
@@ -49,8 +49,8 @@ public class CartService {
         return cartRepository.save(newCart).getId();
     }
 
-    public Cart getCartByUserId(Long userId) {
-        return cartRepository.findByUserId(userId);
+    public Cart getCartByUserId(long id) {
+        return cartRepository.findByUserId(id);
     }
 
 }

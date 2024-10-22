@@ -4,6 +4,7 @@ import com.koitourdemo.demo.entity.Cart;
 import com.koitourdemo.demo.entity.CartItem;
 import com.koitourdemo.demo.entity.Koi;
 import com.koitourdemo.demo.exception.NotFoundException;
+import com.koitourdemo.demo.model.response.KoiResponse;
 import com.koitourdemo.demo.repository.CartItemRepository;
 import com.koitourdemo.demo.repository.CartRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,13 +31,8 @@ public class CartItemService {
     KoiService koiService;
 
     public void addItemToCart(Long cartId, UUID koiId, int quantity) {
-        //1. Get the cart
-        //2. Get the product
-        //3. Check if the product already in the cart
-        //4. If Yes, then increase the quantity with the requested quantity
-        //5. If No, then initiate a new CartItem entry.
         Cart cart = cartService.getCart(cartId);
-        Koi koi = koiService.getKoiById(koiId);
+        Koi koi = koiService.getKoiEntityById(koiId);
         CartItem cartItem = cart.getCartItems()
                 .stream()
                 .filter(item -> item.getKoi().getId().equals(koiId))

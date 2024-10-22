@@ -29,8 +29,6 @@ public class KoiService {
     AuthenticationService authenticationService;
 
     public Koi createNewKoi(KoiRequest koiRequest){
-//        Koi koi = modelMapper.map(koiRequest, Koi.class);
-
         Koi koi = new Koi();
         koi.setName(koiRequest.getName());
         koi.setFarmName(koiRequest.getFarmName());
@@ -43,14 +41,8 @@ public class KoiService {
 
         User userRequest = authenticationService.getCurrentUser();
         koi.setUser(userRequest);
-        
-        try {
-            Koi newKoi = koiRepository.save(koi);
-            return newKoi;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new NotFoundException("error when saving koi to db");
-        }
+        Koi newKoi = koiRepository.save(koi);
+        return newKoi;
     }
 
     public KoiPageResponse getAllKoi(int page, int size){
@@ -64,8 +56,9 @@ public class KoiService {
         return koiResponse;
     }
 
-    public KoiResponse updateKoi(KoiRequest koiRequest, UUID id){
-        Koi oldKoi = getKoiById(id);
+    public KoiResponse updateKoi(KoiRequest koiRequest, UUID id) {
+        Koi oldKoi = koiRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Không thể tìm thấy cá Koi này!"));
         oldKoi.setName(koiRequest.getName());
         oldKoi.setFarmName(koiRequest.getFarmName());
         oldKoi.setSize(koiRequest.getSize());
@@ -73,33 +66,26 @@ public class KoiService {
         oldKoi.setPrice(koiRequest.getPrice());
         oldKoi.setImage(koiRequest.getImage());
         Koi updatedKoi = koiRepository.save(oldKoi);
-        return convertToKoiResponse(updatedKoi);
+        return modelMapper.map(updatedKoi, KoiResponse.class);
     }
 
-    private KoiResponse convertToKoiResponse(Koi koi) {
-        KoiResponse response = new KoiResponse();
-        response.setName(koi.getName());
-        response.setFarmName(koi.getFarmName());
-        response.setType(koi.getType());
-        response.setSize(koi.getSize());
-        response.setOrigin(koi.getOrigin());
-        response.setPrice(koi.getPrice());
-        response.setImage(koi.getImage());
-        return response;
-    }
-
-    public Koi deleteKoi(UUID id){
-        Koi oldKoi = getKoiById(id);
+    public KoiResponse deleteKoi(UUID id) {
+        Koi oldKoi = koiRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Không thể tìm thấy cá Koi này!"));
         oldKoi.setDeleted(true);
-        return koiRepository.save(oldKoi);
+        Koi deletedKoi = koiRepository.save(oldKoi);
+        return modelMapper.map(deletedKoi, KoiResponse.class);
     }
 
-    public Koi getKoiById(UUID id){
-        Koi oldKoi = koiRepository.findKoiById(id);
-        if(oldKoi == null) {
-            throw new NotFoundException("Koi not found!");
-        }
-        return oldKoi;
+    public KoiResponse getKoiById(UUID id) {
+        Koi koi = koiRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Không thể tìm thấy cá Koi này!"));
+        return modelMapper.map(koi, KoiResponse.class);
+    }
+
+    public Koi getKoiEntityById(UUID id) {
+        return koiRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Không thể tìm thấy cá Koi này!"));
     }
 
 }

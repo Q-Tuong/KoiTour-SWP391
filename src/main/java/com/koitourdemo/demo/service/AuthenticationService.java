@@ -6,10 +6,7 @@ import com.koitourdemo.demo.exception.AuthException;
 import com.koitourdemo.demo.exception.DuplicateEntity;
 import com.koitourdemo.demo.exception.NotFoundException;
 import com.koitourdemo.demo.model.*;
-import com.koitourdemo.demo.model.request.ForgotPasswordRequest;
-import com.koitourdemo.demo.model.request.LoginRequest;
-import com.koitourdemo.demo.model.request.RegisterRequest;
-import com.koitourdemo.demo.model.request.ResetPasswordRequest;
+import com.koitourdemo.demo.model.request.*;
 import com.koitourdemo.demo.model.response.UserResponse;
 import com.koitourdemo.demo.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -142,18 +139,21 @@ public class AuthenticationService implements UserDetailsService {
         return userRepository.findUserById(user.getId());
     }
 
-    public void logout(String token) {
-        // Vô hiệu hóa token
-        tokenService.invalidateToken(token);
+    public UserResponse updateUser(UserRequest userRequest, long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Không thể tìm thấy người dùng này!"));
+        user.setFirstName(userRequest.getFirstName());
+        user.setLastName(userRequest.getLastName());
+        user.setPhone(userRequest.getPhone());
+        user.setAddress(userRequest.getAddress());
+        User savedUser = userRepository.save(user);
+        return modelMapper.map(savedUser, UserResponse.class);
+    }
 
-        // Xóa thông tin người dùng khỏi SecurityContext
-        SecurityContextHolder.clearContext();
-
-        // Nếu bạn đang sử dụng session-based authentication, hãy vô hiệu hóa session
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
+    public UserResponse getUserById(long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Không thể tìm thấy người dùng này!"));
+        return modelMapper.map(user, UserResponse.class);
     }
 
     public void forgotPassword(ForgotPasswordRequest forgotPasswordRequest){

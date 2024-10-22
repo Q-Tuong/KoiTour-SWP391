@@ -42,7 +42,7 @@ public class KoiFarm {
     @JoinColumn(name = "consulting_id")
     User consulting;
 
-    @ManyToMany(mappedBy = "koiFarms")
+    @OneToMany(mappedBy = "koiFarms")
     @JsonIgnore
     List<Koi> kois;
 }

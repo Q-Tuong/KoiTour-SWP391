@@ -50,12 +50,9 @@ public class Koi {
     @JoinColumn(name = "user_id")
     User user;
 
-    @ManyToMany
-    @JoinTable(name = "Kois_Farms",
-        joinColumns = @JoinColumn(name = "koi_id"),
-        inverseJoinColumns = @JoinColumn(name = "koiFarm_id")
-    )
-    List<KoiFarm> koiFarms;
+    @ManyToOne
+    @JoinColumn(name = "koiFarm_id")
+    KoiFarm koiFarm;
 
     @OneToMany(mappedBy = "koi")
     @JsonIgnore

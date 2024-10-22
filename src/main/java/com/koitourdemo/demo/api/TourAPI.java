@@ -33,6 +33,12 @@ public class TourAPI {
         return ResponseEntity.ok(tourResponse);
     }
 
+    @GetMapping("/{tourId}/get-by-id")
+    public ResponseEntity getTourById(@PathVariable long tourId) {
+        TourResponse tourResponse = tourService.getTourById(tourId);
+        return ResponseEntity.ok(tourResponse);
+    }
+
     @PutMapping("/{tourId}/update")
     public ResponseEntity updateTour(@Valid @RequestBody TourRequest tourRequest, @PathVariable long tourId){
         TourResponse updated = tourService.updateTour(tourRequest, tourId);
@@ -41,7 +47,7 @@ public class TourAPI {
 
     @DeleteMapping("/{tourId}/delete")
     public ResponseEntity deleteTour(@PathVariable long tourId){
-        Tour deleted = tourService.deleteTour(tourId);
+        TourResponse deleted = tourService.deleteTour(tourId);
         return ResponseEntity.ok(deleted);
     }
 }

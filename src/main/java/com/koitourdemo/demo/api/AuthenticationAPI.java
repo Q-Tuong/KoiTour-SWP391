@@ -1,10 +1,7 @@
 package com.koitourdemo.demo.api;
 
 import com.koitourdemo.demo.entity.User;
-import com.koitourdemo.demo.model.request.ForgotPasswordRequest;
-import com.koitourdemo.demo.model.request.LoginRequest;
-import com.koitourdemo.demo.model.request.RegisterRequest;
-import com.koitourdemo.demo.model.request.ResetPasswordRequest;
+import com.koitourdemo.demo.model.request.*;
 import com.koitourdemo.demo.model.response.UserResponse;
 import com.koitourdemo.demo.service.AuthenticationService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -42,13 +39,16 @@ public class AuthenticationAPI {
         return ResponseEntity.ok(users);
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity logout(@RequestHeader("Authorization") String token) {
-        if (token != null && token.startsWith("Bearer ")) {
-            token = token.substring(7);
-        }
-        authenticationService.logout(token);
-        return ResponseEntity.ok("Logout successfully!");
+    @PutMapping("/{userId}/update")
+    public ResponseEntity updateUser(@PathVariable long userId, @RequestBody UserRequest userRequest) {
+        UserResponse updated = authenticationService.updateUser(userRequest, userId);
+        return ResponseEntity.ok(updated);
+    }
+
+    @GetMapping("/{userId}/me")
+    public ResponseEntity getUserById(@PathVariable long userId) {
+        UserResponse userResponse = authenticationService.getUserById(userId);
+        return ResponseEntity.ok(userResponse);
     }
 
     @PostMapping("/forgot-password")

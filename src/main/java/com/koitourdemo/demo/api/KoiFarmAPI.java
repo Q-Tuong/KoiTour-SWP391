@@ -33,6 +33,12 @@ public class KoiFarmAPI {
         return ResponseEntity.ok(koiFarmResponse);
     }
 
+    @GetMapping("/{koiFarmId}/get-by-id")
+    public ResponseEntity<KoiFarmResponse> getKoiFarmById(@PathVariable long koiFarmId) {
+        KoiFarmResponse koiFarmResponse = koiFarmService.getKoiFarmById(koiFarmId);
+        return ResponseEntity.ok(koiFarmResponse);
+    }
+
     @PutMapping("/{koiFarmId}/update")
     public ResponseEntity updateKoi(@Valid @RequestBody KoiFarmRequest koiFarmRequest, @PathVariable long koiFarmId){
         KoiFarmResponse updated = koiFarmService.updateKoiFarm(koiFarmRequest, koiFarmId);
@@ -41,7 +47,7 @@ public class KoiFarmAPI {
 
     @DeleteMapping("/{koiFarmId}/delete")
     public ResponseEntity deleteKoiFarm(@PathVariable long koiFarmId){
-        KoiFarm deleted = koiFarmService.deleteKoiFarm(koiFarmId);
+        KoiFarmResponse deleted = koiFarmService.deleteKoiFarm(koiFarmId);
         return ResponseEntity.ok(deleted);
     }
 

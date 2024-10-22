@@ -29,7 +29,6 @@ public class KoiFarmService {
     AuthenticationService authenticationService;
 
     public KoiFarm createNewKoiFarm(KoiFarmRequest koiFarmRequest){
-//        KoiFarm koiFarm = modelMapper.map(koiFarmRequest, KoiFarm.class);
         KoiFarm koiFarm = new KoiFarm();
         koiFarm.setName(koiFarmRequest.getName());
         koiFarm.setAddress(koiFarmRequest.getAddress());
@@ -40,14 +39,8 @@ public class KoiFarmService {
 
         User userRequest = authenticationService.getCurrentUser();
         koiFarm.setConsulting(userRequest);
-
-        try{
-            KoiFarm newKoiFarm = koiFarmRepository.save(koiFarm);
-            return newKoiFarm;
-        }catch (Exception e){
-            e.printStackTrace();
-            throw new NotFoundException("error when saving koi farm to db!");
-        }
+        KoiFarm newKoiFarm = koiFarmRepository.save(koiFarm);
+        return newKoiFarm;
     }
 
     public KoiFarmPageResponse getAllKoiFarm(int page, int size){
@@ -61,39 +54,29 @@ public class KoiFarmService {
     }
 
     public KoiFarmResponse updateKoiFarm(KoiFarmRequest koiFarmRequest, long id){
-        KoiFarm oldKoiFarm = getKoiFarmById(id);
-        oldKoiFarm.setName(koiFarmRequest.getName());
-        oldKoiFarm.setAddress(koiFarmRequest.getAddress());
-        oldKoiFarm.setPhone(koiFarmRequest.getPhone());
-        oldKoiFarm.setDescription(koiFarmRequest.getDescription());
-        oldKoiFarm.setImage(koiFarmRequest.getImage());
-        KoiFarm updatedKoiFarm = koiFarmRepository.save(oldKoiFarm);
-        return convertToKoiFarmResponse(updatedKoiFarm);
+        KoiFarm koiFarm = koiFarmRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Không thể tìm thấy trại cá này!"));
+        koiFarm.setName(koiFarmRequest.getName());
+        koiFarm.setAddress(koiFarmRequest.getAddress());
+        koiFarm.setPhone(koiFarmRequest.getPhone());
+        koiFarm.setDescription(koiFarmRequest.getDescription());
+        koiFarm.setImage(koiFarmRequest.getImage());
+        KoiFarm updatedKoiFarm = koiFarmRepository.save(koiFarm);
+        return modelMapper.map(updatedKoiFarm, KoiFarmResponse.class);
     }
 
-    private KoiFarmResponse convertToKoiFarmResponse(KoiFarm koiFarm) {
-        KoiFarmResponse response = new KoiFarmResponse();
-        response.setName(koiFarm.getName());
-        response.setAddress(koiFarm.getAddress());
-        response.setAddress(koiFarm.getAddress());
-        response.setPhone(koiFarm.getPhone());
-        response.setDescription(koiFarm.getDescription());
-        response.setImage(koiFarm.getImage());
-        return response;
-    }
-
-    public KoiFarm deleteKoiFarm(long id){
-        KoiFarm oldKoiFarm = getKoiFarmById(id);
+    public KoiFarmResponse deleteKoiFarm(long id) {
+        KoiFarm oldKoiFarm = koiFarmRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Koi Farm not found!"));
         oldKoiFarm.setDeleted(true);
-        return koiFarmRepository.save(oldKoiFarm);
+        KoiFarm deletedKoiFarm = koiFarmRepository.save(oldKoiFarm);
+        return modelMapper.map(deletedKoiFarm, KoiFarmResponse.class);
     }
 
-    public KoiFarm getKoiFarmById(long id){
-        KoiFarm oldKoiFarm = koiFarmRepository.findKoiFarmById(id);
-        if(oldKoiFarm == null) {
-            throw new NotFoundException("Koi not found!");
-        }
-        return oldKoiFarm;
+    public KoiFarmResponse getKoiFarmById(long id){
+        KoiFarm koiFarm = koiFarmRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Không thể tìm thấy trại cá này!"));
+        return modelMapper.map(koiFarm, KoiFarmResponse.class);
     }
 
 }

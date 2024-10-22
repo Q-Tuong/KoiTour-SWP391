@@ -28,7 +28,6 @@ public class TourService {
     AuthenticationService authenticationService;
 
     public Tour createNewTour(TourRequest tourRequest){
-//        Tour tour = modelMapper.map(tourRequest, Tour.class);
         Tour tour = new Tour();
         tour.setCode(tourRequest.getCode());
         tour.setName(tourRequest.getName());
@@ -40,14 +39,8 @@ public class TourService {
 
         User userRequest = authenticationService.getCurrentUser();
         tour.setUser(userRequest);
-
-        try {
-            Tour newTour = tourRepository.save(tour);
-            return newTour;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new NotFoundException("error when saving tour to db");
-        }
+        Tour newTour = tourRepository.save(tour);
+        return newTour;
     }
 
     public TourPageResponse getAllTour(int page, int size){
@@ -60,40 +53,30 @@ public class TourService {
         return tourResponse;
     }
 
-    public TourResponse updateTour(TourRequest tourRequest, long id){
-        Tour oldTour = getTourById(id);
+    public TourResponse updateTour(TourRequest tourRequest, long id) {
+        Tour oldTour = tourRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Tour not found!"));
         oldTour.setName(tourRequest.getName());
         oldTour.setDuration(tourRequest.getDuration());
         oldTour.setDescription(tourRequest.getDescription());
         oldTour.setPrice(tourRequest.getPrice());
         oldTour.setImage(tourRequest.getImage());
         Tour updatedTour = tourRepository.save(oldTour);
-        return convertToTourResponse(updatedTour);
+        return modelMapper.map(updatedTour, TourResponse.class);
     }
 
-    private TourResponse convertToTourResponse(Tour tour) {
-        TourResponse response = new TourResponse();
-        response.setCode(tour.getCode());
-        response.setName(tour.getName());
-        response.setDuration(tour.getDuration());
-        response.setDescription(tour.getDescription());
-        response.setPrice(tour.getPrice());
-        response.setImage(tour.getImage());
-        return response;
-    }
-
-    public Tour deleteTour(long id){
-        Tour oldTour = getTourById(id);
+    public TourResponse deleteTour(long id) {
+        Tour oldTour = tourRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Tour not found!"));
         oldTour.setDeleted(true);
-        return tourRepository.save(oldTour);
+        Tour deletedTour = tourRepository.save(oldTour);
+        return modelMapper.map(deletedTour, TourResponse.class);
     }
 
-    public Tour getTourById(long id){
-        Tour oldTour = tourRepository.findTourById(id);
-        if(oldTour == null) {
-            throw new NotFoundException("Tour not found!");
-        }
-        return oldTour;
+    public TourResponse getTourById(long id) {
+        Tour tour = tourRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Tour not found!"));
+        return modelMapper.map(tour, TourResponse.class);
     }
 
 }

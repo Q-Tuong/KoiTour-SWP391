@@ -12,8 +12,9 @@ import java.util.Date;
 public class TourResponse {
     String code;
     String name;
-    BigDecimal price;
+    String duration;
     String description;
+    BigDecimal price;
     String image;
     Date createAt;
 }

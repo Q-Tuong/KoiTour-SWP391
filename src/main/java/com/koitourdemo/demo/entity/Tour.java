@@ -35,6 +35,7 @@ public class Tour {
     @NotBlank(message = "Tour name cannot be blank!")
     String name;
 
+    String duration;
     BigDecimal price;
     String description;
     String image;

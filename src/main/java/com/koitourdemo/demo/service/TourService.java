@@ -32,8 +32,9 @@ public class TourService {
         Tour tour = new Tour();
         tour.setCode(tourRequest.getCode());
         tour.setName(tourRequest.getName());
-        tour.setPrice(tourRequest.getPrice());
+        tour.setDuration(tourRequest.getDuration());
         tour.setDescription(tourRequest.getDescription());
+        tour.setPrice(tourRequest.getPrice());
         tour.setImage(tourRequest.getImage());
         tour.setCreateAt(new Date());
 
@@ -62,6 +63,7 @@ public class TourService {
     public TourResponse updateTour(TourRequest tourRequest, long id){
         Tour oldTour = getTourById(id);
         oldTour.setName(tourRequest.getName());
+        oldTour.setDuration(tourRequest.getDuration());
         oldTour.setDescription(tourRequest.getDescription());
         oldTour.setPrice(tourRequest.getPrice());
         oldTour.setImage(tourRequest.getImage());
@@ -73,8 +75,9 @@ public class TourService {
         TourResponse response = new TourResponse();
         response.setCode(tour.getCode());
         response.setName(tour.getName());
-        response.setPrice(tour.getPrice());
+        response.setDuration(tour.getDuration());
         response.setDescription(tour.getDescription());
+        response.setPrice(tour.getPrice());
         response.setImage(tour.getImage());
         return response;
     }

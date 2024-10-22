@@ -34,10 +34,6 @@ public class KoiFarm {
 
     @NotBlank(message = "Invalid phone number!")
     String phone;
-
-    @Email(message = "Invalid email!")
-    @Column(unique = true)
-
     String description;
     String image;
     Date createAt;

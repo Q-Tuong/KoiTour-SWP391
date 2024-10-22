@@ -20,8 +20,9 @@ public class TourRequest {
     String code;
 
     String name;
-    BigDecimal price;
+    String duration;
     String description;
+    BigDecimal price;
     String image;
     Date createAt;
 }

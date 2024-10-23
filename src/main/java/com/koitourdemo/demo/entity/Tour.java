@@ -36,6 +36,7 @@ public class Tour {
     String name;
 
     String duration;
+    String startAt;
     BigDecimal price;
     String description;
     String image;

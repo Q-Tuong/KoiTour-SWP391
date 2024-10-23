@@ -13,6 +13,7 @@ public class TourResponse {
     String code;
     String name;
     String duration;
+    String startAt;
     String description;
     BigDecimal price;
     String image;

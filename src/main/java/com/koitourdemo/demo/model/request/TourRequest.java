@@ -21,6 +21,7 @@ public class TourRequest {
 
     String name;
     String duration;
+    String startAt;
     String description;
     BigDecimal price;
     String image;

@@ -14,7 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class TourService {
@@ -32,6 +31,7 @@ public class TourService {
         tour.setCode(tourRequest.getCode());
         tour.setName(tourRequest.getName());
         tour.setDuration(tourRequest.getDuration());
+        tour.setStartAt(tourRequest.getStartAt());
         tour.setDescription(tourRequest.getDescription());
         tour.setPrice(tourRequest.getPrice());
         tour.setImage(tourRequest.getImage());
@@ -58,6 +58,7 @@ public class TourService {
                 .orElseThrow(() -> new NotFoundException("Tour not found!"));
         oldTour.setName(tourRequest.getName());
         oldTour.setDuration(tourRequest.getDuration());
+        oldTour.setStartAt(tourRequest.getStartAt());
         oldTour.setDescription(tourRequest.getDescription());
         oldTour.setPrice(tourRequest.getPrice());
         oldTour.setImage(tourRequest.getImage());

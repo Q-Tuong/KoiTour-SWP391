@@ -5,32 +5,24 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Data
-@Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CartItem {
+public class CartItem implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    UUID koiId;
 
-    int quantity;
     String productName;
+    int quantity;
     BigDecimal unitPrice;
     BigDecimal totalPrice;
 
-    @ManyToOne
-    @JoinColumn(name = "cart_id")
-    Cart cart;
-
-    @ManyToOne
-    @JoinColumn(name = "koi_id")
-    Koi koi;
-
-    public void setTotalPrice() {
-        this.totalPrice = this.unitPrice.multiply(new BigDecimal (quantity));
+    public void updateTotalPrice() {
+        this.totalPrice = this.unitPrice.multiply(new BigDecimal(quantity));
     }
 
 }

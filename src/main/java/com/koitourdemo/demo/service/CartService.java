@@ -1,64 +1,74 @@
 package com.koitourdemo.demo.service;
 
 import com.koitourdemo.demo.entity.Cart;
-import com.koitourdemo.demo.entity.User;
-import com.koitourdemo.demo.exception.NotFoundException;
-import com.koitourdemo.demo.repository.CartItemRepository;
-import com.koitourdemo.demo.repository.CartRepository;
+import com.koitourdemo.demo.entity.CartItem;
+import com.koitourdemo.demo.entity.Koi;
 import jakarta.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.UUID;
 
 @Service
 public class CartService {
 
-    @Autowired
-    HttpSession session;
-
-    @Autowired
-    CartRepository cartRepository;
-
-    @Autowired
-    CartItemRepository cartItemRepository;
-
-    @Autowired
-    AuthenticationService authenticationService;
-
     public final String CART_SESSION_KEY = "CART_ID";
+    public final Logger logger = LoggerFactory.getLogger(CartService.class);
+
+    @Autowired
+    private KoiService koiService;
 
     public Cart getCart(HttpSession session) {
-        Long cartId = (Long) session.getAttribute(CART_SESSION_KEY);
-        if (cartId == null) {
-            return initializeNewCart(session);
+        try {
+            Cart cart = (Cart) session.getAttribute(CART_SESSION_KEY);
+            if (cart == null) {
+                cart = new Cart();
+                session.setAttribute(CART_SESSION_KEY, cart);
+            }
+            return cart;
+        } catch (Exception e) {
+            // Log error
+            logger.error("Error getting cart from session: " + e.getMessage());
+            return new Cart(); // Trả về cart rỗng nếu có lỗi
         }
-        return cartRepository.findById(cartId)
-                .orElseGet(() -> initializeNewCart(session));
     }
 
-    @Transactional
+    public void addItemToCart(HttpSession session, UUID koiId, int quantity) {
+        Cart cart = getCart(session);
+        Koi koi = koiService.getKoiEntityById(koiId);
+
+        CartItem item = new CartItem();
+        item.setKoiId(koiId);
+        item.setProductName(koi.getName());
+        item.setQuantity(quantity);
+        item.setUnitPrice(koi.getPrice());
+        item.updateTotalPrice();
+
+        cart.addItem(item);
+        session.setAttribute(CART_SESSION_KEY, cart);
+    }
+
+    public void removeItemFromCart(HttpSession session, UUID koiId) {
+        Cart cart = getCart(session);
+        cart.removeItem(koiId);
+        session.setAttribute(CART_SESSION_KEY, cart);
+    }
+
+    public void updateItemQuantity(HttpSession session, UUID koiId, int quantity) {
+        Cart cart = getCart(session);
+        cart.updateItemQuantity(koiId, quantity);
+        session.setAttribute(CART_SESSION_KEY, cart);
+    }
+
     public void clearCart(HttpSession session) {
-        Long cartId = (Long) session.getAttribute(CART_SESSION_KEY);
-        if (cartId != null) {
-            cartItemRepository.deleteAllByCartId(cartId);
-            cartRepository.deleteById(cartId);
-            session.removeAttribute(CART_SESSION_KEY);
-        }
+        session.removeAttribute(CART_SESSION_KEY);
     }
 
     public BigDecimal getTotalPrice(HttpSession session) {
-        Cart cart = getCart(session);
-        return cart.getTotalAmount();
-    }
-
-    public Cart initializeNewCart(HttpSession session) {
-        Cart newCart = new Cart();
-        Cart savedCart = cartRepository.save(newCart);
-        session.setAttribute(CART_SESSION_KEY, savedCart.getId());
-        return savedCart;
+        return getCart(session).getTotalAmount();
     }
 
 }

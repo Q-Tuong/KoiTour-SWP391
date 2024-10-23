@@ -121,8 +121,4 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "to")
     @JsonIgnore
     Set<Transactions> transactionsTo;
-
-    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
-    @JsonIgnore
-    Cart cart;
 }

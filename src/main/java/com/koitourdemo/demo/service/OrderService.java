@@ -7,12 +7,10 @@ import com.koitourdemo.demo.enums.TransactionsEnum;
 import com.koitourdemo.demo.exception.NotFoundException;
 import com.koitourdemo.demo.model.request.OrderDetailRequest;
 import com.koitourdemo.demo.model.request.OrderRequest;
-import com.koitourdemo.demo.repository.UserRepository;
-import com.koitourdemo.demo.repository.KoiRepository;
-import com.koitourdemo.demo.repository.OrderRepository;
-import com.koitourdemo.demo.repository.PaymentRepository;
+import com.koitourdemo.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -41,8 +39,12 @@ public class OrderService {
     UserRepository userRepository;
 
     @Autowired
+    KoiFarmRepository koiFarmRepository;
+
+    @Autowired
     PaymentRepository paymentRepository;
 
+    @Transactional
     public Orders create(OrderRequest orderRequest) {
         User customer = authenticationService.getCurrentUser();
         Orders order = new Orders();
@@ -57,6 +59,7 @@ public class OrderService {
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setQuantity(orderDetailRequest.getQuantity());
             orderDetail.setPrice(koi.getPrice());
+            orderDetail.setProductName(String.format("%s - %s", koi.getName(), koi.getFarmName()));
             orderDetail.setOrder(order);
             orderDetail.setKoi(koi);
             orderDetails.add(orderDetail);
@@ -78,6 +81,7 @@ public class OrderService {
         return orders;
     }
 
+    @Transactional
     public String createUrl(OrderRequest orderRequest) throws Exception {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         LocalDateTime createDate = LocalDateTime.now();
@@ -154,8 +158,8 @@ public class OrderService {
         return result.toString();
     }
 
-    public void createNewTransactions(UUID uuid){
-        // tìm cái order
+    @Transactional
+    public void createNewKoiTransactions(UUID uuid){
         Orders orders = orderRepository.findById(uuid)
                 .orElseThrow(() -> new NotFoundException("Order not found!"));
 
@@ -190,21 +194,38 @@ public class OrderService {
         admin.setBalance(newBalance);
         setTransactions.add(transactions2);
 
-        Transactions transactions3 = new Transactions();
-        transactions3.setPayment(payment);
-        transactions3.setStatus(TransactionsEnum.SUCCESS);
-        transactions3.setDescription("ADMIN OWNER");
-        transactions3.setFrom(admin);
-        User owner = orders.getOrderDetails().get(0).getKoi().getUser();
-        transactions3.setTo(owner);
-        float newFarmBalance = owner.getBalance() + orders.getTotal() * 0.9f;
-        owner.setBalance(newFarmBalance);
-        setTransactions.add(transactions3);
+        // ADMIN TO EACH KOI FARM
+        Map<KoiFarm, Float> farmAmounts = new HashMap<>();
+
+        // Tính toán số tiền cho từng farm
+        for (OrderDetail detail : orders.getOrderDetails()) {
+            KoiFarm farm = detail.getKoi().getKoiFarm();
+            float amount = detail.getPrice().floatValue() * detail.getQuantity() * 0.9f;
+            farmAmounts.merge(farm, amount, Float::sum);
+        }
+
+        // Tạo transactions cho từng farm
+        for (Map.Entry<KoiFarm, Float> entry : farmAmounts.entrySet()) {
+            KoiFarm farm = entry.getKey();
+            float amount = entry.getValue();
+
+            Transactions farmTransaction = new Transactions();
+            farmTransaction.setPayment(payment);
+            farmTransaction.setStatus(TransactionsEnum.SUCCESS);
+            farmTransaction.setDescription("ADMIN TO " + farm.getName());
+            farmTransaction.setFrom(admin);
+            farmTransaction.setTo(null);
+
+            float newFarmBalance = farm.getBalance() + amount;
+            farm.setBalance(newFarmBalance);
+
+            setTransactions.add(farmTransaction);
+            koiFarmRepository.save(farm);
+        }
 
         payment.setTransactions(setTransactions);
 
         userRepository.save(admin);
-        userRepository.save(owner);
         paymentRepository.save(payment);
     }
     

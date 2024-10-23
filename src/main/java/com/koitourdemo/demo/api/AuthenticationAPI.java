@@ -74,4 +74,5 @@ public class AuthenticationAPI {
         authenticationService.resendVerificationEmail(email);
         return ResponseEntity.ok("Verify email has been resent. Please check your mail box again!");
     }
+
 }

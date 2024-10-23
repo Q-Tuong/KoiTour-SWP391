@@ -40,7 +40,7 @@ public class KoiService {
         koi.setCreateAt(new Date());
 
         User userRequest = authenticationService.getCurrentUser();
-        koi.setUser(userRequest);
+        koi.setManager(userRequest);
         Koi newKoi = koiRepository.save(koi);
         return newKoi;
     }

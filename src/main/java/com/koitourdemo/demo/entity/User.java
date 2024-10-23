@@ -98,11 +98,11 @@ public class User implements UserDetails {
         return true;
     }
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "manager")
     @JsonIgnore
     List<Koi> kois;
 
-    @OneToMany(mappedBy = "consulting")
+    @OneToMany(mappedBy = "manager")
     @JsonIgnore
     List<KoiFarm> koiFarms;
 
@@ -122,7 +122,7 @@ public class User implements UserDetails {
     @JsonIgnore
     Set<Transactions> transactionsTo;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
     @JsonIgnore
     Cart cart;
 }

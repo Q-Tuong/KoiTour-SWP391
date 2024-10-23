@@ -36,13 +36,14 @@ public class KoiFarm {
     String phone;
     String description;
     String image;
+    float balance = 0;
     Date createAt;
 
     @ManyToOne
-    @JoinColumn(name = "consulting_id")
-    User consulting;
+    @JoinColumn(name = "Manager_id")
+    User manager;
 
-    @OneToMany(mappedBy = "koiFarms")
+    @OneToMany(mappedBy = "koiFarm")
     @JsonIgnore
     List<Koi> kois;
 }

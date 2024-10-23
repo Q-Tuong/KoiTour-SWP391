@@ -38,7 +38,7 @@ public class KoiFarmService {
         koiFarm.setCreateAt(new Date());
 
         User userRequest = authenticationService.getCurrentUser();
-        koiFarm.setConsulting(userRequest);
+        koiFarm.setManager(userRequest);
         KoiFarm newKoiFarm = koiFarmRepository.save(koiFarm);
         return newKoiFarm;
     }

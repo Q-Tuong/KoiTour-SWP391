@@ -50,4 +50,5 @@ public class TourAPI {
         TourResponse deleted = tourService.deleteTour(tourId);
         return ResponseEntity.ok(deleted);
     }
+
 }

@@ -17,6 +17,7 @@ public class CartItem {
     Long id;
 
     int quantity;
+    String productName;
     BigDecimal unitPrice;
     BigDecimal totalPrice;
 
@@ -31,4 +32,5 @@ public class CartItem {
     public void setTotalPrice() {
         this.totalPrice = this.unitPrice.multiply(new BigDecimal (quantity));
     }
+
 }

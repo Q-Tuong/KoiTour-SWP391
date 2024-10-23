@@ -22,18 +22,12 @@ public class Cart {
     BigDecimal totalAmount;
 
     @OneToOne
-    @JoinColumn(name = "user_id")
-    User user;
+    @JoinColumn(name = "customer_id")
+    User customer;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     List<CartItem> cartItems = new ArrayList<>();
-
-    public void addItem(CartItem item) {
-        this.cartItems.add(item);
-        item.setCart(this);
-        updateTotalAmount();
-    }
 
     public void removeItem(CartItem item) {
         this.cartItems.remove(item);
@@ -41,7 +35,7 @@ public class Cart {
         updateTotalAmount();
     }
 
-    private void updateTotalAmount() {
+    public void updateTotalAmount() {
         this.totalAmount = cartItems.stream().map(item -> {
             BigDecimal unitPrice = item.getUnitPrice();
             if (unitPrice == null) {

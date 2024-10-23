@@ -31,5 +31,4 @@ public class Transactions {
     @ManyToOne
     @JoinColumn(name = "payment_id")
     Payment payment;
-
 }

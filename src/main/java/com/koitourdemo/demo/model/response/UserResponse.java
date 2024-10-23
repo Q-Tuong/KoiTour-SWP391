@@ -1,5 +1,6 @@
 package com.koitourdemo.demo.model.response;
 
+import com.koitourdemo.demo.enums.Role;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -13,5 +14,6 @@ public class UserResponse {
     String email;
     String phone;
     String address;
+    Role role;
     String token;
 }

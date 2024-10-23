@@ -32,7 +32,7 @@ public class OrderAPI {
 
     @PostMapping("transactions")
     public ResponseEntity create(@RequestParam UUID orderId) throws Exception {
-        orderService.createNewTransactions(orderId);
+        orderService.createNewKoiTransactions(orderId);
         return ResponseEntity.ok("Success");
     }
 

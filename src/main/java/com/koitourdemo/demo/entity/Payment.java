@@ -30,5 +30,4 @@ public class Payment {
     @OneToMany(mappedBy = "payment", cascade = CascadeType.ALL)
     @JsonIgnore
     Set<Transactions> transactions;
-
 }

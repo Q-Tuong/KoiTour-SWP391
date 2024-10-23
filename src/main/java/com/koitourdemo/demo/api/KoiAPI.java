@@ -52,4 +52,5 @@ public class KoiAPI {
         KoiResponse deleted = koiService.deleteKoi(koiId);
         return ResponseEntity.ok(deleted);
     }
+
 }

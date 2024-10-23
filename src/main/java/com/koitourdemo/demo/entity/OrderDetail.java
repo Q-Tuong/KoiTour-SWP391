@@ -17,8 +17,10 @@ public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
+
     BigDecimal price;
     int quantity;
+    String productName;
 
     @ManyToOne
     @JoinColumn(name = "order_id")

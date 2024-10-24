@@ -9,9 +9,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
-import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @Table(name = "Tours")
@@ -37,7 +35,7 @@ public class Tour {
 
     String duration;
     String startAt;
-    BigDecimal price;
+    float price;
     String description;
     String image;
     Date createAt;
@@ -46,7 +44,4 @@ public class Tour {
     @JoinColumn(name = "manager_id")
     User user;
 
-    @OneToMany(mappedBy = "tour")
-    @JsonIgnore
-    List<OrderDetail> orderDetails;
 }

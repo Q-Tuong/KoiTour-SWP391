@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
@@ -18,11 +17,7 @@ public class CartItem implements Serializable {
 
     String productName;
     int quantity;
-    BigDecimal unitPrice;
-    BigDecimal totalPrice;
-
-    public void updateTotalPrice() {
-        this.totalPrice = this.unitPrice.multiply(new BigDecimal(quantity));
-    }
+    float unitPrice;
+    float totalPrice;
 
 }

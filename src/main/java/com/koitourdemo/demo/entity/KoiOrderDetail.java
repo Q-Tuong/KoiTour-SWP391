@@ -2,35 +2,33 @@ package com.koitourdemo.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "OrderDetails")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class OrderDetail {
+public class KoiOrderDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    BigDecimal price;
+    float unitPrice;
+    float totalPrice;
     int quantity;
     String productName;
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    Orders order;
+    KoiOrder order;
 
     @ManyToOne
     @JoinColumn(name = "koi_id")
     Koi koi;
-
-    @ManyToOne
-    @JoinColumn(name = "tour_id")
-    Tour tour;
 }

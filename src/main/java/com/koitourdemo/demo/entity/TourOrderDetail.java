@@ -1,7 +1,5 @@
 package com.koitourdemo.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.koitourdemo.demo.enums.TransactionsEnum;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,27 +11,27 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
+@Table(name = "TourOrderDetails")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Transactions {
+public class TourOrderDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    @Enumerated(EnumType.STRING)
-    TransactionsEnum status;
-    
+    float unitPrice;
+    float totalPrice;
+    int quantity;
+    String tourName;
+    String duration;
+    String startAt;
     String description;
 
     @ManyToOne
-    @JoinColumn(name = "from_id")
-    User from;
+    @JoinColumn(name = "order_id")
+    TourOrder order;
 
     @ManyToOne
-    @JoinColumn(name = "to_id")
-    User to;
-
-    @ManyToOne
-    @JoinColumn(name = "payment_id")
-    Payment payment;
+    @JoinColumn(name = "tour_id")
+    Tour tour;
 }

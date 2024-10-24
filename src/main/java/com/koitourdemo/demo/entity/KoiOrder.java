@@ -3,17 +3,19 @@ package com.koitourdemo.demo.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Orders {
+public class KoiOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -28,9 +30,9 @@ public class Orders {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @JsonIgnore
-    List<OrderDetail> orderDetails;
+    List<KoiOrderDetail> orderDetails;
 
-    @OneToOne(mappedBy = "orders")
+    @OneToOne(mappedBy = "koiOrder")
     @JsonIgnore
     Payment payment;
 }

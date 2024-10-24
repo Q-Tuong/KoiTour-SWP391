@@ -37,33 +37,16 @@ public class CartAPI {
         }
     }
 
-    @PostMapping("/{koiId}/add")
-    public ResponseEntity addItem(@RequestParam UUID koiId, @RequestParam int quantity, HttpSession session) {
-        cartService.addItemToCart(session, koiId, quantity);
-        return ResponseEntity.ok("Item added to cart");
-    }
-
     @DeleteMapping("/{koiId}/remove")
     public ResponseEntity removeItem(@PathVariable UUID koiId, HttpSession session) {
         cartService.removeItemFromCart(session, koiId);
         return ResponseEntity.ok("Item removed from cart");
     }
 
-    @PutMapping("/{koiId}/update-quantity")
-    public ResponseEntity updateQuantity(@PathVariable UUID koiId, @RequestParam int quantity, HttpSession session) {
-        cartService.updateItemQuantity(session, koiId, quantity);
-        return ResponseEntity.ok("Quantity updated");
-    }
-
     @DeleteMapping("/clear")
     public ResponseEntity clearCart(HttpSession session) {
         cartService.clearCart(session);
         return ResponseEntity.ok("Cart cleared");
-    }
-
-    @GetMapping("/total-price")
-    public ResponseEntity getTotal(HttpSession session) {
-        return ResponseEntity.ok(cartService.getTotalPrice(session));
     }
 
 }

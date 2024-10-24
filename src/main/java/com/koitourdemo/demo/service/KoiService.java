@@ -1,11 +1,13 @@
 package com.koitourdemo.demo.service;
 
 import com.koitourdemo.demo.entity.Koi;
+import com.koitourdemo.demo.entity.KoiFarm;
 import com.koitourdemo.demo.entity.User;
 import com.koitourdemo.demo.exception.NotFoundException;
 import com.koitourdemo.demo.model.request.KoiRequest;
 import com.koitourdemo.demo.model.response.KoiPageResponse;
 import com.koitourdemo.demo.model.response.KoiResponse;
+import com.koitourdemo.demo.repository.KoiFarmRepository;
 import com.koitourdemo.demo.repository.KoiRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +25,21 @@ public class KoiService {
     KoiRepository koiRepository;
 
     @Autowired
+    KoiFarmRepository koiFarmRepository;
+
+    @Autowired
     ModelMapper modelMapper;
 
     @Autowired
     AuthenticationService authenticationService;
 
-    public Koi createNewKoi(KoiRequest koiRequest){
+    public Koi createNewKoi(KoiRequest koiRequest) {
+        // Tìm KoiFarm dựa trên farmName
+        KoiFarm koiFarm = koiFarmRepository.findByNameContainingIgnoreCase(koiRequest.getFarmName())
+                .orElseThrow(() -> new NotFoundException(
+                        "Không tìm thấy trại cá có tên: " + koiRequest.getFarmName()
+                ));
+
         Koi koi = new Koi();
         koi.setName(koiRequest.getName());
         koi.setFarmName(koiRequest.getFarmName());
@@ -39,10 +50,13 @@ public class KoiService {
         koi.setImage(koiRequest.getImage());
         koi.setCreateAt(new Date());
 
+        // Set KoiFarm cho Koi
+        koi.setKoiFarm(koiFarm);
+
         User userRequest = authenticationService.getCurrentUser();
         koi.setManager(userRequest);
-        Koi newKoi = koiRepository.save(koi);
-        return newKoi;
+
+        return koiRepository.save(koi);
     }
 
     public KoiPageResponse getAllKoi(int page, int size){

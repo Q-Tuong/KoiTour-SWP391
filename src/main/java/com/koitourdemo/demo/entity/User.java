@@ -56,7 +56,9 @@ public class User implements UserDetails {
 
     @JsonIgnore
     boolean emailVerified;
-    float balance = 0;
+
+    float koiBalance = 0;
+    float tourBalance = 0;
     Date createAt;
     String verificationToken;
     Date verificationTokenExpiry;
@@ -112,7 +114,7 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "customer")
     @JsonIgnore
-    List<Orders> orders;
+    List<KoiOrder> orders;
 
     @OneToMany(mappedBy = "from")
     @JsonIgnore

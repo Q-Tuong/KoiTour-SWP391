@@ -8,7 +8,9 @@ import java.util.UUID;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class OrderDetailRequest {
-    UUID koiID;
+public class KoiOrderDetailRequest {
+    UUID koiId;
     int quantity;
+    float unitPrice;
+    float totalPrice;
 }

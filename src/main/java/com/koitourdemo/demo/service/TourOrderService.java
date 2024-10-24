@@ -5,16 +5,18 @@ import com.koitourdemo.demo.enums.PaymentEnums;
 import com.koitourdemo.demo.enums.Role;
 import com.koitourdemo.demo.enums.TransactionsEnum;
 import com.koitourdemo.demo.exception.NotFoundException;
-import com.koitourdemo.demo.model.request.OrderDetailRequest;
-import com.koitourdemo.demo.model.request.OrderRequest;
-import com.koitourdemo.demo.repository.*;
+import com.koitourdemo.demo.model.request.KoiOrderRequest;
+import com.koitourdemo.demo.model.request.TourOrderRequest;
+import com.koitourdemo.demo.model.request.TourOrderDetailRequest;
+import com.koitourdemo.demo.repository.TourOrderRepository;
+import com.koitourdemo.demo.repository.TourRepository;
+import com.koitourdemo.demo.repository.UserRepository;
+import com.koitourdemo.demo.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
@@ -24,74 +26,76 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
-public class OrderService {
-
+public class TourOrderService {
     @Autowired
     AuthenticationService authenticationService;
 
     @Autowired
-    KoiRepository koiRepository;
+    TourRepository tourRepository;
 
     @Autowired
-    OrderRepository orderRepository;
+    TourOrderRepository orderRepository;
 
     @Autowired
     UserRepository userRepository;
 
     @Autowired
-    KoiFarmRepository koiFarmRepository;
-
-    @Autowired
     PaymentRepository paymentRepository;
 
-    @Transactional
-    public Orders create(OrderRequest orderRequest) {
+    public TourOrder createTourOrder(TourOrderRequest orderRequest) {
         User customer = authenticationService.getCurrentUser();
-        Orders order = new Orders();
-        List<OrderDetail> orderDetails = new ArrayList<>();
-        BigDecimal total = BigDecimal.ZERO;
-
+        TourOrder order = new TourOrder();
+        List<TourOrderDetail> orderDetails = new ArrayList<>();
         order.setCustomer(customer);
-        order.setCreateAt(new Date()); // current date
+        order.setCreateAt(new Date());
+        float orderTotal = 0;
 
-        for (OrderDetailRequest orderDetailRequest : orderRequest.getDetail()) {
-            Koi koi = koiRepository.findKoiById(orderDetailRequest.getKoiID());
-            OrderDetail orderDetail = new OrderDetail();
-            orderDetail.setQuantity(orderDetailRequest.getQuantity());
-            orderDetail.setPrice(koi.getPrice());
-            orderDetail.setProductName(String.format("%s - %s", koi.getName(), koi.getFarmName()));
+        for (TourOrderDetailRequest detail : orderRequest.getDetails()) {
+            Tour tour = tourRepository.findById(detail.getTourId())
+                    .orElseThrow(() -> new NotFoundException("Tour not found with id: " + detail.getTourId()));
+
+            if (tour.getPrice() != detail.getUnitPrice()) {
+                throw new NotFoundException("Price mismatch for tour: " + tour.getId());
+            }
+
+            if (detail.getQuantity() <= 0) {
+                throw new NotFoundException("Invalid quantity for tour: " + tour.getId());
+            }
+
+            TourOrderDetail orderDetail = new TourOrderDetail();
+            orderDetail.setTour(tour);
             orderDetail.setOrder(order);
-            orderDetail.setKoi(koi);
+            orderDetail.setQuantity(detail.getQuantity());
+            orderDetail.setUnitPrice(detail.getUnitPrice());
+            orderDetail.setTotalPrice(detail.getTotalPrice());
+            orderDetail.setTourName(tour.getName());
+            orderDetail.setDuration(tour.getDuration());
+            orderDetail.setStartAt(tour.getStartAt());
+            
             orderDetails.add(orderDetail);
-
-            BigDecimal quantity = BigDecimal.valueOf(orderDetailRequest.getQuantity());
-            BigDecimal subtotal = koi.getPrice().multiply(quantity);
-            total = total.add(subtotal);
+            orderTotal += detail.getTotalPrice();
         }
 
+        order.setTotal(orderTotal);
         order.setOrderDetails(orderDetails);
-        order.setTotal(total.floatValue());
-
         return orderRepository.save(order);
     }
 
-    public List<Orders> getAllOrder(){
+    public List<TourOrder> getAllOrder(){
         User user = authenticationService.getCurrentUser();
-        List<Orders> orders = orderRepository.findOrderssByCustomer(user);
+        List<TourOrder> orders = orderRepository.findTourOderByCustomer(user);
         return orders;
     }
 
-    @Transactional
-    public String createUrl(OrderRequest orderRequest) throws Exception {
+    public String createUrl(TourOrderRequest orderRequest) throws Exception {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         LocalDateTime createDate = LocalDateTime.now();
         String formattedCreateDate = createDate.format(formatter);
 
         // code của mình
         // tạo order
-        Orders orders = create(orderRequest);
+        TourOrder orders = createTourOrder(orderRequest);
 
-        //
         float money = orders.getTotal() * 100;
         String amount = String.valueOf((int) money);
 
@@ -158,22 +162,19 @@ public class OrderService {
         return result.toString();
     }
 
-    @Transactional
-    public void createNewKoiTransactions(UUID uuid){
-        Orders orders = orderRepository.findById(uuid)
+    public void createNewTourTransactions(UUID uuid) {
+        TourOrder orders = orderRepository.findById(uuid)
                 .orElseThrow(() -> new NotFoundException("Order not found!"));
 
-        // tạo payment
         Payment payment = new Payment();
-        payment.setOrders(orders);
+        payment.setTourOrder(orders);
         payment.setCreateAt(new Date());
         payment.setPaymentMethod(PaymentEnums.BANKING);
 
         Set<Transactions> setTransactions = new HashSet<>();
 
-        // tạo transaction
-        Transactions transactions1 = new Transactions();
         // VNPay to customer
+        Transactions transactions1 = new Transactions();
         User customer = authenticationService.getCurrentUser();
         transactions1.setFrom(null);
         transactions1.setTo(customer);
@@ -182,51 +183,20 @@ public class OrderService {
         transactions1.setDescription("NAP TIEN VNPAY TO CUSTOMER");
         setTransactions.add(transactions1);
 
-        Transactions transactions2 = new Transactions();
         // CUSTOMER TO ADMIN
+        Transactions transactions2 = new Transactions();
         User admin = userRepository.findUserByRole(Role.ADMIN);
         transactions2.setFrom(customer);
         transactions2.setTo(admin);
         transactions2.setPayment(payment);
         transactions2.setStatus(TransactionsEnum.SUCCESS);
         transactions2.setDescription("CUSTOMER TO ADMIN");
-        float newBalance = admin.getBalance() + orders.getTotal() * 0.10f;
-        admin.setBalance(newBalance);
+        float newBalance = admin.getTourBalance() + orders.getTotal();
+        admin.setTourBalance(newBalance);
         setTransactions.add(transactions2);
 
-        // ADMIN TO EACH KOI FARM
-        Map<KoiFarm, Float> farmAmounts = new HashMap<>();
-
-        // Tính toán số tiền cho từng farm
-        for (OrderDetail detail : orders.getOrderDetails()) {
-            KoiFarm farm = detail.getKoi().getKoiFarm();
-            float amount = detail.getPrice().floatValue() * detail.getQuantity() * 0.9f;
-            farmAmounts.merge(farm, amount, Float::sum);
-        }
-
-        // Tạo transactions cho từng farm
-        for (Map.Entry<KoiFarm, Float> entry : farmAmounts.entrySet()) {
-            KoiFarm farm = entry.getKey();
-            float amount = entry.getValue();
-
-            Transactions farmTransaction = new Transactions();
-            farmTransaction.setPayment(payment);
-            farmTransaction.setStatus(TransactionsEnum.SUCCESS);
-            farmTransaction.setDescription("ADMIN TO " + farm.getName());
-            farmTransaction.setFrom(admin);
-            farmTransaction.setTo(null);
-
-            float newFarmBalance = farm.getBalance() + amount;
-            farm.setBalance(newFarmBalance);
-
-            setTransactions.add(farmTransaction);
-            koiFarmRepository.save(farm);
-        }
-
         payment.setTransactions(setTransactions);
-
         userRepository.save(admin);
         paymentRepository.save(payment);
     }
-    
 }

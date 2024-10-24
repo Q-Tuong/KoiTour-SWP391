@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface KoiFarmRepository extends JpaRepository<KoiFarm, Long> {
 
@@ -14,4 +15,6 @@ public interface KoiFarmRepository extends JpaRepository<KoiFarm, Long> {
 //    List<KoiFarm> findKoiFarmsByIsDeletedFalse();
 
     Page<KoiFarm> findAll(Pageable pageable);
+
+    Optional<KoiFarm> findByNameContainingIgnoreCase(String name);
 }

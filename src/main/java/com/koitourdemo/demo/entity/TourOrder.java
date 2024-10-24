@@ -1,39 +1,38 @@
 package com.koitourdemo.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.koitourdemo.demo.enums.TransactionsEnum;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
+import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
 @Setter
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Transactions {
+public class TourOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    @Enumerated(EnumType.STRING)
-    TransactionsEnum status;
-    
-    String description;
+    float total;
+    Date createAt;
 
     @ManyToOne
-    @JoinColumn(name = "from_id")
-    User from;
+    @JoinColumn(name = "customer_id")
+    User customer;
 
-    @ManyToOne
-    @JoinColumn(name = "to_id")
-    User to;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @JsonIgnore
+    List<TourOrderDetail> orderDetails;
 
-    @ManyToOne
-    @JoinColumn(name = "payment_id")
+    @OneToOne(mappedBy = "tourOrder")
+    @JsonIgnore
     Payment payment;
 }

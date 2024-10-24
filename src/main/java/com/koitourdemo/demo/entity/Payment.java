@@ -4,13 +4,15 @@ import com.koitourdemo.demo.enums.PaymentEnums;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 import java.util.Date;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Payment {
@@ -21,11 +23,16 @@ public class Payment {
 
     Date createAt;
 
+    @Enumerated(EnumType.STRING)
     PaymentEnums paymentMethod;
 
     @OneToOne
-    @JoinColumn(name = "orders_id")
-    Orders orders;
+    @JoinColumn(name = "koi_order_id")
+    KoiOrder koiOrder;
+
+    @OneToOne
+    @JoinColumn(name = "tour_order_id")
+    TourOrder tourOrder;
 
     @OneToMany(mappedBy = "payment", cascade = CascadeType.ALL)
     @JsonIgnore

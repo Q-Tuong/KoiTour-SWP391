@@ -8,7 +8,6 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -43,7 +42,7 @@ public class Koi {
     String origin;
 
     String image;
-    BigDecimal price;
+    float price;
     Date createAt;
 
     @ManyToOne
@@ -56,5 +55,5 @@ public class Koi {
 
     @OneToMany(mappedBy = "koi")
     @JsonIgnore
-    List<OrderDetail> orderDetails;
+    List<KoiOrderDetail> orderDetails;
 }

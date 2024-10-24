@@ -7,7 +7,6 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -23,7 +22,7 @@ public class TourRequest {
     String duration;
     String startAt;
     String description;
-    BigDecimal price;
+    float price;
     String image;
     Date createAt;
 }

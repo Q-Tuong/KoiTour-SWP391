@@ -1,0 +1,96 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  margin-left: 170px;
+}
+
+.title {
+  font-size: 36px;
+  margin-bottom: 20px;
+  font-family: "Montserrat", sans-serif;
+}
+.change-password-button {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-right: -176px;
+  margin-left: 40px;
+}
+.change-password-button:hover {
+  background-color: #4a4a48;
+}
+.new-password-container {
+  margin-right: -19px;
+}
+.avatar-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 40px;
+}
+
+.username {
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.password-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 20px;
+  margin-left: 80px;
+}
+
+.password-label {
+  font-size: 24px;
+  margin-bottom: 10px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.password-input-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.password-input {
+  margin-right: 10px;
+  padding: 5px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  font-size: 18px;
+  width: 250px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.toggle-password {
+  background-color: transparent;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  outline: none;
+}
+
+.toggle-password.visible {
+  color: #333;
+}
+
+.save-button {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-right: -176px;
+  margin-left: 40px;
+}
+
+.save-button:hover {
+  background-color: #4a4a48;
+}

@@ -5,6 +5,9 @@ import Signin from "../pages/Signin/Signin";
 import ResetPass from "../pages/ResetPass/ResetPass";
 import Signup from "../pages/Signup/Signup";
 import Kois from "../pages/Kois/Kois"
+import User from "../pages/User/User";
+import Tours from "../pages/Tours/Tours";
+
 
 export default function Routers() {
   return (
@@ -15,6 +18,8 @@ export default function Routers() {
       <Route path="/resetPass" element={<ResetPass />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/kois" element={<Kois/>} />
+      <Route path="/user" element={<User />} />
+      <Route path="/tours" element={<Tours/>} />
     </Routes>
   );
 }

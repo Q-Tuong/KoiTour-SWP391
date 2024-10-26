@@ -1,0 +1,36 @@
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.buybutton {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.buybutton:hover {
+  background-color: white;
+  color: black;
+}
+.cart-item-image {
+  width: 177px;
+  height: 248px;
+  object-fit: cover;
+}
+
+.paybutton {
+  background-color: transparent;
+  color: black;
+  border: 2px solid black;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.paybutton:hover {
+  background-color: black;
+  color: white;
+}

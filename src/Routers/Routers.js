@@ -7,7 +7,8 @@ import Signup from "../pages/Signup/Signup";
 import Kois from "../pages/Kois/Kois"
 import User from "../pages/User/User";
 import Tours from "../pages/Tours/Tours";
-
+import Koifarms from "../pages/Koifarms/Koifarms";
+import Cart from "../pages/Cart/Cart";
 
 export default function Routers() {
   return (
@@ -20,6 +21,8 @@ export default function Routers() {
       <Route path="/kois" element={<Kois/>} />
       <Route path="/user" element={<User />} />
       <Route path="/tours" element={<Tours/>} />
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/koifarms" element={<Koifarms />} />
     </Routes>
   );
 }

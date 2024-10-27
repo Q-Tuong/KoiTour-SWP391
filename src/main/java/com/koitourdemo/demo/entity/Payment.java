@@ -22,6 +22,7 @@ public class Payment {
     long id;
 
     Date createAt;
+    float total;
 
     @Enumerated(EnumType.STRING)
     PaymentEnums paymentMethod;
@@ -34,7 +35,11 @@ public class Payment {
     @JoinColumn(name = "tour_order_id")
     TourOrder tourOrder;
 
-    @OneToMany(mappedBy = "payment", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "koiPayment", cascade = CascadeType.ALL)
     @JsonIgnore
-    Set<Transactions> transactions;
+    Set<KoiTransaction> koiTransactions;
+
+    @OneToMany(mappedBy = "tourPayment", cascade = CascadeType.ALL)
+    @JsonIgnore
+    Set<TourTransaction> tourTransactions;
 }

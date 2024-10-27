@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @PreAuthorize("hasAuthority('ADMIN')")
@@ -37,6 +38,24 @@ public class AdminAPI {
     public ResponseEntity deleteUser(@PathVariable long userId){
         User deleted = adminService.deleteUser(userId);
         return ResponseEntity.ok(deleted);
+    }
+
+    @GetMapping("/stats")
+    public ResponseEntity getDashBoardStats(){
+        Map<String, Object> stats = adminService.getDashboardStats();
+        return ResponseEntity.ok(stats);
+    }
+
+    @GetMapping("/monthly-revenue/koi")
+    public ResponseEntity getKoiMonthlyRevenue(){
+        Map<String, Object> monthlyRevenue = adminService.getKoiMonthlyRevenue();
+        return ResponseEntity.ok(monthlyRevenue);
+    }
+
+    @GetMapping("/monthly-revenue/tour")
+    public ResponseEntity getTourMonthlyRevenue(){
+        Map<String, Object> monthlyRevenue = adminService.getTourMonthlyRevenue();
+        return ResponseEntity.ok(monthlyRevenue);
     }
 
 }

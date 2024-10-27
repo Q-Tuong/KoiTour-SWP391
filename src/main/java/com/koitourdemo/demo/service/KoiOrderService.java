@@ -73,7 +73,7 @@ public class KoiOrderService {
         }
 
         order.setTotal(orderTotal);
-        order.setOrderDetails(orderDetails);
+        order.setKoiOrderDetails(orderDetails);
         return orderRepository.save(order);
     }
 
@@ -166,34 +166,37 @@ public class KoiOrderService {
         Payment payment = new Payment();
         payment.setKoiOrder(orders);
         payment.setCreateAt(new Date());
+        payment.setTotal(orders.getTotal());
         payment.setPaymentMethod(PaymentEnums.BANKING);
 
-        Set<Transactions> setTransactions = new HashSet<>();
+        Set<KoiTransaction> setTransactions = new HashSet<>();
 
         // tạo transaction
-        Transactions transactions1 = new Transactions();
+        KoiTransaction transactions1 = new KoiTransaction();
         // VNPay to customer
         User customer = authenticationService.getCurrentUser();
+        transactions1.setCreateAt(new Date());
         transactions1.setFrom(null);
         transactions1.setTo(customer);
-        transactions1.setPayment(payment);
+        transactions1.setKoiPayment(payment);
         transactions1.setStatus(TransactionsEnum.SUCCESS);
         transactions1.setDescription("NAP TIEN VNPAY TO CUSTOMER");
         setTransactions.add(transactions1);
 
-        Transactions transactions2 = new Transactions();
+        KoiTransaction transactions2 = new KoiTransaction();
         // CUSTOMER TO ADMIN
         User admin = userRepository.findUserByRole(Role.ADMIN);
+        transactions2.setCreateAt(new Date());
         transactions2.setFrom(customer);
         transactions2.setTo(admin);
-        transactions2.setPayment(payment);
+        transactions2.setKoiPayment(payment);
         transactions2.setStatus(TransactionsEnum.SUCCESS);
         transactions2.setDescription("CUSTOMER TO ADMIN");
-        float newBalance = admin.getKoiBalance() + orders.getTotal() * 0.05f;
+        float newBalance = admin.getKoiBalance() + orders.getTotal();
         admin.setKoiBalance(newBalance);
         setTransactions.add(transactions2);
 
-        payment.setTransactions(setTransactions);
+        payment.setKoiTransactions(setTransactions);
 
         userRepository.save(admin);
         paymentRepository.save(payment);

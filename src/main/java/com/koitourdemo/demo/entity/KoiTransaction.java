@@ -7,13 +7,14 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
 @Setter
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Transactions {
+public class KoiTransaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -24,6 +25,7 @@ public class Transactions {
 
     float amount;
     String description;
+    Date createAt;
 
     @ManyToOne
     @JoinColumn(name = "from_id")
@@ -35,5 +37,5 @@ public class Transactions {
 
     @ManyToOne
     @JoinColumn(name = "payment_id")
-    Payment payment;
+    Payment koiPayment;
 }

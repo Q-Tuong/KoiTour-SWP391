@@ -30,9 +30,9 @@ public class TourOrder {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @JsonIgnore
-    List<TourOrderDetail> orderDetails;
+    List<TourOrderDetail> TourOrderDetails;
 
     @OneToOne(mappedBy = "tourOrder")
     @JsonIgnore
-    Payment payment;
+    Payment tourPayment;
 }

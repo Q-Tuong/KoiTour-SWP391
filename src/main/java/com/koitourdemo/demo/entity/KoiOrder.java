@@ -30,9 +30,9 @@ public class KoiOrder {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @JsonIgnore
-    List<KoiOrderDetail> orderDetails;
+    List<KoiOrderDetail> KoiOrderDetails;
 
     @OneToOne(mappedBy = "koiOrder")
     @JsonIgnore
-    Payment payment;
+    Payment koiPayment;
 }

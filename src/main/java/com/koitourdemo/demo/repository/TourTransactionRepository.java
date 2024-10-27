@@ -1,4 +1,19 @@
 package com.koitourdemo.demo.repository;
 
-public interface TourTransactionRepository {
+import com.koitourdemo.demo.entity.TourTransaction;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
+import java.util.UUID;
+
+public interface TourTransactionRepository extends JpaRepository<TourTransaction, UUID> {
+
+    @Query("SELECT YEAR(t.createAt) AS year, MONTH(t.createAt) AS month, sum(t.amount)" +
+            "FROM TourTransaction t " +
+            "WHERE t.status = 'SUCCESS' AND t.to.id =: userId " +
+            "GROUP BY YEAR(t.createAt), MONTH(t.createAt) " +
+            "ORDER BY YEAR(t.createAt), MONTH(t.createAt)")
+    List<Object[]> calculateMonthlyRevenue(@Param("userId") Long userId);
 }

@@ -11,7 +11,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "OrderDetails")
+@Table(name = "KoiOrderDetails")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class KoiOrderDetail {
 

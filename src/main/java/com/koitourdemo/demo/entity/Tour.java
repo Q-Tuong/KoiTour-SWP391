@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Table(name = "Tours")
@@ -42,6 +43,9 @@ public class Tour {
 
     @ManyToOne
     @JoinColumn(name = "manager_id")
-    User user;
+    User manager;
 
+    @OneToMany(mappedBy = "tour")
+    @JsonIgnore
+    List<TourOrderDetail> orderDetails;
 }

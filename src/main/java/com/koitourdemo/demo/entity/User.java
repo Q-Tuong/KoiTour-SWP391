@@ -108,19 +108,31 @@ public class User implements UserDetails {
     @JsonIgnore
     List<KoiFarm> koiFarms;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "manager")
     @JsonIgnore
     List<Tour> tours;
 
     @OneToMany(mappedBy = "customer")
     @JsonIgnore
-    List<KoiOrder> orders;
+    List<KoiOrder> koiOrders;
+
+    @OneToMany(mappedBy = "customer")
+    @JsonIgnore
+    List<TourOrder> tourOrders;
 
     @OneToMany(mappedBy = "from")
     @JsonIgnore
-    Set<Transactions> transactionsFrom;
+    Set<KoiTransaction> koiTransactionsFrom;
 
     @OneToMany(mappedBy = "to")
     @JsonIgnore
-    Set<Transactions> transactionsTo;
+    Set<KoiTransaction> koiTransactionsTo;
+
+    @OneToMany(mappedBy = "from")
+    @JsonIgnore
+    Set<TourTransaction> tourTransactionsFrom;
+
+    @OneToMany(mappedBy = "to")
+    @JsonIgnore
+    Set<TourTransaction> tourTransactionsTo;
 }

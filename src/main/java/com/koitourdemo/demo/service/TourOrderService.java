@@ -5,7 +5,6 @@ import com.koitourdemo.demo.enums.PaymentEnums;
 import com.koitourdemo.demo.enums.Role;
 import com.koitourdemo.demo.enums.TransactionsEnum;
 import com.koitourdemo.demo.exception.NotFoundException;
-import com.koitourdemo.demo.model.request.KoiOrderRequest;
 import com.koitourdemo.demo.model.request.TourOrderRequest;
 import com.koitourdemo.demo.model.request.TourOrderDetailRequest;
 import com.koitourdemo.demo.repository.TourOrderRepository;
@@ -77,7 +76,7 @@ public class TourOrderService {
         }
 
         order.setTotal(orderTotal);
-        order.setOrderDetails(orderDetails);
+        order.setTourOrderDetails(orderDetails);
         return orderRepository.save(order);
     }
 
@@ -169,33 +168,38 @@ public class TourOrderService {
         Payment payment = new Payment();
         payment.setTourOrder(orders);
         payment.setCreateAt(new Date());
+        payment.setTotal(orders.getTotal());
         payment.setPaymentMethod(PaymentEnums.BANKING);
 
-        Set<Transactions> setTransactions = new HashSet<>();
+        Set<TourTransaction> setTransactions = new HashSet<>();
 
         // VNPay to customer
-        Transactions transactions1 = new Transactions();
+        TourTransaction transactions1 = new TourTransaction();
         User customer = authenticationService.getCurrentUser();
+        transactions1.setCreateAt(new Date());
         transactions1.setFrom(null);
         transactions1.setTo(customer);
-        transactions1.setPayment(payment);
+        transactions1.setTourPayment(payment);
         transactions1.setStatus(TransactionsEnum.SUCCESS);
         transactions1.setDescription("NAP TIEN VNPAY TO CUSTOMER");
         setTransactions.add(transactions1);
 
         // CUSTOMER TO ADMIN
-        Transactions transactions2 = new Transactions();
+        TourTransaction transactions2 = new TourTransaction();
         User admin = userRepository.findUserByRole(Role.ADMIN);
+        transactions2.setCreateAt(new Date());
         transactions2.setFrom(customer);
         transactions2.setTo(admin);
-        transactions2.setPayment(payment);
+        transactions2.setTourPayment(payment);
         transactions2.setStatus(TransactionsEnum.SUCCESS);
         transactions2.setDescription("CUSTOMER TO ADMIN");
+
         float newBalance = admin.getTourBalance() + orders.getTotal();
+
         admin.setTourBalance(newBalance);
         setTransactions.add(transactions2);
 
-        payment.setTransactions(setTransactions);
+        payment.setTourTransactions(setTransactions);
         userRepository.save(admin);
         paymentRepository.save(payment);
     }

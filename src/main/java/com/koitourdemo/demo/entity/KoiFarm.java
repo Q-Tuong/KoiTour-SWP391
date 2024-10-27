@@ -40,7 +40,7 @@ public class KoiFarm {
     Date createAt;
 
     @ManyToOne
-    @JoinColumn(name = "Manager_id")
+    @JoinColumn(name = "manager_id")
     User manager;
 
     @OneToMany(mappedBy = "koiFarm")

@@ -1,6 +1,5 @@
 package com.koitourdemo.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.koitourdemo.demo.enums.TransactionsEnum;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -22,7 +21,8 @@ public class Transactions {
 
     @Enumerated(EnumType.STRING)
     TransactionsEnum status;
-    
+
+    float amount;
     String description;
 
     @ManyToOne

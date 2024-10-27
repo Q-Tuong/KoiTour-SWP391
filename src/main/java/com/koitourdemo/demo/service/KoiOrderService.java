@@ -192,7 +192,9 @@ public class KoiOrderService {
         transactions2.setKoiPayment(payment);
         transactions2.setStatus(TransactionsEnum.SUCCESS);
         transactions2.setDescription("CUSTOMER TO ADMIN");
+
         float newBalance = admin.getKoiBalance() + orders.getTotal();
+        transactions2.setAmount(newBalance);
         admin.setKoiBalance(newBalance);
         setTransactions.add(transactions2);
 

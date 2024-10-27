@@ -94,7 +94,7 @@ public class AdminService {
         List<Object[]> topKois = koiRepository.findTop5BestSellingKoi();
         List<Map<String, Object>> topKoisList = new ArrayList<>();
 
-        for(Object[] koiData : topKois){
+        for (Object[] koiData : topKois) {
             Map<String, Object> koiInfo = new HashMap<>();
             koiInfo.put("koiName", koiData[0]);
             koiInfo.put("totalSold", koiData[1]);
@@ -105,11 +105,11 @@ public class AdminService {
         List<Object[]> topTours = tourRepository.findTop5BestSellingTour();
         List<Map<String, Object>> topToursList = new ArrayList<>();
 
-        for(Object[] tourData : topTours){
+        for (Object[] tourData : topTours) {
             Map<String, Object> tourInfo = new HashMap<>();
             tourInfo.put("tourName", tourData[0]);
             tourInfo.put("totalSold", tourData[1]);
-            topKoisList.add(tourInfo);
+            topToursList.add(tourInfo);
         }
         stats.put("topTour", topToursList);
 

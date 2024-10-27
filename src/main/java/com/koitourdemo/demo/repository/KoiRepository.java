@@ -17,8 +17,10 @@ public interface KoiRepository extends JpaRepository<Koi, UUID> {
 
     Page<Koi> findAll(Pageable pageable);
 
-    @Query("SELECT p.name, SUM(kod.quantity) AS totalSold FROM KoiOrderDetail kod " +
-            "JOIN kod.koi p GROUP BY p.id " +
+    @Query("SELECT k.name, SUM(kod.quantity) AS totalSold " +
+            "FROM KoiOrderDetail kod " +
+            "JOIN kod.koi k " +
+            "GROUP BY k.id, k.name " +
             "ORDER BY totalSold DESC LIMIT 5")
     List<Object[]> findTop5BestSellingKoi();
 }

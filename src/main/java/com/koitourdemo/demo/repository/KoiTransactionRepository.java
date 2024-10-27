@@ -10,10 +10,10 @@ import java.util.UUID;
 
 public interface KoiTransactionRepository extends JpaRepository<KoiTransaction, UUID> {
 
-    @Query("SELECT YEAR(t.createAt) AS year, MONTH(t.createAt) AS month, sum(t.amount)" +
-            "FROM TourTransaction t " +
-            "WHERE t.status = 'SUCCESS' AND t.to.id =: userId " +
-            "GROUP BY YEAR(t.createAt), MONTH(t.createAt) " +
-            "ORDER BY YEAR(t.createAt), MONTH(t.createAt)")
+    @Query("SELECT YEAR(k.createAt) AS year, MONTH(k.createAt) AS month, sum(k.amount)" +
+            "FROM KoiTransaction k " +
+            "WHERE k.status = 'SUCCESS' AND k.to.id = :userId " +
+            "GROUP BY YEAR(k.createAt), MONTH(k.createAt) " +
+            "ORDER BY YEAR(k.createAt), MONTH(k.createAt)")
     List<Object[]> calculateMonthlyRevenue(@Param("userId") Long userId);
 }

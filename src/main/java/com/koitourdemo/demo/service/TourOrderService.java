@@ -195,7 +195,7 @@ public class TourOrderService {
         transactions2.setDescription("CUSTOMER TO ADMIN");
 
         float newBalance = admin.getTourBalance() + orders.getTotal();
-
+        transactions2.setAmount(newBalance);
         admin.setTourBalance(newBalance);
         setTransactions.add(transactions2);
 

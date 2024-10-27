@@ -16,8 +16,10 @@ public interface TourRepository extends JpaRepository<Tour, Long> {
 
     Page<Tour> findAll(Pageable pageable);
 
-    @Query("SELECT p.name, SUM(tod.quantity) AS totalSold FROM TourOrderDetail tod " +
-            "JOIN tod.tour p GROUP BY p.id " +
+    @Query("SELECT t.name, SUM(tod.quantity) AS totalSold " +
+            "FROM TourOrderDetail tod " +
+            "JOIN tod.tour t " +
+            "GROUP BY t.id, t.name " +
             "ORDER BY totalSold DESC LIMIT 5")
     List<Object[]> findTop5BestSellingTour();
 }

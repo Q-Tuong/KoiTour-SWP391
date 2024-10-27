@@ -12,7 +12,7 @@ public interface TourTransactionRepository extends JpaRepository<TourTransaction
 
     @Query("SELECT YEAR(t.createAt) AS year, MONTH(t.createAt) AS month, sum(t.amount)" +
             "FROM TourTransaction t " +
-            "WHERE t.status = 'SUCCESS' AND t.to.id =: userId " +
+            "WHERE t.status = 'SUCCESS' AND t.to.id = :userId " +
             "GROUP BY YEAR(t.createAt), MONTH(t.createAt) " +
             "ORDER BY YEAR(t.createAt), MONTH(t.createAt)")
     List<Object[]> calculateMonthlyRevenue(@Param("userId") Long userId);

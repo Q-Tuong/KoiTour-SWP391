@@ -9,6 +9,12 @@ import User from "../pages/User/User";
 import Tours from "../pages/Tours/Tours";
 import Koifarms from "../pages/Koifarms/Koifarms";
 import Cart from "../pages/Cart/Cart";
+import Dashboard from "../pages/Admin/Dashboard";
+import UserList from "../pages/Admin/UserList";
+import KoiList from "../pages/Admin/KoiList";
+import TourList from "../pages/Admin/TourList";
+import KoifarmList from "../pages/Admin/KoifarmList";
+import OrderList from "../pages/Admin/OrderList";
 
 export default function Routers() {
   return (
@@ -23,6 +29,12 @@ export default function Routers() {
       <Route path="/tours" element={<Tours/>} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/koifarms" element={<Koifarms />} />
+      <Route path="/admin" element={<Dashboard />} />
+      <Route path="/admin/kois" element={<KoiList />} />
+      <Route path="/admin/users" element={<UserList />} />
+      <Route path="/admin/tours" element={<TourList />} />
+      <Route path="/admin/koifarms" element={<KoifarmList />} />
+      <Route path="/admin/orders" element={<OrderList />} />
     </Routes>
   );
 }

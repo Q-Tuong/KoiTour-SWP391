@@ -35,7 +35,7 @@ export default function Footer() {
             Tours
           </NavLink>
             </p>
-            <p className="footer-company-name">Cầu Giấy Hà Nội - Lak Studio</p>
+            <p className="footer-company-name">HCM - Loyalty Koi</p>
           </div>
           <div className="footer-center">
             <div>
@@ -45,14 +45,14 @@ export default function Footer() {
                   <AiOutlineHome />
                 </span>
                 <span style={{ marginTop: "-20px", marginLeft: "24px" }}>
-                  Địa chỉ: 276 Phố Huế, Hai Bà Trưng, Hà Nội
+                  Địa chỉ: HCM
                 </span>
                 <br />
                 <span>
                   <AiOutlineMail />
                   <p style={{ marginTop: "-44px", marginLeft: "24px" }}>
                     {" "}
-                    Email: tuannhatcv@gmail.com
+                    Email: @gmail.com
                   </p>
                 </span>
               </p>

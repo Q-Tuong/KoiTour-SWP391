@@ -38,7 +38,7 @@ public class Tour {
     String startAt;
     float price;
     String description;
-    String image;
+    String imgUrl;
     Date createAt;
 
     @ManyToOne

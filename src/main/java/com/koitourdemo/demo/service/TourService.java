@@ -34,7 +34,7 @@ public class TourService {
         tour.setStartAt(tourRequest.getStartAt());
         tour.setDescription(tourRequest.getDescription());
         tour.setPrice(tourRequest.getPrice());
-        tour.setImage(tourRequest.getImage());
+        tour.setImgUrl(tourRequest.getImgUrl());
         tour.setCreateAt(new Date());
 
         User userRequest = authenticationService.getCurrentUser();
@@ -61,7 +61,7 @@ public class TourService {
         oldTour.setStartAt(tourRequest.getStartAt());
         oldTour.setDescription(tourRequest.getDescription());
         oldTour.setPrice(tourRequest.getPrice());
-        oldTour.setImage(tourRequest.getImage());
+        oldTour.setImgUrl(tourRequest.getImgUrl());
         Tour updatedTour = tourRepository.save(oldTour);
         return modelMapper.map(updatedTour, TourResponse.class);
     }

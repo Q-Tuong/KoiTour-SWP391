@@ -34,7 +34,7 @@ public class KoiFarmService {
         koiFarm.setAddress(koiFarmRequest.getAddress());
         koiFarm.setPhone(koiFarmRequest.getPhone());
         koiFarm.setDescription(koiFarmRequest.getDescription());
-        koiFarm.setImage(koiFarmRequest.getImage());
+        koiFarm.setImgUrl(koiFarmRequest.getImgUrl());
         koiFarm.setCreateAt(new Date());
 
         User userRequest = authenticationService.getCurrentUser();
@@ -60,7 +60,7 @@ public class KoiFarmService {
         koiFarm.setAddress(koiFarmRequest.getAddress());
         koiFarm.setPhone(koiFarmRequest.getPhone());
         koiFarm.setDescription(koiFarmRequest.getDescription());
-        koiFarm.setImage(koiFarmRequest.getImage());
+        koiFarm.setImgUrl(koiFarmRequest.getImgUrl());
         KoiFarm updatedKoiFarm = koiFarmRepository.save(koiFarm);
         return modelMapper.map(updatedKoiFarm, KoiFarmResponse.class);
     }

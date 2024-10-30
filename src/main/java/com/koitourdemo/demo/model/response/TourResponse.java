@@ -15,6 +15,6 @@ public class TourResponse {
     String startAt;
     String description;
     float price;
-    String image;
+    String imgUrl;
     Date createAt;
 }

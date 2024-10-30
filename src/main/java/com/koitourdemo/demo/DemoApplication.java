@@ -7,11 +7,13 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession;
 
 @SpringBootApplication
 @EnableJdbcHttpSession
-@OpenAPIDefinition(info = @Info(title = "Koi Tour API", version = "1.0", description = "Information"))
+@EnableScheduling
+@OpenAPIDefinition(info = @Info(title = "Loyalty Koi API", version = "1.0", description = "Information"))
 @SecurityScheme(name = "api", scheme = "bearer", type = SecuritySchemeType.HTTP, in = SecuritySchemeIn.HEADER)
 public class DemoApplication {
 

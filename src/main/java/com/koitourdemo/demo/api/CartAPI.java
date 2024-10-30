@@ -21,7 +21,7 @@ public class CartAPI {
     CartService cartService;
 
     @GetMapping("/get")
-    public ResponseEntity<?> getCart(HttpSession session) {
+    public ResponseEntity getCart(HttpSession session) {
         try {
             Cart cart = cartService.getCart(session);
             if (cart == null || cart.getItems().isEmpty()) {
@@ -37,6 +37,12 @@ public class CartAPI {
         }
     }
 
+    @PostMapping("/{koiId}/add")
+    public ResponseEntity addItem(@RequestParam UUID koiId, @RequestParam int quantity, HttpSession session) {
+        cartService.addItemToCart(session, koiId, quantity);
+        return ResponseEntity.ok("Item added to cart");
+    }
+
     @DeleteMapping("/{koiId}/remove")
     public ResponseEntity removeItem(@PathVariable UUID koiId, HttpSession session) {
         cartService.removeItemFromCart(session, koiId);
@@ -48,5 +54,4 @@ public class CartAPI {
         cartService.clearCart(session);
         return ResponseEntity.ok("Cart cleared");
     }
-
 }

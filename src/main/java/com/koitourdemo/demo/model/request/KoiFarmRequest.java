@@ -13,6 +13,6 @@ public class KoiFarmRequest {
     String address;
     String phone;
     String description;
-    String image;
+    String imgUrl;
     Date createAt;
 }

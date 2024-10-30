@@ -47,7 +47,7 @@ public class KoiService {
         koi.setSize(koiRequest.getSize());
         koi.setOrigin(koiRequest.getOrigin());
         koi.setPrice(koiRequest.getPrice());
-        koi.setImage(koiRequest.getImage());
+        koi.setImgUrl(koiRequest.getImgUrl());
         koi.setCreateAt(new Date());
 
         // Set KoiFarm cho Koi
@@ -78,7 +78,7 @@ public class KoiService {
         oldKoi.setSize(koiRequest.getSize());
         oldKoi.setOrigin(koiRequest.getOrigin());
         oldKoi.setPrice(koiRequest.getPrice());
-        oldKoi.setImage(koiRequest.getImage());
+        oldKoi.setImgUrl(koiRequest.getImgUrl());
         Koi updatedKoi = koiRepository.save(oldKoi);
         return modelMapper.map(updatedKoi, KoiResponse.class);
     }

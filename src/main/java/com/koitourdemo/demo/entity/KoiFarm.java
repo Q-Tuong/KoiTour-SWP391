@@ -35,8 +35,7 @@ public class KoiFarm {
     @NotBlank(message = "Invalid phone number!")
     String phone;
     String description;
-    String image;
-    float balance = 0;
+    String imgUrl;
     Date createAt;
 
     @ManyToOne

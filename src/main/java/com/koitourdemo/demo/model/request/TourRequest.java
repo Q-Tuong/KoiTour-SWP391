@@ -23,6 +23,6 @@ public class TourRequest {
     String startAt;
     String description;
     float price;
-    String image;
+    String imgUrl;
     Date createAt;
 }

@@ -1,6 +1,7 @@
 package com.koitourdemo.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.koitourdemo.demo.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -20,6 +21,9 @@ public class TourOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
+
+    @Enumerated(EnumType.STRING)
+    OrderStatus status;
 
     float total;
     Date createAt;

@@ -41,7 +41,7 @@ public class Koi {
     @NotBlank(message = "Koi origin cannot be blank!")
     String origin;
 
-    String image;
+    String imgUrl;
     float price;
     Date createAt;
 

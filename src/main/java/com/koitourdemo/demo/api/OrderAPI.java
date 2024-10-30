@@ -31,7 +31,7 @@ public class OrderAPI {
     AuthenticationService authenticationService;
 
     @PostMapping("/create/koi")
-    public ResponseEntity<?> createNewKoiOrder(@RequestBody KoiOrderRequest orderRequest) {
+    public ResponseEntity createNewKoiOrder(@RequestBody KoiOrderRequest orderRequest) {
         try {
             String vnPayUrl = koiOrderService.createUrl(orderRequest);
             return ResponseEntity.ok(vnPayUrl);
@@ -52,8 +52,58 @@ public class OrderAPI {
         return ResponseEntity.ok(orders);
     }
 
+    @GetMapping("/search-order-by-email/koi")
+    public ResponseEntity findKoiOrdersByEmail(@RequestParam String email) {
+        try {
+            List<KoiOrder> orders = koiOrderService.findOrdersByEmail(email);
+            return ResponseEntity.ok(orders);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error finding orders: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/get-paid-order/koi")
+    public ResponseEntity getPaidOrders() {
+        try {
+            List<KoiOrder> paidOrders = koiOrderService.getPaidOrders();
+            return ResponseEntity.ok(paidOrders);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/regenerate-payment/koi")
+    public ResponseEntity regeneratePaymentLink(@RequestParam UUID orderId) {
+        try {
+            String newPaymentUrl = koiOrderService.regeneratePaymentLink(orderId);
+            return ResponseEntity.ok(newPaymentUrl);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error regenerating payment link: " + e.getMessage());
+        }
+    }
+
+    @PutMapping("/update-to-complete/koi")
+    public ResponseEntity completeKoiOrder(@RequestParam UUID orderId) {
+        try {
+            KoiOrder order = koiOrderService.completeOrder(orderId);
+            return ResponseEntity.ok(order);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error completing order: " + e.getMessage());
+        }
+    }
+
+    @PutMapping("/update-to-cancel/koi")
+    public ResponseEntity cancelKoiOrder(@RequestParam UUID orderId) {
+        try {
+            KoiOrder order = koiOrderService.cancelOrder(orderId);
+            return ResponseEntity.ok(order);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error canceling order: " + e.getMessage());
+        }
+    }
+
     @PostMapping("/create/tour")
-    public ResponseEntity<?> createNewTourOrder(@RequestBody TourOrderRequest tourOrderRequest) {
+    public ResponseEntity createNewTourOrder(@RequestBody TourOrderRequest tourOrderRequest) {
         try {
             String vnPayUrl = tourOrderService.createUrl(tourOrderRequest);
             return ResponseEntity.ok(vnPayUrl);
@@ -72,5 +122,55 @@ public class OrderAPI {
     public ResponseEntity getAllTourOrder() {
         List<TourOrder> orders = tourOrderService.getAllOrder();
         return ResponseEntity.ok(orders);
+    }
+
+    @GetMapping("/search-order-by-email/tour")
+    public ResponseEntity findTourOrdersByEmail(@RequestParam String email) {
+        try {
+            List<TourOrder> orders = tourOrderService.findOrdersByEmail(email);
+            return ResponseEntity.ok(orders);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error finding orders: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/get-paid-order/tour")
+    public ResponseEntity getTourPaidOrders() {
+        try {
+            List<TourOrder> paidOrders = tourOrderService.getPaidOrders();
+            return ResponseEntity.ok(paidOrders);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/regenerate-payment/tour")
+    public ResponseEntity regenerateTourPaymentLink(@RequestParam UUID orderId) {
+        try {
+            String newPaymentUrl = tourOrderService.regeneratePaymentLink(orderId);
+            return ResponseEntity.ok(newPaymentUrl);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error regenerating payment link: " + e.getMessage());
+        }
+    }
+
+    @PutMapping("/update-to-complete/tour")
+    public ResponseEntity completeTourOrder(@RequestParam UUID orderId) {
+        try {
+            TourOrder order = tourOrderService.completeOrder(orderId);
+            return ResponseEntity.ok(order);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error completing order: " + e.getMessage());
+        }
+    }
+
+    @PutMapping("/update-to-cancel/tour")
+    public ResponseEntity cancelTourOrder(@RequestParam UUID orderId) {
+        try {
+            TourOrder order = tourOrderService.cancelOrder(orderId);
+            return ResponseEntity.ok(order);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error canceling order: " + e.getMessage());
+        }
     }
 }

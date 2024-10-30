@@ -15,6 +15,6 @@ public class KoiRequest {
     String size;
     String origin;
     float price;
-    String image;
+    String imgUrl;
     Date createAt;
 }

@@ -14,7 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class KoiFarmService {
@@ -41,6 +40,23 @@ public class KoiFarmService {
         koiFarm.setManager(userRequest);
         KoiFarm newKoiFarm = koiFarmRepository.save(koiFarm);
         return newKoiFarm;
+    }
+
+    public KoiFarmPageResponse searchKoiFarm(String keyword, int page, int size) {
+        Page<KoiFarm> koiFarmPage;
+        if (keyword == null || keyword.trim().isEmpty()) {
+            koiFarmPage = koiFarmRepository.findAll(PageRequest.of(page, size));
+        } else {
+            koiFarmPage = koiFarmRepository.searchKoiFarm(keyword.trim(), PageRequest.of(page, size));
+        }
+
+        KoiFarmPageResponse koiFarmResponse = new KoiFarmPageResponse();
+        koiFarmResponse.setTotalPages(koiFarmPage.getTotalPages());
+        koiFarmResponse.setContent(koiFarmPage.getContent());
+        koiFarmResponse.setPageNumber(koiFarmPage.getNumber());
+        koiFarmResponse.setTotalElements(koiFarmPage.getTotalElements());
+
+        return koiFarmResponse;
     }
 
     public KoiFarmPageResponse getAllKoiFarm(int page, int size){

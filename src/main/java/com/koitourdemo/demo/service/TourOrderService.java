@@ -322,7 +322,6 @@ public class TourOrderService {
     public TourOrder cancelOrder(UUID orderId) {
         TourOrder order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new NotFoundException("Order not found"));
-
         List<Payment> payments = paymentRepository.findByTourOrder(order);
 
         if (!payments.isEmpty()) {

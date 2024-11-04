@@ -27,25 +27,33 @@ public class KoiFarmAPI {
         return ResponseEntity.ok(newKoiFarm);
     }
 
-    @GetMapping("/get-all")
-    public ResponseEntity getAllKoiFarm(@RequestParam int page, @RequestParam(defaultValue = "5") int size){
-        KoiFarmPageResponse koiFarmResponse = koiFarmService.getAllKoiFarm(page, size);
-        return ResponseEntity.ok(koiFarmResponse);
+    @GetMapping("/search")
+    public ResponseEntity<KoiFarmPageResponse> searchKoiFarm(@RequestParam(required = false) String keyword,
+                                                             @RequestParam(defaultValue = "0") int page,
+                                                             @RequestParam(defaultValue = "10") int size) {
+        KoiFarmPageResponse koiFarmPageResponse = koiFarmService.searchKoiFarm(keyword, page, size);
+        return ResponseEntity.ok(koiFarmPageResponse);
     }
 
-    @GetMapping("/{koiFarmId}/get-by-id")
+    @GetMapping("/get-all")
+    public ResponseEntity getAllKoiFarm(@RequestParam int page, @RequestParam(defaultValue = "5") int size){
+        KoiFarmPageResponse koiFarmPageResponse = koiFarmService.getAllKoiFarm(page, size);
+        return ResponseEntity.ok(koiFarmPageResponse);
+    }
+
+    @GetMapping("/get-by-id/{koiFarmId}")
     public ResponseEntity<KoiFarmResponse> getKoiFarmById(@PathVariable long koiFarmId) {
         KoiFarmResponse koiFarmResponse = koiFarmService.getKoiFarmById(koiFarmId);
         return ResponseEntity.ok(koiFarmResponse);
     }
 
-    @PutMapping("/{koiFarmId}/update")
+    @PutMapping("/update/{koiFarmId}")
     public ResponseEntity updateKoi(@Valid @RequestBody KoiFarmRequest koiFarmRequest, @PathVariable long koiFarmId){
         KoiFarmResponse updated = koiFarmService.updateKoiFarm(koiFarmRequest, koiFarmId);
         return ResponseEntity.ok(updated);
     }
 
-    @DeleteMapping("/{koiFarmId}/delete")
+    @DeleteMapping("/delete/{koiFarmId}")
     public ResponseEntity deleteKoiFarm(@PathVariable long koiFarmId){
         KoiFarmResponse deleted = koiFarmService.deleteKoiFarm(koiFarmId);
         return ResponseEntity.ok(deleted);

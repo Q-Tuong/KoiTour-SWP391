@@ -39,13 +39,13 @@ public class AuthenticationAPI {
         return ResponseEntity.ok(users);
     }
 
-    @PutMapping("/{userId}/update")
+    @PutMapping("/update/{userId}")
     public ResponseEntity updateUser(@PathVariable long userId, @RequestBody UserRequest userRequest) {
         UserResponse updated = authenticationService.updateUser(userRequest, userId);
         return ResponseEntity.ok(updated);
     }
 
-    @GetMapping("/{userId}/me")
+    @GetMapping("/me/{userId}")
     public ResponseEntity getUserById(@PathVariable long userId) {
         UserResponse userResponse = authenticationService.getUserById(userId);
         return ResponseEntity.ok(userResponse);

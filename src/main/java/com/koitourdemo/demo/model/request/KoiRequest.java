@@ -10,7 +10,6 @@ import java.util.Date;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class KoiRequest {
     String name;
-    String farmName;
     String type;
     String size;
     String origin;

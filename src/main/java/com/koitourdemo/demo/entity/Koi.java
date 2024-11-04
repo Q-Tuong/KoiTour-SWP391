@@ -29,9 +29,6 @@ public class Koi {
     @NotBlank(message = "Koi name cannot be blank!")
     String name;
 
-    @NotBlank(message = "Koi farm cannot be blank!")
-    String farmName;
-
     @NotBlank(message = "Koi type cannot blank!")
     String type;
 

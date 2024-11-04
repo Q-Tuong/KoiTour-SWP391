@@ -37,13 +37,13 @@ public class CartAPI {
         }
     }
 
-    @PostMapping("/{koiId}/add")
+    @PostMapping("/add/{koiId}")
     public ResponseEntity addItem(@RequestParam UUID koiId, @RequestParam int quantity, HttpSession session) {
         cartService.addItemToCart(session, koiId, quantity);
         return ResponseEntity.ok("Item added to cart");
     }
 
-    @DeleteMapping("/{koiId}/remove")
+    @DeleteMapping("/remove/{koiId}")
     public ResponseEntity removeItem(@PathVariable UUID koiId, HttpSession session) {
         cartService.removeItemFromCart(session, koiId);
         return ResponseEntity.ok("Item removed from cart");

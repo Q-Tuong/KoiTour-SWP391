@@ -84,7 +84,7 @@ public class KoiOrderService {
             orderDetail.setQuantity(detail.getQuantity());
             orderDetail.setUnitPrice(unitPrice); // Set đơn giá lấy từ Koi
             orderDetail.setTotalPrice(detailTotalPrice); // Set tổng tiền đã tính
-            orderDetail.setProductName(String.format("%s - %s", koi.getName(), koi.getFarmName()));
+            orderDetail.setProductName(String.format("%s - %s", koi.getName(), koi.getOrigin()));
 
             orderDetails.add(orderDetail);
             orderTotalPrice += detailTotalPrice; // Cộng vào tổng tiền của order

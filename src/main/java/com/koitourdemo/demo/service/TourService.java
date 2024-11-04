@@ -43,6 +43,23 @@ public class TourService {
         return newTour;
     }
 
+    public TourPageResponse searchTour(String keyword, int page, int size) {
+        Page<Tour> tourPage;
+        if (keyword == null || keyword.trim().isEmpty()) {
+            tourPage = tourRepository.findAll(PageRequest.of(page, size));
+        } else {
+            tourPage = tourRepository.searchTour(keyword.trim(), PageRequest.of(page, size));
+        }
+
+        TourPageResponse tourResponse = new TourPageResponse();
+        tourResponse.setTotalPages(tourPage.getTotalPages());
+        tourResponse.setContent(tourPage.getContent());
+        tourResponse.setPageNumber(tourPage.getNumber());
+        tourResponse.setTotalElements(tourPage.getTotalElements());
+
+        return tourResponse;
+    }
+
     public TourPageResponse getAllTour(int page, int size){
         Page tourPage = tourRepository.findAll(PageRequest.of(page, size));
         TourPageResponse tourResponse = new TourPageResponse();

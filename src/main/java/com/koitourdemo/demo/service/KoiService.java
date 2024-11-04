@@ -35,14 +35,13 @@ public class KoiService {
 
     public Koi createNewKoi(KoiRequest koiRequest) {
         // Tìm KoiFarm dựa trên farmName
-        KoiFarm koiFarm = koiFarmRepository.findByNameContainingIgnoreCase(koiRequest.getFarmName())
+        KoiFarm koiFarm = koiFarmRepository.findByNameContainingIgnoreCase(koiRequest.getOrigin())
                 .orElseThrow(() -> new NotFoundException(
-                        "Không tìm thấy trại cá có tên: " + koiRequest.getFarmName()
+                        "Không tìm thấy trại cá có tên: " + koiRequest.getOrigin()
                 ));
 
         Koi koi = new Koi();
         koi.setName(koiRequest.getName());
-        koi.setFarmName(koiRequest.getFarmName());
         koi.setType(koiRequest.getType());
         koi.setSize(koiRequest.getSize());
         koi.setOrigin(koiRequest.getOrigin());
@@ -57,6 +56,23 @@ public class KoiService {
         koi.setManager(userRequest);
 
         return koiRepository.save(koi);
+    }
+
+    public KoiPageResponse searchKoi(String keyword, int page, int size) {
+        Page<Koi> koiPage;
+        if (keyword == null || keyword.trim().isEmpty()) {
+            koiPage = koiRepository.findAll(PageRequest.of(page, size));
+        } else {
+            koiPage = koiRepository.searchKoi(keyword.trim(), PageRequest.of(page, size));
+        }
+
+        KoiPageResponse koiResponse = new KoiPageResponse();
+        koiResponse.setTotalPages(koiPage.getTotalPages());
+        koiResponse.setContent(koiPage.getContent());
+        koiResponse.setPageNumber(koiPage.getNumber());
+        koiResponse.setTotalElements(koiPage.getTotalElements());
+
+        return koiResponse;
     }
 
     public KoiPageResponse getAllKoi(int page, int size){
@@ -74,7 +90,6 @@ public class KoiService {
         Koi oldKoi = koiRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Không thể tìm thấy cá Koi này!"));
         oldKoi.setName(koiRequest.getName());
-        oldKoi.setFarmName(koiRequest.getFarmName());
         oldKoi.setSize(koiRequest.getSize());
         oldKoi.setOrigin(koiRequest.getOrigin());
         oldKoi.setPrice(koiRequest.getPrice());

@@ -27,25 +27,33 @@ public class TourAPI {
         return ResponseEntity.ok(newTour);
     }
 
-    @GetMapping("/get-all")
-    public ResponseEntity getAllTour(@RequestParam int page, @RequestParam(defaultValue = "5") int size){
-        TourPageResponse tourResponse = tourService.getAllTour(page, size);
-        return ResponseEntity.ok(tourResponse);
+    @GetMapping("/search")
+    public ResponseEntity searchTour(@RequestParam(required = false) String keyword,
+                                                       @RequestParam(defaultValue = "0") int page,
+                                                       @RequestParam(defaultValue = "10") int size) {
+        TourPageResponse tourPageResponse = tourService.searchTour(keyword, page, size);
+        return ResponseEntity.ok(tourPageResponse);
     }
 
-    @GetMapping("/{tourId}/get-by-id")
+    @GetMapping("/get-all")
+    public ResponseEntity getAllTour(@RequestParam int page, @RequestParam(defaultValue = "5") int size){
+        TourPageResponse tourPageResponse = tourService.getAllTour(page, size);
+        return ResponseEntity.ok(tourPageResponse);
+    }
+
+    @GetMapping("/get-by-id/{tourId}")
     public ResponseEntity getTourById(@PathVariable long tourId) {
         TourResponse tourResponse = tourService.getTourById(tourId);
         return ResponseEntity.ok(tourResponse);
     }
 
-    @PutMapping("/{tourId}/update")
+    @PutMapping("/update/{tourId}")
     public ResponseEntity updateTour(@Valid @RequestBody TourRequest tourRequest, @PathVariable long tourId){
         TourResponse updated = tourService.updateTour(tourRequest, tourId);
         return ResponseEntity.ok(updated);
     }
 
-    @DeleteMapping("/{tourId}/delete")
+    @DeleteMapping("/delete/{tourId}")
     public ResponseEntity deleteTour(@PathVariable long tourId){
         TourResponse deleted = tourService.deleteTour(tourId);
         return ResponseEntity.ok(deleted);

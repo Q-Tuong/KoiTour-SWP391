@@ -1,0 +1,45 @@
+.search-koi-order-container {
+    padding: 20px;
+  }
+  
+  .email-input {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .search-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .koi-order-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .koi-order-table th,
+  .koi-order-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .koi-order-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+  
+  .koi-order-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .koi-order-table tr:hover {
+    background-color: #ddd;
+  }
+  

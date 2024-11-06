@@ -1,49 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./header.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { BsCartPlusFill } from "react-icons/bs";
-import { AiOutlineUser } from "react-icons/ai"; // Import user icon
+import { AiOutlineUser } from "react-icons/ai";
 import logo from "../../asset/logo/logo1.png";
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
-  const handleLogin = () => {
-    // Handle user login
-    setIsLoggedIn(true);
-  };
+  // Check if token exists on mount
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token); // Set to true if token exists
+  }, []);
 
   const handleLogout = () => {
-    // Handle user logout
-    setIsLoggedIn(false);
+    // Clear token and user details from localStorage
+    localStorage.removeItem("token");
+    localStorage.removeItem("fullname");
+    localStorage.removeItem("id");
+    setIsLoggedIn(false); // Update state
+    navigate("/signin"); // Redirect to sign-in page
   };
 
   return (
     <header className="header">
       <div className="logo-container">
         <NavLink to="/home">
-          <img src={logo} alt="logo" className="logo" style={{ width: '100px', height: 'auto' }}  />
+          <img src={logo} alt="logo" className="logo" style={{ width: '100px', height: 'auto' }} />
         </NavLink>
       </div>
       <nav className="nav">
-        {" "}
         <ul className="nav-links">
-          <li>
-            <NavLink className="nav" to="/kois">
-              Kois
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className="nav" to="/koifarms">
-              Koifarms
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className="nav" to="/tours">
-              Tours
-            </NavLink>
-          </li>
-          
+          <li><NavLink className="nav" to="/kois">Kois</NavLink></li>
+          <li><NavLink className="nav" to="/koifarms">Koifarms</NavLink></li>
+          <li><NavLink className="nav" to="/tours">Tours</NavLink></li>
+          <li><NavLink className="nav" to="/Order">Order</NavLink></li>
         </ul>
         {isLoggedIn ? (
           <div className="user-menu-container">
@@ -58,20 +51,14 @@ function Header() {
             </div>
           </div>
         ) : (
-          // Otherwise render sign in and sign up buttons
           <div className="items-center flex-shrink-0 hidden lg:flex sign">
             <NavLink to="/signin">
-              <div className="sigin">
-                <button
-                  className="self-center px-8 py-3 rounded text-white  hover:text-green-200 transition-colors duration-300"
-                  onClick={handleLogin}
-                >
-                  Sign in
-                </button>
-              </div>
+              <button className="self-center px-8 py-3 rounded text-white hover:text-green-200 transition-colors duration-300">
+                Sign in
+              </button>
             </NavLink>
             <NavLink to="/signup">
-              <button className="self-center px-8 py-3 rounded text-white  hover:text-green-200 transition-colors duration-300">
+              <button className="self-center px-8 py-3 rounded text-white hover:text-green-200 transition-colors duration-300">
                 Sign up
               </button>
             </NavLink>

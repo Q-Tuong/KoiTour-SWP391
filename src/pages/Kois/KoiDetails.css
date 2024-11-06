@@ -1,0 +1,27 @@
+.koi-details-container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .koi-title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .koi-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .koi-price {
+    font-size: 1.5rem;
+    color: red;
+    margin-bottom: 10px;
+  }
+  
+  .koi-description {
+    font-size: 1rem;
+    margin: 10px 0;
+  }
+  

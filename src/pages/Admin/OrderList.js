@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, Button, Modal, Form, Input, message } from 'antd';
 import axios from 'axios';
 import './styles1.css';
+import { NavLink } from 'react-router-dom';
 
 const OrderList = () => {
   const [orders, setOrders] = useState([]);
@@ -117,6 +118,15 @@ const OrderList = () => {
           </Form.Item>
         </Form>
       </Modal>
+      <div className="button-container">
+  <span>
+    <NavLink to="/admin">
+      <button className="form-button2 back-button">Back</button>
+    </NavLink>
+  </span>
+
+</div>
+
     </div>
   );
 };

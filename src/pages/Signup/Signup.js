@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./signup.css";
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 
 function Signup() {
   const [firstname, setFirstName] = useState("");
@@ -38,8 +40,7 @@ function Signup() {
       return;
     }
 
-    // Adjusted phone validation to allow multiple formats
-    const phoneRegex = /^(07070305050|\d{10,15})$/; // Example: allow specific format or 10 to 15 digit phone numbers
+    const phoneRegex = /^(07070305050|\d{10,15})$/; // Adjust as needed
     if (!phoneRegex.test(phone)) {
       setMessage("Số điện thoại không hợp lệ");
       return;
@@ -53,13 +54,13 @@ function Signup() {
     setLoading(true); // Start loading
     try {
       const response = await axios.post('http://14.225.212.120:8080/api/user/register', {
-        firstName: firstname, // Updated to match API payload
-        lastName: lastname, // Updated to match API payload
+        firstName: firstname,
+        lastName: lastname,
         email,
         phone,
         password,
         address,
-        createAt: new Date().toISOString() // Add current timestamp
+        createAt: new Date().toISOString() // Current timestamp
       });
 
       const { token, id } = response.data;
@@ -70,7 +71,7 @@ function Signup() {
 
       setMessage(`Đăng ký thành công với email: ${user.email}`);
 
-      await sendVerificationEmail(token);
+      await sendVerificationEmail(token); // Send the token for verification
 
       clearFields();
     } catch (error) {
@@ -82,9 +83,8 @@ function Signup() {
 
   const sendVerificationEmail = async (token) => {
     try {
-      await axios.post('http://14.225.212.120:8080/api/user/resend-verification', {
-        token: token,
-        email: email,
+      await axios.post('http://14.225.212.120:8080/api/user/verify', {
+        token: token // Send the token instead of the email
       });
       setMessage("Email xác thực đã được gửi.");
     } catch (error) {
@@ -103,42 +103,46 @@ function Signup() {
   };
 
   return (
-    <div className="login-container" style={{ margin: '10% 0%' }}>
-      <form onSubmit={handleSubmit} className="login-form">
-        <div className="form-group">
-          <label htmlFor="firstname" className="form-label">First Name:</label>
-          <input type="text" id="firstname" value={firstname} onChange={(event) => setFirstName(event.target.value)} className="form-input" required />
-        </div>
-        <div className="form-group">
-          <label htmlFor="lastname" className="form-label">Last Name:</label>
-          <input type="text" id="lastname" value={lastname} onChange={(event) => setLastName(event.target.value)} className="form-input" required />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password" className="form-label">Mật khẩu:</label>
-          <input type="password" id="password" value={password} onChange={(event) => setPassword(event.target.value)} className="form-input" required />
-        </div>
-        <div className="form-group">
-          <label htmlFor="confirmPassword" className="form-label">Xác nhận mật khẩu:</label>
-          <input type="password" id="confirmPassword" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} className="form-input" required />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email" className="form-label">Email:</label>
-          <input type="email" id="email" value={email} onChange={(event) => setEmail(event.target.value)} className="form-input" required />
-        </div>
-        <div className="form-group">
-          <label htmlFor="phone" className="form-label">Phone:</label>
-          <input type="text" id="phone" value={phone} onChange={(event) => setPhone(event.target.value)} className="form-input" required />
-        </div>
-        <div className="form-group">
-          <label htmlFor="address" className="form-label">Address:</label>
-          <input type="text" id="address" value={address} onChange={(event) => setAddress(event.target.value)} className="form-input" required />
-        </div>
+    <div>
+      <Header />
+      <div className="login-container" style={{ margin: '10% 0%' }}>
+        <form onSubmit={handleSubmit} className="login-form">
+          <div className="form-group">
+            <label htmlFor="firstname" className="form-label">First Name:</label>
+            <input type="text" id="firstname" value={firstname} onChange={(event) => setFirstName(event.target.value)} className="form-input" required />
+          </div>
+          <div className="form-group">
+            <label htmlFor="lastname" className="form-label">Last Name:</label>
+            <input type="text" id="lastname" value={lastname} onChange={(event) => setLastName(event.target.value)} className="form-input" required />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password" className="form-label">Mật khẩu:</label>
+            <input type="password" id="password" value={password} onChange={(event) => setPassword(event.target.value)} className="form-input" required />
+          </div>
+          <div className="form-group">
+            <label htmlFor="confirmPassword" className="form-label">Xác nhận mật khẩu:</label>
+            <input type="password" id="confirmPassword" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} className="form-input" required />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email" className="form-label">Email:</label>
+            <input type="email" id="email" value={email} onChange={(event) => setEmail(event.target.value)} className="form-input" required />
+          </div>
+          <div className="form-group">
+            <label htmlFor="phone" className="form-label">Phone:</label>
+            <input type="text" id="phone" value={phone} onChange={(event) => setPhone(event.target.value)} className="form-input" required />
+          </div>
+          <div className="form-group">
+            <label htmlFor="address" className="form-label">Address:</label>
+            <input type="text" id="address" value={address} onChange={(event) => setAddress(event.target.value)} className="form-input" required />
+          </div>
 
-        <button className="form-button" type="submit" disabled={loading}>
-          {loading ? 'Loading...' : 'Singup'}
-        </button>
-        <div className="form-message">{message}</div>
-      </form>
+          <button className="form-button" type="submit" disabled={loading}>
+            {loading ? 'Loading...' : 'Signup'}
+          </button>
+          <div className="form-message">{message}</div>
+        </form>
+      </div>
+      <Footer />
     </div>
   );
 }

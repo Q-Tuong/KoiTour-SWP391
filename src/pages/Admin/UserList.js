@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, Button, Modal, Form, Input, Select, message } from 'antd';
 import axios from 'axios';
 import './styles1.css';
+import { NavLink } from 'react-router-dom';
 
 const { Option } = Select;
 
@@ -44,8 +45,46 @@ const UserList = () => {
     setVisible(true);
   };
 
-  const handleDelete = (id) => {
-    setUsers(users.filter((user) => user.id !== id));
+  const handleDelete = async (id) => {
+    Modal.confirm({
+      title: 'Are you sure you want to delete this user?',
+      content: 'This action cannot be undone.',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk: async () => {
+        const token = localStorage.getItem('token');
+        try {
+          const response = await axios.delete(
+            `http://14.225.212.120:8080/api/admin/delete/${id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+              },
+              withCredentials: false
+            }
+          );
+          
+          if (response.status === 200) {
+            message.success('User deleted successfully');
+            setUsers(users.filter((user) => user.id !== id));
+          } else {
+            message.error('Failed to delete user');
+          }
+        } catch (error) {
+          console.error('Error deleting user:', error);
+          if (error.response) {
+            message.error(`Delete failed: ${error.response.data.message || 'Unknown error'}`);
+          } else if (error.request) {
+            message.error('No response from server. Please check your connection.');
+          } else {
+            message.error('Error setting up the request');
+          }
+        }
+      },
+    });
   };
 
   const handleOk = () => {
@@ -56,7 +95,7 @@ const UserList = () => {
         try {
           // Make the API request to update user information
           const response = await axios.put(
-            `http://14.225.212.120:8080/api/user/${editingItem.id}/update`,
+            `http://14.225.212.120:8080/api/user/update/${editingItem.id}`,
             values,
             {
               headers: {
@@ -72,7 +111,7 @@ const UserList = () => {
             if (values.role !== editingItem.role) {
               try {
                 const roleResponse = await axios.put(
-                  `http://14.225.212.120:8080/api/admin/${editingItem.id}/update-role`,
+                  `http://14.225.212.120:8080/api/admin/update-role/${editingItem.id}`,
                   { role: values.role },
                   {
                     headers: {
@@ -190,7 +229,7 @@ const UserList = () => {
 
       <Modal
         title={editingItem ? 'Edit User' : 'Add User'}
-        visible={visible}
+        open={visible}
         onOk={handleOk}
         onCancel={handleCancel}
       >
@@ -232,7 +271,15 @@ const UserList = () => {
           <Form.Item
             name="phone"
             label="Phone"
-            rules={[{ required: true, message: 'Please enter phone number' }]}
+            rules={[
+              { 
+                required: true,
+                message: 'Please enter phone number'
+              },
+              {
+                pattern: /^\d{10}$/,
+                message: 'Please enter a valid phone number (10 digits)'
+              }]}
           >
             <Input />
           </Form.Item>
@@ -246,6 +293,15 @@ const UserList = () => {
           
         </Form>
       </Modal>
+      <div className="button-container">
+  <span>
+    <NavLink to="/admin">
+      <button className="form-button2 back-button">Back</button>
+    </NavLink>
+  </span>
+
+</div>
+
     </div>
   );
 };

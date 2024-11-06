@@ -1,0 +1,91 @@
+.payment-page-container {
+  margin: auto;
+  max-width: 600px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+}
+
+.payment-page-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.payment-page-cart {
+  list-style-type: none;
+  padding: 0;
+  flex: 1;
+  margin-right: 20px;
+}
+
+.payment-page-cart-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.payment-page-cart-item-img {
+  width: 80px;
+  margin-right: 20px;
+}
+
+.payment-page-cart-item-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.payment-page-cart-item-price {
+  margin-bottom: 5px;
+}
+
+.payment-page-cart-item-quantity {
+  margin-bottom: 0;
+}
+
+.payment-page-total-price {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.payment-page-form {
+  margin-top: 20px;
+}
+
+.payment-page-form-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.payment-page-form-input,
+.payment-page-form-textarea {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.payment-page-form-input:focus,
+.payment-page-form-textarea:focus {
+  outline: none;
+  border-color: #0077ff;
+  box-shadow: 0 0 3px rgba(0, 119, 255, 0.5);
+}
+
+.payment-page-form-button {
+  background-color: #0077ff;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.payment-page-form-button:hover {
+  background-color: #0066cc;
+}

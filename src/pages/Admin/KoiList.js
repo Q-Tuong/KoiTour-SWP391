@@ -2,128 +2,147 @@ import React, { useState, useEffect } from 'react';
 import { Table, Button, Modal, Form, Input, message } from 'antd';
 import axios from 'axios';
 import './styles1.css';
+import { NavLink } from 'react-router-dom';
 
 const KoiList = () => {
-  const [koiList, setKoiList] = useState([]);
-  const [editingItem, setEditingItem] = useState(null);
+  const [koi, setKoi] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
+  const [editingItem, setEditingItem] = useState(null);
   const [form] = Form.useForm();
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewVisible, setPreviewVisible] = useState(false);
 
-  // Fetch koi data from API
-  useEffect(() => {
-    const fetchKoiList = async () => {
-      try {
-        const response = await axios.get('/api/koi'); // API endpoint
-        setKoiList(response.data);
-      } catch (error) {
-        message.error('Failed to load koi data');
-      }
-    };
+  const fetchKoi = async (page) => {
+    const token = localStorage.getItem("token");
 
-    fetchKoiList();
-  }, []);
+    setLoading(true); // Set loading to true before fetching data
 
-  const handleEdit = (item) => {
-    setEditingItem(item);
-    form.setFieldsValue(item || {}); // Set form values
-    setVisible(true);
-  };
-
-  const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/koi/${id}`); // API delete endpoint
-      setKoiList(koiList.filter(koi => koi.id !== id));
-      message.success('Koi deleted successfully');
+      const response = await axios.get(
+        "http://14.225.212.120:8080/api/koi/get-all",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            page: page - 1,
+          },
+        }
+      );
+
+      const data = response.data;
+      if (data && data.content) {
+        setKoi(data.content);
+        setTotalPages(data.totalPages); // Set total pages for pagination
+      } else {
+        message.error("No data found"); // Show error if no data
+      }
     } catch (error) {
-      message.error('Failed to delete koi');
+      console.error("Error fetching koi:", error);
+      message.error("Failed to fetch koi");
+    } finally {
+      setLoading(false); // Set loading to false after fetching data
     }
   };
 
-  const handleOk = () => {
-    form.validateFields().then(async (values) => {
-      try {
-        if (editingItem) {
-          // Update koi
-          const updatedKoi = await axios.put(`/api/koi/${editingItem.id}`, values); // API update endpoint
-          const updatedKoiList = koiList.map(koi =>
-            koi.id === editingItem.id ? { ...koi, ...updatedKoi.data } : koi
-          );
-          setKoiList(updatedKoiList);
-          message.success('Koi updated successfully');
-        } else {
-          // Add new koi
-          const newKoi = await axios.post('/api/koi', values); // API add endpoint
-          setKoiList([...koiList, newKoi.data]);
-          message.success('Koi added successfully');
-        }
-        setEditingItem(null);
-        setVisible(false);
-      } catch (error) {
-        message.error('Failed to save koi');
-      }
-    });
+  useEffect(() => {
+    fetchKoi(pageNumber);
+  }, [pageNumber]);
+
+  const handleAddOrUpdate = async (values) => {
+    const token = localStorage.getItem("token");
+    const url = editingItem
+      ? `http://14.225.212.120:8080/api/koi/update/${editingItem.id}`
+      : "http://14.225.212.120:8080/api/koi/create";
+    const method = editingItem ? "put" : "post";
+
+    try {
+      await axios[method](url, values, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      message.success(`Koi ${editingItem ? 'updated' : 'added'} successfully`);
+      fetchKoi(pageNumber);
+      handleCancel();
+    } catch (error) {
+      console.error("Error saving koi:", error);
+      message.error(`Failed to ${editingItem ? 'update' : 'add'} koi`);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    const token = localStorage.getItem("token");
+    try {
+      await axios.delete(`http://14.225.212.120:8080/api/koi/delete/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      message.success("Koi deleted successfully");
+      fetchKoi(pageNumber);
+    } catch (error) {
+      console.error("Error deleting koi:", error);
+      message.error("Failed to delete koi");
+    }
   };
 
   const handleCancel = () => {
     setVisible(false);
+    form.resetFields();
     setEditingItem(null);
   };
 
   const columns = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+    { title: 'Name', dataIndex: 'name', key: 'name' },
+    { title: 'Type', dataIndex: 'type', key: 'type' },
+    { title: 'Size', dataIndex: 'size', key: 'size' },
+    { title: 'Origin', dataIndex: 'origin', key: 'origin' },
+    { 
+      title: 'Image', 
+      dataIndex: 'imgUrl', 
+      key: 'imgUrl',
+      render: (imgUrl) => (
+        <img 
+          src={imgUrl} 
+          alt="koi" 
+          style={{ 
+            width: '120px', 
+            height: '120px', 
+            objectFit: 'cover', 
+            cursor: 'pointer',
+            borderRadius: '8px',
+            transition: 'transform 0.3s ease',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+          }} 
+          onClick={() => {
+            setPreviewImage(imgUrl);
+            setPreviewVisible(true);
+          }}
+        />
+      )
     },
-    {
-      title: 'Farm Name',
-      dataIndex: 'farmName',
-      key: 'farmName',
-    },
-    {
-      title: 'Type',
-      dataIndex: 'type',
-      key: 'type',
-    },
-    {
-      title: 'Color',
-      dataIndex: 'color',
-      key: 'color',
-    },
-    {
-      title: 'Size',
-      dataIndex: 'size',
-      key: 'size',
-    },
-    {
-      title: 'Origin',
-      dataIndex: 'origin',
-      key: 'origin',
-    },
-    {
-      title: 'Price',
-      dataIndex: 'price',
+    { 
+      title: 'Price', 
+      dataIndex: 'price', 
       key: 'price',
-      render: (text) => `$${text}`, // Format price as currency
+      render: (price) => price?.toLocaleString('vi-VN') + ' ₫'
     },
+    { title: 'Create At', dataIndex: 'createAt', key: 'createAt' },
     {
-      title: 'Image',
-      dataIndex: 'image',
-      key: 'image',
-      render: (imageUrl) => (
-        <img src={imageUrl} alt="koi" style={{ width: '100px', height: 'auto' }} />
-      ),
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (_, record) => (
-        <>
-          <Button onClick={() => handleEdit(record)}>Edit</Button>
-          <Button onClick={() => handleDelete(record.id)} danger>
+      title: 'Actions',
+      render: (text, record) => (
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <Button onClick={() => { setEditingItem(record); form.setFieldsValue(record); setVisible(true); }}>
+            Edit
+          </Button>
+          <Button danger onClick={() => handleDelete(record.id)}>
             Delete
           </Button>
-        </>
+        </div>
       ),
     },
   ];
@@ -131,23 +150,32 @@ const KoiList = () => {
   return (
     <div>
       <h1>Koi Management</h1>
-      <Button type="primary" onClick={() => handleEdit(null)}>
+      <Button type="primary" onClick={() => setVisible(true)}>
         Add Koi
       </Button>
-      <Table dataSource={koiList} columns={columns} rowKey="id" />
+      <Table 
+        dataSource={koi} 
+        columns={columns} 
+        rowKey="id" 
+        loading={loading} 
+        pagination={{ 
+          current: pageNumber, 
+          total: totalPages * 10, 
+          onChange: setPageNumber 
+        }} 
+      />
 
-      <Modal title={editingItem ? 'Edit Koi' : 'Add Koi'} visible={visible} onOk={handleOk} onCancel={handleCancel}>
-        <Form form={form} layout="vertical">
+      <Modal 
+        title={editingItem ? 'Edit Koi' : 'Add Koi'} 
+        open={visible} 
+        onOk={() => form.submit()} 
+        onCancel={handleCancel}
+      >
+        <Form form={form} layout="vertical" onFinish={handleAddOrUpdate}>
           <Form.Item name="name" label="Name" rules={[{ required: true, message: 'Please enter name' }]}>
             <Input />
           </Form.Item>
-          <Form.Item name="farmName" label="Farm Name" rules={[{ required: true, message: 'Please enter farm name' }]}>
-            <Input />
-          </Form.Item>
           <Form.Item name="type" label="Type" rules={[{ required: true, message: 'Please enter type' }]}>
-            <Input />
-          </Form.Item>
-          <Form.Item name="color" label="Color" rules={[{ required: true, message: 'Please enter color' }]}>
             <Input />
           </Form.Item>
           <Form.Item name="size" label="Size" rules={[{ required: true, message: 'Please enter size' }]}>
@@ -159,14 +187,44 @@ const KoiList = () => {
           <Form.Item name="price" label="Price" rules={[{ required: true, message: 'Please enter price' }]}>
             <Input type="number" />
           </Form.Item>
-          <Form.Item name="image" label="Image URL" rules={[{ required: true, message: 'Please enter image URL' }]}>
+          <Form.Item 
+            name="imgUrl"
+            label="Image URL"
+            rules={[{ required: true, message: 'Please enter image URL' }]}
+          >
             <Input />
           </Form.Item>
         </Form>
       </Modal>
+      
+      <Modal
+        open={previewVisible}
+        footer={null}
+        onCancel={() => setPreviewVisible(false)}
+        width={800}
+        style={{ top: 20 }}
+        bodyStyle={{ padding: '20px' }}
+      >
+        <img
+          alt="Preview"
+          style={{
+            width: '100%',
+            maxHeight: '80vh',
+            objectFit: 'contain'
+          }}
+          src={previewImage}
+        />
+      </Modal>
+
+      <div className="button-container">
+        <span>
+          <NavLink to="/admin">
+            <button className="form-button2 back-button">Back</button>
+          </NavLink>
+        </span>
+      </div>
     </div>
   );
 };
 
 export default KoiList;
-

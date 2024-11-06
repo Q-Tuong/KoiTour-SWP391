@@ -35,7 +35,7 @@ export default function Footer() {
             Tours
           </NavLink>
             </p>
-            <p className="footer-company-name">HCM - Loyalty Koi</p>
+            <p className="footer-company-name">Loyalty Koi</p>
           </div>
           <div className="footer-center">
             <div>
@@ -52,7 +52,7 @@ export default function Footer() {
                   <AiOutlineMail />
                   <p style={{ marginTop: "-44px", marginLeft: "24px" }}>
                     {" "}
-                    Email: @gmail.com
+                    Email: 08111111111gmail.com
                   </p>
                 </span>
               </p>

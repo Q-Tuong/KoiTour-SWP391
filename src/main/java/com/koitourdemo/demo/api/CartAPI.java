@@ -38,8 +38,8 @@ public class CartAPI {
     }
 
     @PostMapping("/add/{koiId}")
-    public ResponseEntity addItem(@RequestParam UUID koiId, @RequestParam int quantity, HttpSession session) {
-        cartService.addItemToCart(session, koiId, quantity);
+    public ResponseEntity addItem(@RequestParam UUID koiId, HttpSession session) {
+        cartService.addItemToCart(session, koiId);
         return ResponseEntity.ok("Item added to cart");
     }
 

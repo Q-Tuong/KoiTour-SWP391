@@ -16,8 +16,7 @@ public class CartItem implements Serializable {
     UUID koiId;
 
     String productName;
-    int quantity;
+    int quantity = 1;
     float unitPrice;
-    float totalPrice;
 
 }

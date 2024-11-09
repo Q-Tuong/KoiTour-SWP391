@@ -9,6 +9,7 @@ import com.koitourdemo.demo.exception.IllegalStateException;
 import com.koitourdemo.demo.exception.NotFoundException;
 import com.koitourdemo.demo.model.request.TourOrderRequest;
 import com.koitourdemo.demo.model.request.TourOrderDetailRequest;
+import com.koitourdemo.demo.model.response.TourOrderDetailResponse;
 import com.koitourdemo.demo.repository.TourOrderRepository;
 import com.koitourdemo.demo.repository.TourRepository;
 import com.koitourdemo.demo.repository.UserRepository;
@@ -91,6 +92,28 @@ public class TourOrderService {
         User user = authenticationService.getCurrentUser();
         List<TourOrder> orders = orderRepository.findTourOderByCustomer(user);
         return orders;
+    }
+
+    public List<TourOrderDetailResponse> getOrderDetails(UUID orderId) {
+        TourOrder order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new NotFoundException("Order not found with id: " + orderId));
+
+        List<TourOrderDetailResponse> responseList = new ArrayList<>();
+
+        for (TourOrderDetail detail : order.getTourOrderDetails()) {
+            TourOrderDetailResponse response = new TourOrderDetailResponse();
+            response.setProductName(detail.getTourName());
+            response.setQuantity(detail.getQuantity());
+            response.setUnitPrice(detail.getUnitPrice());
+            response.setTotalPrice(detail.getUnitPrice() * detail.getQuantity());
+
+            if (detail.getTour() != null) {
+                response.setImgUrl(detail.getTour().getImgUrl());
+            }
+
+            responseList.add(response);
+        }
+        return responseList;
     }
 
     public String createUrl(TourOrderRequest orderRequest) throws Exception {

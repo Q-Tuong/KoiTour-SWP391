@@ -29,7 +29,7 @@ public class Cart implements Serializable {
 
         if (existingItem.isPresent()) {
             CartItem existing = existingItem.get();
-            existing.setQuantity(existing.getQuantity() + item.getQuantity());
+            existing.setQuantity(existing.getQuantity() + 1);
         } else {
             items.add(item);
         }

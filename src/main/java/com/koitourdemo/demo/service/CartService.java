@@ -33,14 +33,13 @@ public class CartService {
         }
     }
 
-    public void addItemToCart(HttpSession session, UUID koiId, int quantity) {
+    public void addItemToCart(HttpSession session, UUID koiId) {
         Cart cart = getCart(session);
         Koi koi = koiService.getKoiEntityById(koiId);
 
         CartItem item = new CartItem();
         item.setKoiId(koiId);
         item.setProductName(koi.getName());
-        item.setQuantity(quantity);
         item.setUnitPrice(koi.getPrice());
 
         cart.addItem(item);

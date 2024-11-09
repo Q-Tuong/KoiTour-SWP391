@@ -9,6 +9,7 @@ import com.koitourdemo.demo.exception.NotFoundException;
 import com.koitourdemo.demo.exception.IllegalStateException;
 import com.koitourdemo.demo.model.request.KoiOrderDetailRequest;
 import com.koitourdemo.demo.model.request.KoiOrderRequest;
+import com.koitourdemo.demo.model.response.KoiOrderDetailResponse;
 import com.koitourdemo.demo.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,6 +100,27 @@ public class KoiOrderService {
         User user = authenticationService.getCurrentUser();
         List<KoiOrder> orders = orderRepository.findKoiOrderByCustomer(user);
         return orders;
+    }
+
+    public List<KoiOrderDetailResponse> getOrderDetails(UUID orderId) {
+        KoiOrder order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new NotFoundException("Order not found with id: " + orderId));
+
+        List<KoiOrderDetailResponse> responseList = new ArrayList<>();
+
+        for (KoiOrderDetail detail : order.getKoiOrderDetails()) {
+            KoiOrderDetailResponse response = new KoiOrderDetailResponse();
+            response.setProductName(detail.getProductName());
+            response.setQuantity(detail.getQuantity());
+            response.setUnitPrice(detail.getUnitPrice());
+            response.setTotalPrice(detail.getUnitPrice() * detail.getQuantity());
+
+            if (detail.getKoi() != null) {
+                response.setImgUrl(detail.getKoi().getImgUrl());
+            }
+            responseList.add(response);
+        }
+        return responseList;
     }
 
     public String createUrl(KoiOrderRequest orderRequest) throws Exception {

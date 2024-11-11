@@ -1,6 +1,5 @@
 package com.koitourdemo.demo.api;
 
-import com.koitourdemo.demo.entity.User;
 import com.koitourdemo.demo.model.request.*;
 import com.koitourdemo.demo.model.response.UserResponse;
 import com.koitourdemo.demo.service.AuthenticationService;
@@ -9,8 +8,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequestMapping("api/user")
 @RestController
@@ -31,12 +28,6 @@ public class AuthenticationAPI {
     public ResponseEntity login(@Valid @RequestBody LoginRequest loginRequest){
         UserResponse newUser = authenticationService.login(loginRequest);
         return ResponseEntity.ok(newUser);
-    }
-
-    @GetMapping("/get-all")
-    public ResponseEntity getAllUser(){
-        List<User> users = authenticationService.getAllUser();
-        return ResponseEntity.ok(users);
     }
 
     @PutMapping("/update/{userId}")

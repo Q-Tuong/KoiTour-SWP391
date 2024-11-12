@@ -71,7 +71,7 @@ public class KoiFarmService {
 
     public KoiFarmResponse updateKoiFarm(KoiFarmRequest koiFarmRequest, long id){
         KoiFarm koiFarm = koiFarmRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Không thể tìm thấy trại cá này!"));
+                .orElseThrow(() -> new NotFoundException("Can not find this farm!"));
         koiFarm.setName(koiFarmRequest.getName());
         koiFarm.setAddress(koiFarmRequest.getAddress());
         koiFarm.setPhone(koiFarmRequest.getPhone());
@@ -83,7 +83,7 @@ public class KoiFarmService {
 
     public KoiFarmResponse deleteKoiFarm(long id) {
         KoiFarm oldKoiFarm = koiFarmRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Koi Farm not found!"));
+                .orElseThrow(() -> new NotFoundException("Can not find this farm!"));
         oldKoiFarm.setDeleted(true);
         KoiFarm deletedKoiFarm = koiFarmRepository.save(oldKoiFarm);
         return modelMapper.map(deletedKoiFarm, KoiFarmResponse.class);
@@ -91,7 +91,7 @@ public class KoiFarmService {
 
     public KoiFarmResponse getKoiFarmById(long id){
         KoiFarm koiFarm = koiFarmRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Không thể tìm thấy trại cá này!"));
+                .orElseThrow(() -> new NotFoundException("Can not find this farm!"));
         return modelMapper.map(koiFarm, KoiFarmResponse.class);
     }
 

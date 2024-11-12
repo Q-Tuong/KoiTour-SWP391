@@ -28,7 +28,7 @@ public class CartService {
             }
             return cart;
         } catch (Exception e) {
-            log.error("Error getting cart from session: {}", e.getMessage());
+            log.error("Error getting cart from session!");
             return new Cart();
         }
     }

@@ -36,9 +36,9 @@ public class AuthenticationAPI {
         return ResponseEntity.ok(updated);
     }
 
-    @GetMapping("/me/{userId}")
-    public ResponseEntity getUserById(@PathVariable long userId) {
-        UserResponse userResponse = authenticationService.getUserById(userId);
+    @GetMapping("/get-current-user")
+    public ResponseEntity getCurrentUser() {
+        UserResponse userResponse = authenticationService.getCurrentUserInfo();
         return ResponseEntity.ok(userResponse);
     }
 

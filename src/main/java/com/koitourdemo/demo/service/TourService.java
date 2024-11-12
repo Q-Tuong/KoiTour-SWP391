@@ -72,7 +72,7 @@ public class TourService {
 
     public TourResponse updateTour(TourRequest tourRequest, long id) {
         Tour oldTour = tourRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Tour not found!"));
+                .orElseThrow(() -> new NotFoundException("Can not find this tour!"));
         oldTour.setName(tourRequest.getName());
         oldTour.setDuration(tourRequest.getDuration());
         oldTour.setStartAt(tourRequest.getStartAt());
@@ -85,7 +85,7 @@ public class TourService {
 
     public TourResponse deleteTour(long id) {
         Tour oldTour = tourRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Tour not found!"));
+                .orElseThrow(() -> new NotFoundException("Can not find this tour!"));
         oldTour.setDeleted(true);
         Tour deletedTour = tourRepository.save(oldTour);
         return modelMapper.map(deletedTour, TourResponse.class);
@@ -93,7 +93,7 @@ public class TourService {
 
     public TourResponse getTourById(long id) {
         Tour tour = tourRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Tour not found!"));
+                .orElseThrow(() -> new NotFoundException("Can not find this tour!"));
         return modelMapper.map(tour, TourResponse.class);
     }
 

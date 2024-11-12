@@ -69,12 +69,8 @@ public class OrderAPI {
 
     @GetMapping("/get-paid-order/koi")
     public ResponseEntity getPaidOrders() {
-        try {
-            List<KoiOrder> paidOrders = koiOrderService.getPaidOrders();
-            return ResponseEntity.ok(paidOrders);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        List<KoiOrder> paidOrders = koiOrderService.getPaidOrders();
+        return ResponseEntity.ok(paidOrders);
     }
 
     @PostMapping("/regenerate-payment/koi")
@@ -83,7 +79,7 @@ public class OrderAPI {
             String newPaymentUrl = koiOrderService.regeneratePaymentLink(orderId);
             return ResponseEntity.ok(newPaymentUrl);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error regenerating payment link: " + e.getMessage());
+            return ResponseEntity.badRequest().body("Error regenerating payment link!");
         }
     }
 
@@ -103,7 +99,7 @@ public class OrderAPI {
             KoiOrder order = koiOrderService.cancelOrder(orderId);
             return ResponseEntity.ok(order);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error canceling order: " + e.getMessage());
+            return ResponseEntity.badRequest().body("Error canceling order!");
         }
     }
 
@@ -133,7 +129,7 @@ public class OrderAPI {
             String vnPayUrl = tourOrderService.createUrl(tourOrderRequest);
             return ResponseEntity.ok(vnPayUrl);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error creating order: " + e.getMessage());
+            return ResponseEntity.badRequest().body("Error creating order!");
         }
     }
 
@@ -155,7 +151,7 @@ public class OrderAPI {
             List<TourOrder> orders = tourOrderService.findOrdersByEmail(email);
             return ResponseEntity.ok(orders);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error finding orders: " + e.getMessage());
+            return ResponseEntity.badRequest().body("Error finding orders!");
         }
     }
 
@@ -175,7 +171,7 @@ public class OrderAPI {
             String newPaymentUrl = tourOrderService.regeneratePaymentLink(orderId);
             return ResponseEntity.ok(newPaymentUrl);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error regenerating payment link: " + e.getMessage());
+            return ResponseEntity.badRequest().body("Error regenerating payment link!");
         }
     }
 
@@ -185,7 +181,7 @@ public class OrderAPI {
             TourOrder order = tourOrderService.completeOrder(orderId);
             return ResponseEntity.ok(order);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error completing order: " + e.getMessage());
+            return ResponseEntity.badRequest().body("Error completing order!");
         }
     }
 
@@ -195,7 +191,7 @@ public class OrderAPI {
             TourOrder order = tourOrderService.cancelOrder(orderId);
             return ResponseEntity.ok(order);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error canceling order: " + e.getMessage());
+            return ResponseEntity.badRequest().body("Error canceling order!");
         }
     }
 

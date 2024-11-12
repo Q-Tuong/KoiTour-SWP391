@@ -37,7 +37,7 @@ public class KoiService {
         // Tìm KoiFarm dựa trên farmName
         KoiFarm koiFarm = koiFarmRepository.findByNameContainingIgnoreCase(koiRequest.getOrigin())
                 .orElseThrow(() -> new NotFoundException(
-                        "Không tìm thấy trại cá có tên: " + koiRequest.getOrigin()
+                        "Cannot found koi farm with name: " + koiRequest.getOrigin()
                 ));
 
         Koi koi = new Koi();
@@ -88,7 +88,7 @@ public class KoiService {
 
     public KoiResponse updateKoi(KoiRequest koiRequest, UUID id) {
         Koi oldKoi = koiRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Không thể tìm thấy cá Koi này!"));
+                .orElseThrow(() -> new NotFoundException("Can not find this Koi!"));
         oldKoi.setName(koiRequest.getName());
         oldKoi.setSize(koiRequest.getSize());
         oldKoi.setOrigin(koiRequest.getOrigin());
@@ -100,7 +100,7 @@ public class KoiService {
 
     public KoiResponse deleteKoi(UUID id) {
         Koi oldKoi = koiRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Không thể tìm thấy cá Koi này!"));
+                .orElseThrow(() -> new NotFoundException("Can not find this Koi!"));
         oldKoi.setDeleted(true);
         Koi deletedKoi = koiRepository.save(oldKoi);
         return modelMapper.map(deletedKoi, KoiResponse.class);
@@ -108,13 +108,13 @@ public class KoiService {
 
     public KoiResponse getKoiById(UUID id) {
         Koi koi = koiRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Không thể tìm thấy cá Koi này!"));
+                .orElseThrow(() -> new NotFoundException("Can not find this Koi!"));
         return modelMapper.map(koi, KoiResponse.class);
     }
 
     public Koi getKoiEntityById(UUID id) {
         return koiRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Không thể tìm thấy cá Koi này!"));
+                .orElseThrow(() -> new NotFoundException("Can not find this Koi!"));
     }
 
 }

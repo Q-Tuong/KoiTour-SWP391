@@ -60,7 +60,7 @@ public class AuthenticationService implements UserDetailsService {
             User existingUser = userRepository.findUserByEmail(registerRequest.getEmail());
             if (existingUser != null) {
                 if (existingUser.isDeleted()) {
-                    throw new AuthException("Tài khoản với email này đã bị vô hiệu hóa!");
+                    throw new AuthException("This account with current email has been disabled!");
                 }
                 if (existingUser.isEmailVerified()) {
                     throw new DuplicateEntity("This email has been used!");
@@ -113,7 +113,7 @@ public class AuthenticationService implements UserDetailsService {
             userResponse.setToken(tokenService.generateToken(user));
             return userResponse;
         } catch (NotFoundException e) {
-            throw new NotFoundException("Tài khoản này đã bị vô hiệu hóa!");
+            throw new NotFoundException("This account has been disabled!");
         } catch (AuthException e) {
             throw new AuthException("Account is not verified!");
         } catch (Exception e) {
@@ -134,6 +134,14 @@ public class AuthenticationService implements UserDetailsService {
         return user;
     }
 
+    public UserResponse getCurrentUserInfo() {
+        User currentUser = getCurrentUser();
+        if (currentUser == null) {
+            throw new NotFoundException("Current user not found!");
+        }
+        return modelMapper.map(currentUser, UserResponse.class);
+    }
+
     public User getCurrentUser(){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userRepository.findUserById(user.getId());
@@ -152,14 +160,14 @@ public class AuthenticationService implements UserDetailsService {
 
     public UserResponse getUserById(long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Không thể tìm thấy người dùng này!"));
+                .orElseThrow(() -> new NotFoundException("Cannot found this user!"));
         return modelMapper.map(user, UserResponse.class);
     }
 
     public void forgotPassword(ForgotPasswordRequest forgotPasswordRequest){
         User user = userRepository.findUserByEmail(forgotPasswordRequest.getEmail());
         if(user == null){
-            throw new NotFoundException("email not found!");
+            throw new NotFoundException("Email not found!");
         }else{
             EmailDetail emailDetail = new EmailDetail();
             emailDetail.setReceiver(user);
@@ -196,10 +204,10 @@ public class AuthenticationService implements UserDetailsService {
     public void resendVerificationEmail(String email) {
         User user = userRepository.findUserByEmail(email);
         if (user == null) {
-            throw new NotFoundException("Email không tồn tại!");
+            throw new NotFoundException("Email does not exist!");
         }
         if (user.isEmailVerified()) {
-            throw new AuthException("Email đã được xác thực!");
+            throw new AuthException("Email has been verified!");
         }
 
         // Tạo token mới và cập nhật thời gian hết hạn
@@ -210,8 +218,8 @@ public class AuthenticationService implements UserDetailsService {
         // Gửi lại email xác thực
         EmailDetail emailDetail = new EmailDetail();
         emailDetail.setReceiver(user);
-        emailDetail.setSubject("Xác thực lại tài khoản của bạn");
-//        emailDetail.setLink("https://www.facebook.com?token=" + user.getVerificationToken());
+        emailDetail.setSubject("Please verify your account!");
+        emailDetail.setLink("https://www.facebook.com?token=" + user.getVerificationToken());
         emailService.sendEmail(emailDetail);
     }
 

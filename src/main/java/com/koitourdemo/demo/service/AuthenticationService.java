@@ -12,7 +12,6 @@ import com.koitourdemo.demo.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -172,7 +171,7 @@ public class AuthenticationService implements UserDetailsService {
             EmailDetail emailDetail = new EmailDetail();
             emailDetail.setReceiver(user);
             emailDetail.setSubject("Reset password");
-//            emailDetail.setLink("https://www.facebook.com?token=" + tokenService.generateToken(user));
+            emailDetail.setLink("http://localhost:3000/reset-password?token=" + tokenService.generateToken(user));
             emailService.sendEmail(emailDetail);
         }
     }
@@ -219,7 +218,7 @@ public class AuthenticationService implements UserDetailsService {
         EmailDetail emailDetail = new EmailDetail();
         emailDetail.setReceiver(user);
         emailDetail.setSubject("Please verify your account!");
-        emailDetail.setLink("https://www.facebook.com?token=" + user.getVerificationToken());
+        emailDetail.setLink("http://localhost:3000/verify-email?token=" + user.getVerificationToken());
         emailService.sendEmail(emailDetail);
     }
 

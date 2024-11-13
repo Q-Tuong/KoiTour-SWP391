@@ -138,7 +138,7 @@ public class KoiOrderService {
         String tmnCode = "0731HE82";
         String secretKey = "506GUHNO9MTI5Q23PQAUCLTHOWSF3FAM";
         String vnpUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        String returnUrl = "https://blearning.vn/guide/swp/docker-local?orderID=" + orders.getId();
+        String returnUrl = "http://localhost:3000/transaction/tour?orderID=" + orders.getId();
         String currCode = "VND";
         UUID orderId = orders.getId();
         String txnRef = orderId.toString();
@@ -251,7 +251,7 @@ public class KoiOrderService {
         String tmnCode = "0731HE82";
         String secretKey = "506GUHNO9MTI5Q23PQAUCLTHOWSF3FAM";
         String vnpUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        String returnUrl = "https://blearning.vn/guide/swp/docker-local?orderID=" + order.getId();
+        String returnUrl = "http://localhost:3000/transaction/koi?orderID=" + order.getId();
         String currCode = "VND";
         String txnRef = order.getId().toString();
 

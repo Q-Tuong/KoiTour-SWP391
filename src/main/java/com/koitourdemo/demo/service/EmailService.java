@@ -33,7 +33,7 @@ public class EmailService {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
 
             // setting up necessary details
-            mimeMessageHelper.setFrom("CentralCircus@gmail.com");
+            mimeMessageHelper.setFrom("tuongbcqse180199@fpt.edu.vn");
             mimeMessageHelper.setTo(emailDetail.getReceiver().getEmail());
             mimeMessageHelper.setText(template, true);
             mimeMessageHelper.setSubject(emailDetail.getSubject());

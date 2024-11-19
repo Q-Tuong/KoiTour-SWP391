@@ -5,6 +5,8 @@ import axios from "axios";
 import "./styles1.css";
 import FormItem from "antd/es/form/FormItem";
 import { DatePicker } from 'antd';
+import locale from 'antd/es/date-picker/locale/vi_VN';
+import dayjs from 'dayjs';
 
 const TourList = () => {
   const [tours, setTours] = useState([]);
@@ -69,9 +71,18 @@ const TourList = () => {
   };
 
   const handleEdit = (item) => {
-    setEditingItem(item);
+    if (item) {
+      const itemWithDayjs = {
+        ...item,
+        startAt: item.startAt ? dayjs(item.startAt) : null
+      };
+      setEditingItem(item);
+      form.setFieldsValue(itemWithDayjs);
+    } else {
+      setEditingItem(null);
+      form.resetFields();
+    }
     setVisible(true);
-    form.setFieldsValue(item || {});
   };
 
   const handleDelete = async (id) => {
@@ -114,7 +125,7 @@ const TourList = () => {
 
       const formData = {
         ...values,
-        startedAt: values.startedAt?.format('YYYY-MM-DD'),
+        startAt: values.startAt ? values.startAt.format('YYYY-MM-DD') : null,
         price: parseFloat(values.price),
       };
 
@@ -171,10 +182,10 @@ const TourList = () => {
 
   const columns = [
     { title: "ID", dataIndex: "id", key: "id" },
-    { title: "Manager ID", dataIndex: "manager_id", key: "manager_id" },
+    //{ title: "Manager ID", dataIndex: "manager_id", key: "manager_id" },
     { title: "Code", dataIndex: "code", key: "code" },
     { title: "Name", dataIndex: "name", key: "name" },
-    { title: "Start At", dataIndex: "startedAt", key: "startedAt" },
+    { title: "Start At", dataIndex: "startAt", key: "startAt", render: (date) => date ? dayjs(date).format('DD/MM/YYYY') : '-' },
     { title: "Duration", dataIndex: "duration", key: "duration" },
     { title: "Description", dataIndex: "description", key: "description" },
     {
@@ -296,7 +307,7 @@ const TourList = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            name="startedAt"
+            name="startAt"
             label="Start at"
             rules={[
               {
@@ -306,8 +317,9 @@ const TourList = () => {
             ]}
           >
             <DatePicker 
+              locale={locale}
               style={{ width: '100%' }}
-              format="YYYY-MM-DD"
+              format="DD/MM/YYYY"
               placeholder="Select start date"
             />
           </Form.Item>

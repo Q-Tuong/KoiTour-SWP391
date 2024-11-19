@@ -24,7 +24,7 @@ const AddToCart = () => {
 
     try {
       const response = await axios.post(
-        `http://14.225.212.120:8080/api/cart/${koiId}/add`,
+        `http://14.225.212.120:8080/api/cart/add/${koiId}`,
         { quantity },
         {
           headers: {

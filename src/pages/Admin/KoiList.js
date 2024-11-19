@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Modal, Form, Input, message } from 'antd';
+import { Table, Button, Modal, Form, Input, message, Select } from 'antd';
 import axios from 'axios';
 import './styles1.css';
 import { NavLink } from 'react-router-dom';
@@ -75,19 +75,28 @@ const KoiList = () => {
   };
 
   const handleDelete = async (id) => {
-    const token = localStorage.getItem("token");
-    try {
-      await axios.delete(`http://14.225.212.120:8080/api/koi/delete/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      message.success("Koi deleted successfully");
-      fetchKoi(pageNumber);
-    } catch (error) {
-      console.error("Error deleting koi:", error);
-      message.error("Failed to delete koi");
-    }
+    Modal.confirm({
+      title: 'Are you sure you want to delete this koi?',
+      content: 'This action cannot be undone.',
+      okText: 'Yes, delete it',
+      okType: 'danger',
+      cancelText: 'No, cancel',
+      onOk: async () => {
+        const token = localStorage.getItem("token");
+        try {
+          await axios.delete(`http://14.225.212.120:8080/api/koi/delete/${id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          message.success("Koi deleted successfully");
+          fetchKoi(pageNumber);
+        } catch (error) {
+          console.error("Error deleting koi:", error);
+          message.error("Failed to delete koi");
+        }
+      },
+    });
   };
 
   const handleCancel = () => {
@@ -185,7 +194,13 @@ const KoiList = () => {
             <Input />
           </Form.Item>
           <Form.Item name="price" label="Price" rules={[{ required: true, message: 'Please enter price' }]}>
-            <Input type="number" />
+            <Input 
+            type="number"
+            min="0"
+            step="1"
+            placeholder="Enter price (e.g., 99.99)"
+            prefix="$"
+            />
           </Form.Item>
           <Form.Item 
             name="imgUrl"

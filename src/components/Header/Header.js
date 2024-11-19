@@ -36,7 +36,7 @@ function Header() {
           <li><NavLink className="nav" to="/kois">Kois</NavLink></li>
           <li><NavLink className="nav" to="/koifarms">Koifarms</NavLink></li>
           <li><NavLink className="nav" to="/tours">Tours</NavLink></li>
-          <li><NavLink className="nav" to="/Order">Order</NavLink></li>
+          {/*<li><NavLink className="nav" to="/Order">Order</NavLink></li>*/}
         </ul>
         {isLoggedIn ? (
           <div className="user-menu-container">

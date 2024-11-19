@@ -104,8 +104,9 @@ const KoifarmList = () => {
   };
 
   const columns = [
-    { title: 'Name', dataIndex: 'name', key: 'name' },
-    { title: 'Address', dataIndex: 'address', key: 'address' },
+    { title: 'Name', dataIndex: 'name', key: 'name', width: 200 },
+    { title: 'Description', dataIndex: 'description', key: 'description', width: 550 },
+    { title: 'Address', dataIndex: 'address', key: 'address', width: 400 },
     { title: 'Phone', dataIndex: 'phone', key: 'phone' },
     { 
       title: 'Image', 

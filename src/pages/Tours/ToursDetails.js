@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid"; // Importing uuid
+import "./TourDetails.css";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 
@@ -22,7 +22,7 @@ const TourDetails = () => {
 
     try {
       const response = await axios.get(
-        `http://14.225.212.120:8080/api/tour/${tourId}/get-by-id`,
+        `http://14.225.212.120:8080/api/tour/get-by-id/${tourId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -130,41 +130,57 @@ const TourDetails = () => {
     <div>
       <Header />
       <div className="tour-details">
-        <h1 className="text-2xl font-bold">{tour.name}</h1>
-        <img
-          src={tour.imgURL}
-          alt={tour.name}
-          className="mt-4 w-full h-auto object-cover"
-        />
-        <p className="mt-4 text-lg">{tour.description}</p>
-        <p className="mt-4 text-lg text-red-600">
-          Giá: {tour.price.toLocaleString("vi-VN")} ₫
-        </p>
-
-        <div className="mt-4">
-          <label htmlFor="quantity" className="mr-2">
-            Số lượng:
-          </label>
-          <input
-            type="number"
-            id="quantity"
-            value={quantity}
-            min="1"
-            onChange={(e) =>
-              setQuantity(Math.max(1, parseInt(e.target.value) || 1))
-            }
-            className="border p-1"
-            disabled={loading || ordering}
+        <h1 className="tour-title">{tour.name}</h1>
+        
+        <div className="tour-image-wrapper">
+          <img
+            src={tour.imgUrl}
+            alt={tour.name}
+            className="tour-image"
           />
         </div>
 
-        <button
-          onClick={handleOrder}
-          disabled={ordering}
-          className={`mt-4 ${ordering ? "bg-gray-400" : "bg-blue-500"} text-white px-4 py-2 rounded`}
-        >
-          {ordering ? "Đang đặt hàng..." : "Đặt hàng"}
-        </button>
+        <div className="tour-info-container">
+          <p className="tour-description">{tour.description}</p>
+          
+          <div className="tour-date-info">
+            <p className="tour-start-date">
+              <span className="info-label">Ngày khởi hành:</span>
+              {new Date(tour.startAt).toLocaleDateString('vi-VN')}
+            </p>
+            <p className="tour-duration">
+              <span className="info-label">Thời gian:</span>
+              {tour.duration} ngày
+            </p>
+          </div>
+
+          <p className="tour-price">
+            {tour.price.toLocaleString("vi-VN")} ₫
+          </p>
+
+          <div className="quantity-container">
+            <label htmlFor="quantity" className="quantity-label">
+              Số lượng:
+            </label>
+            <input
+              type="number"
+              id="quantity"
+              value={quantity}
+              min="1"
+              onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+              className="quantity-input"
+              disabled={loading || ordering}
+            />
+          </div>
+
+          <button
+            onClick={handleOrder}
+            disabled={ordering}
+            className="order-button"
+          >
+            {ordering ? "Đang xử lý..." : "Đặt tour ngay"}
+          </button>
+        </div>
       </div>
       <Footer />
     </div>

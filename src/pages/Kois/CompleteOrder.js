@@ -83,7 +83,7 @@ const CompleteOrder = () => {
       <div className="complete-order-container">
         <h1>Complete Order</h1>
         <p><strong>Order ID:</strong> {orderDetails.id}</p>
-        <p><strong>Total Price:</strong> {orderDetails.totalPrice.toLocaleString("vi-VN")} ₫</p>
+        <p><strong>Total Price:</strong> {orderDetails.totalPrice.toLocaleString("vi-VN")} $</p>
         <p><strong>Status:</strong> {orderDetails.status}</p>
         <button onClick={completeOrder} className="complete-order-button">
           Mark as Complete

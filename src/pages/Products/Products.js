@@ -20,7 +20,7 @@ const Products = () => {
 
     try {
       const response = await axios.get(
-        `http://14.225.212.120:8080/api/koi/${koiId}/get-by-id`,
+        `http://14.225.212.120:8080/api/koi/get-by-id/${koiId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

@@ -23,7 +23,7 @@ const RemoveFromCart = () => {
 
     try {
       const response = await axios.delete(
-        `http://14.225.212.120:8080/api/cart/${koiId}/remove`,
+        `http://14.225.212.120:8080/api/cart/remove/${koiId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

@@ -38,6 +38,7 @@ public class Tour {
     String startAt;
     float price;
     String description;
+    String startFrom;
     String imgUrl;
     Date createAt;
 

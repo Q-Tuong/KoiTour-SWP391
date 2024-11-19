@@ -2,8 +2,7 @@ package com.koitourdemo.demo.enums;
 
 public enum Role {
     CUSTOMER,
-    MANAGER,
-    CONSULTING_STAFF,
-    SALE_STAFF,
+    TOUR_STAFF,
+    KOI_STAFF,
     ADMIN,
 }

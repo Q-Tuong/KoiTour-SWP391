@@ -8,7 +8,6 @@ import com.koitourdemo.demo.service.KoiService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +23,7 @@ public class KoiAPI {
     @Autowired
     KoiService koiService;
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'KOI_STAFF')")
     @PostMapping("/create")
     public ResponseEntity createKoi(@Valid @RequestBody KoiRequest koi){
         Koi newKoi = koiService.createNewKoi(koi);
@@ -50,12 +50,14 @@ public class KoiAPI {
         return ResponseEntity.ok(koiResponse);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'KOI_STAFF')")
     @PutMapping("/update/{koiId}")
     public ResponseEntity updateKoi(@Valid @RequestBody KoiRequest koiRequest, @PathVariable UUID koiId){
         KoiResponse updated = koiService.updateKoi(koiRequest, koiId);
         return ResponseEntity.ok(updated);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'KOI_STAFF')")
     @DeleteMapping("/delete/{koiId}")
     public ResponseEntity deleteKoi(@PathVariable UUID koiId){
         KoiResponse deleted = koiService.deleteKoi(koiId);

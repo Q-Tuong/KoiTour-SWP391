@@ -21,6 +21,7 @@ public class KoiFarmAPI {
     @Autowired
     KoiFarmService koiFarmService;
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'TOUR_STAFF')")
     @PostMapping("/create")
     public ResponseEntity createKoiFarm(@Valid @RequestBody KoiFarmRequest koiFarm){
         KoiFarm newKoiFarm = koiFarmService.createNewKoiFarm(koiFarm);
@@ -47,12 +48,14 @@ public class KoiFarmAPI {
         return ResponseEntity.ok(koiFarmResponse);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'TOUR_STAFF')")
     @PutMapping("/update/{koiFarmId}")
     public ResponseEntity updateKoi(@Valid @RequestBody KoiFarmRequest koiFarmRequest, @PathVariable long koiFarmId){
         KoiFarmResponse updated = koiFarmService.updateKoiFarm(koiFarmRequest, koiFarmId);
         return ResponseEntity.ok(updated);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'TOUR_STAFF')")
     @DeleteMapping("/delete/{koiFarmId}")
     public ResponseEntity deleteKoiFarm(@PathVariable long koiFarmId){
         KoiFarmResponse deleted = koiFarmService.deleteKoiFarm(koiFarmId);

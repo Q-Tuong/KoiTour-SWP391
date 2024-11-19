@@ -1,11 +1,13 @@
 package com.koitourdemo.demo.service;
 
+import com.koitourdemo.demo.entity.KoiFarm;
 import com.koitourdemo.demo.entity.Tour;
 import com.koitourdemo.demo.entity.User;
 import com.koitourdemo.demo.exception.NotFoundException;
 import com.koitourdemo.demo.model.request.TourRequest;
 import com.koitourdemo.demo.model.response.TourPageResponse;
 import com.koitourdemo.demo.model.response.TourResponse;
+import com.koitourdemo.demo.repository.KoiFarmRepository;
 import com.koitourdemo.demo.repository.TourRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +15,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class TourService {
     @Autowired
     TourRepository tourRepository;
+
+    @Autowired
+    KoiFarmRepository koiFarmRepository;
 
     @Autowired
     ModelMapper modelMapper;
@@ -33,6 +40,7 @@ public class TourService {
         tour.setDuration(tourRequest.getDuration());
         tour.setStartAt(tourRequest.getStartAt());
         tour.setDescription(tourRequest.getDescription());
+        tour.setStartFrom(tour.getStartFrom());
         tour.setPrice(tourRequest.getPrice());
         tour.setImgUrl(tourRequest.getImgUrl());
         tour.setCreateAt(new Date());
@@ -77,6 +85,7 @@ public class TourService {
         oldTour.setDuration(tourRequest.getDuration());
         oldTour.setStartAt(tourRequest.getStartAt());
         oldTour.setDescription(tourRequest.getDescription());
+        oldTour.setStartFrom(tourRequest.getStartFrom());
         oldTour.setPrice(tourRequest.getPrice());
         oldTour.setImgUrl(tourRequest.getImgUrl());
         Tour updatedTour = tourRepository.save(oldTour);

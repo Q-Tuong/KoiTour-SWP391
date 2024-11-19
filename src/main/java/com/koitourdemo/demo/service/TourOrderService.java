@@ -7,6 +7,7 @@ import com.koitourdemo.demo.enums.Role;
 import com.koitourdemo.demo.enums.TransactionsEnum;
 import com.koitourdemo.demo.exception.IllegalStateException;
 import com.koitourdemo.demo.exception.NotFoundException;
+import com.koitourdemo.demo.model.EmailDetail;
 import com.koitourdemo.demo.model.request.TourOrderRequest;
 import com.koitourdemo.demo.model.request.TourOrderDetailRequest;
 import com.koitourdemo.demo.model.response.TourOrderDetailResponse;
@@ -26,6 +27,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -37,6 +39,9 @@ public class TourOrderService {
 
     @Autowired
     AuthenticationService authenticationService;
+
+    @Autowired
+    EmailService emailService;
 
     @Autowired
     TourRepository tourRepository;
@@ -286,6 +291,31 @@ public class TourOrderService {
     public void createNewTourTransactions(UUID uuid) {
         TourOrder orders = orderRepository.findById(uuid)
                 .orElseThrow(() -> new NotFoundException("Order not found!"));
+
+        List<Map<String, Object>> orderDetails = new ArrayList<>();
+        for (TourOrderDetail detail : orders.getTourOrderDetails()) {
+            Map<String, Object> detailMap = new HashMap<>();
+            detailMap.put("tourName", detail.getTourName());
+            detailMap.put("quantity", detail.getQuantity());
+            detailMap.put("unitPrice", String.format("%,.0f", detail.getUnitPrice()));
+            detailMap.put("totalPrice", String.format("%,.0f", detail.getTotalPrice()));
+            detailMap.put("duration", detail.getDuration());
+            detailMap.put("startAt", detail.getStartAt());
+            detailMap.put("startFrom", detail.getTour().getStartFrom());
+            orderDetails.add(detailMap);
+        }
+
+        // Chuẩn bị email detail
+        EmailDetail emailDetail = new EmailDetail();
+        emailDetail.setReceiver(orders.getCustomer());
+        emailDetail.setSubject("Xác nhận đơn hàng Tour từ LoyaltyKoi.vn");
+        emailDetail.setOrderId(orders.getId().toString());
+        emailDetail.setCreateAt(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(orders.getCreateAt()));
+        emailDetail.setTotalPrice(String.format("%,.0f", orders.getTotal()));
+        emailDetail.setOrderDetails(orderDetails);
+
+        // Gửi email
+        emailService.sendTourBillEmail(emailDetail);
 
         Payment payment = new Payment();
         payment.setTourOrder(orders);

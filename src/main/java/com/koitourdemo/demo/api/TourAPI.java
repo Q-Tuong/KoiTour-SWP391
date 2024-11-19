@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/tour")
 @CrossOrigin("*")
@@ -21,6 +23,7 @@ public class TourAPI {
     @Autowired
     TourService tourService;
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'TOUR_STAFF')")
     @PostMapping("/create")
     public ResponseEntity createTour(@Valid @RequestBody TourRequest tour){
         Tour newTour = tourService.createNewTour(tour);
@@ -47,12 +50,14 @@ public class TourAPI {
         return ResponseEntity.ok(tourResponse);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'TOUR_STAFF')")
     @PutMapping("/update/{tourId}")
     public ResponseEntity updateTour(@Valid @RequestBody TourRequest tourRequest, @PathVariable long tourId){
         TourResponse updated = tourService.updateTour(tourRequest, tourId);
         return ResponseEntity.ok(updated);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'TOUR_STAFF')")
     @DeleteMapping("/delete/{tourId}")
     public ResponseEntity deleteTour(@PathVariable long tourId){
         TourResponse deleted = tourService.deleteTour(tourId);

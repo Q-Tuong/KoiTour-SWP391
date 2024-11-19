@@ -78,13 +78,10 @@ public class AdminService {
         stats.put("totalTours", totalTours);
 
         // đếm số lượng user by role
-        long managerCount = userRepository.countByRole(Role.MANAGER);
-        stats.put("managerCount", managerCount);
-
-        long consultingStaffCount = userRepository.countByRole(Role.CONSULTING_STAFF);
+        long consultingStaffCount = userRepository.countByRole(Role.TOUR_STAFF);
         stats.put("consultingStaffCount", consultingStaffCount);
 
-        long saleStaffCount = userRepository.countByRole(Role.SALE_STAFF);
+        long saleStaffCount = userRepository.countByRole(Role.KOI_STAFF);
         stats.put("saleStaffCount", saleStaffCount);
 
         long customerCount = userRepository.countByRole(Role.CUSTOMER);

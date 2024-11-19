@@ -73,17 +73,17 @@ public class AuthenticationService implements UserDetailsService {
             try {
                 String originPassword = user.getPassword();
                 user.setPassword(passwordEncoder.encode(originPassword));
-                user.setRole(Role.ADMIN);
+                user.setRole(Role.CUSTOMER);
                 user.setEmailVerified(false);
                 user.setVerificationToken(tokenService.generateToken(user));
-                user.setVerificationTokenExpiry(new Date(System.currentTimeMillis() + 1000 * 60 * 5)); // 5 phút
+                user.setVerificationTokenExpiry(new Date(System.currentTimeMillis() + 1000 * 60 * 15)); // 5 phút
                 User newUser = userRepository.save(user);
 
                 EmailDetail emailDetail = new EmailDetail();
                 emailDetail.setReceiver(newUser);
                 emailDetail.setSubject("Please verify your account!");
-                emailDetail.setLink("facebook.com?token=" + newUser.getVerificationToken());
-                emailService.sendEmail(emailDetail);
+                emailDetail.setLink("http://localhost:3000/verify-email?token=" + newUser.getVerificationToken());
+                emailService.sendWelcomeEmail(emailDetail);
 
                 return modelMapper.map(newUser, UserResponse.class);
             } catch (Exception e) {
@@ -172,7 +172,7 @@ public class AuthenticationService implements UserDetailsService {
             emailDetail.setReceiver(user);
             emailDetail.setSubject("Reset password");
             emailDetail.setLink("http://localhost:3000/reset-password?token=" + tokenService.generateToken(user));
-            emailService.sendEmail(emailDetail);
+            emailService.sendVerifyEmail(emailDetail);
         }
     }
 
@@ -211,7 +211,7 @@ public class AuthenticationService implements UserDetailsService {
 
         // Tạo token mới và cập nhật thời gian hết hạn
         user.setVerificationToken(tokenService.generateToken(user));
-        user.setVerificationTokenExpiry(new Date(System.currentTimeMillis() + 1000 * 60 * 5)); // 5 phút
+        user.setVerificationTokenExpiry(new Date(System.currentTimeMillis() + 1000 * 60 * 15)); // 15 phút
         userRepository.save(user);
 
         // Gửi lại email xác thực
@@ -219,7 +219,7 @@ public class AuthenticationService implements UserDetailsService {
         emailDetail.setReceiver(user);
         emailDetail.setSubject("Please verify your account!");
         emailDetail.setLink("http://localhost:3000/verify-email?token=" + user.getVerificationToken());
-        emailService.sendEmail(emailDetail);
+        emailService.sendVerifyEmail(emailDetail);
     }
 
 }

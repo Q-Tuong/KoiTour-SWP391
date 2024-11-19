@@ -7,6 +7,7 @@ import com.koitourdemo.demo.enums.Role;
 import com.koitourdemo.demo.enums.TransactionsEnum;
 import com.koitourdemo.demo.exception.NotFoundException;
 import com.koitourdemo.demo.exception.IllegalStateException;
+import com.koitourdemo.demo.model.EmailDetail;
 import com.koitourdemo.demo.model.request.KoiOrderDetailRequest;
 import com.koitourdemo.demo.model.request.KoiOrderRequest;
 import com.koitourdemo.demo.model.response.KoiOrderDetailResponse;
@@ -24,6 +25,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -36,6 +38,9 @@ public class KoiOrderService {
 
     @Autowired
     AuthenticationService authenticationService;
+
+    @Autowired
+    EmailService emailService;
 
     @Autowired
     KoiRepository koiRepository;
@@ -138,7 +143,7 @@ public class KoiOrderService {
         String tmnCode = "0731HE82";
         String secretKey = "506GUHNO9MTI5Q23PQAUCLTHOWSF3FAM";
         String vnpUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        String returnUrl = "http://localhost:3000/transaction/tour?orderID=" + orders.getId();
+        String returnUrl = "http://localhost:3000/transaction/koi?orderID=" + orders.getId();
         String currCode = "VND";
         UUID orderId = orders.getId();
         String txnRef = orderId.toString();
@@ -298,6 +303,27 @@ public class KoiOrderService {
     public void createNewKoiTransactions(UUID uuid){
         KoiOrder orders = orderRepository.findById(uuid)
                 .orElseThrow(() -> new NotFoundException("Order not found!"));
+
+        List<Map<String, Object>> orderDetails = new ArrayList<>();
+        for (KoiOrderDetail detail : orders.getKoiOrderDetails()) {
+            Map<String, Object> detailMap = new HashMap<>();
+            detailMap.put("productName", detail.getProductName());
+            detailMap.put("quantity", detail.getQuantity());
+            detailMap.put("unitPrice", detail.getUnitPrice());
+            detailMap.put("totalPrice", detail.getUnitPrice() * detail.getQuantity());
+            orderDetails.add(detailMap);
+        }
+
+        EmailDetail emailDetail = new EmailDetail();
+        emailDetail.setReceiver(orders.getCustomer());
+        emailDetail.setSubject("Xác nhận đơn hàng từ LoyaltyKoi.vn");
+        emailDetail.setOrderId(orders.getId().toString());
+        emailDetail.setCreateAt(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(orders.getCreateAt()));
+        emailDetail.setTotalPrice(String.format("%,.0f", orders.getTotal()));
+        emailDetail.setOrderDetails(orderDetails);
+
+        // Gửi email
+        emailService.sendKoiBillEmail(emailDetail);
 
         // tạo payment
         Payment payment = new Payment();

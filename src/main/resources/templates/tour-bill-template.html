@@ -1,0 +1,75 @@
+<table class="body-wrap" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; width: 100%; background-color: #f6f6f6; margin: 0;" bgcolor="#f6f6f6">
+  <tbody>
+  <tr>
+    <td></td>
+    <td class="container" width="600">
+      <div class="content">
+        <table class="main" width="100%" cellpadding="0" cellspacing="0">
+          <tbody>
+          <tr>
+            <td class="header" style="background-color: #b8421c; padding: 20px; text-align: center; border-radius: 3px 3px 0 0;">
+              <a href="http://localhost:3000" style="font-size:32px;color:#fff;text-decoration:none;">LoyaltyKoi.vn</a>
+              <br>
+              <span style="margin-top: 10px;display: block;color:#fff;">Xác nhận đơn hàng Tour</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="content-wrap" style="padding: 20px; background-color: #fff;">
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="padding-bottom: 20px;">
+                    Xin chào <strong>[[${customerEmail}]]</strong>,
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-bottom: 20px;">
+                    Cảm ơn bạn đã đặt Tour tại LoyaltyKoi.vn. Dưới đây là chi tiết đơn hàng của bạn:
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-bottom: 20px;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                      <tr style="background-color: #f8f9fa;">
+                        <td style="padding: 10px; border: 1px solid #dee2e6;">Mã đơn hàng:</td>
+                        <td style="padding: 10px; border: 1px solid #dee2e6;">[[${orderId}]]</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 10px; border: 1px solid #dee2e6;">Ngày đặt hàng:</td>
+                        <td style="padding: 10px; border: 1px solid #dee2e6;">[[${createAt}]]</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 10px; border: 1px solid #dee2e6;">
+                          <div th:each="detail, iterStat : ${orderDetails}">
+                            <div>[[${detail.tourName}]]</div>
+                            <div>- Số lượng: x[[${detail.quantity}]]</div>
+                            <div>- Thời gian: [[${detail.duration}]]</div>
+                            <div>- Ngày khởi hành: [[${detail.startAt}]]</div>
+                            <div>- Điểm khởi hành: [[${detail.startFrom}]]</div>
+                            <div>- Đơn giá: [[${detail.unitPrice}]] VNĐ</div>
+                            <div>- Thành tiền: [[${detail.totalPrice}]] VNĐ</div>
+                            <hr th:if="${!iterStat.last}" style="border: 0; border-top: 1px solid #eee; margin: 10px 0;">
+                          </div>
+                        </td>
+                      </tr>
+                      <tr style="background-color: #f8f9fa;">
+                        <td style="padding: 10px; border: 1px solid #dee2e6;">Tổng tiền:</td>
+                        <td style="padding: 10px; border: 1px solid #dee2e6;">[[${totalPrice}]] VNĐ</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="footer" style="margin-top: 20px; text-align: center; color: #999;">
+          <p>© 2024 LoyaltyKoi.vn. All rights reserved.</p>
+          <p>Email này được gửi tự động, vui lòng không trả lời.</p>
+        </div>
+      </div>
+    </td>
+    <td></td>
+  </tr>
+  </tbody>
+</table>

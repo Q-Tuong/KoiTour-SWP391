@@ -117,11 +117,11 @@ function Signup() {
           </div>
           <div className="form-group">
             <label htmlFor="password" className="form-label">Mật khẩu:</label>
-            <input type="password" id="password" value={password} onChange={(event) => setPassword(event.target.value)} className="form-input" required />
+            <input type="password" id="password" value={password} onChange={(event) => setPassword(event.target.value)} className="form-input" required autocomplete="new-password" />
           </div>
           <div className="form-group">
             <label htmlFor="confirmPassword" className="form-label">Xác nhận mật khẩu:</label>
-            <input type="password" id="confirmPassword" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} className="form-input" required />
+            <input type="password" id="confirmPassword" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} className="form-input" required autocomplete="new-password" />
           </div>
           <div className="form-group">
             <label htmlFor="email" className="form-label">Email:</label>

@@ -1,6 +1,6 @@
 // src/pages/Admin/OrderList.js
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Modal, Form, Input, message } from 'antd';
+import { Table, Button, Modal, Form, Input, message, Space } from 'antd';
 import axios from 'axios';
 import './styles1.css';
 import { NavLink } from 'react-router-dom';
@@ -17,10 +17,24 @@ const OrderList = () => {
     const fetchOrders = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('/api/orders'); // Replace with your API endpoint
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          'http://14.225.212.120:8080/api/order/get-paid-order/koi',
+          {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Accept': '*/*'
+            }
+          }
+        );
         setOrders(response.data);
       } catch (error) {
-        message.error('Failed to load orders data.');
+        console.error('Error fetching orders:', error);
+        if (error.response?.status === 401) {
+          message.error('Please login to view orders');
+        } else {
+          message.error('Failed to load orders data.');
+        }
       } finally {
         setLoading(false);
       }
@@ -29,18 +43,47 @@ const OrderList = () => {
     fetchOrders();
   }, []);
 
-  const handleEdit = (item) => {
-    setEditingItem(item);
-    form.setFieldsValue({ koiID: item.koiID, quantity: item.quantity });
-    setVisible(true);
+  const handleEdit = async (item) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.put(
+        `http://14.225.212.120:8080/api/order/update-status/${item.id}`,
+        { status: 'COMPLETED' },
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      
+      if (response.data) {
+        // Update local state to reflect the change
+        setOrders(orders.map(order => 
+          order.id === item.id 
+            ? { ...order, status: 'COMPLETED' }
+            : order
+        ));
+        message.success('Order status updated to COMPLETED');
+      }
+    } catch (error) {
+      console.error('Error updating order status:', error);
+      message.error('Failed to update order status');
+    }
   };
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/orders/${id}`); // Replace with your API endpoint
-      setOrders(orders.filter(order => order.koiID !== id));
+      const token = localStorage.getItem("token");
+      await axios.delete(`http://14.225.212.120:8080/api/order/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      setOrders(orders.filter(order => order.id !== id));
       message.success('Order deleted successfully');
     } catch (error) {
+      console.error('Error deleting order:', error);
       message.error('Failed to delete order.');
     }
   };
@@ -77,25 +120,64 @@ const OrderList = () => {
 
   const columns = [
     {
-      title: 'Koi ID',
-      dataIndex: 'koiID',
-      key: 'koiID',
+      title: 'Order ID',
+      dataIndex: 'id',
+      key: 'id',
     },
     {
-      title: 'Quantity',
-      dataIndex: 'quantity',
-      key: 'quantity',
+      title: 'Customer Email',
+      dataIndex: 'customerEmail',
+      key: 'customerEmail',
+    },
+    {
+      title: 'Address',
+      dataIndex: ['customer', 'address'], // Nested path to get address from customer object
+      key: 'address',
+    },
+    {
+      title: 'Total',
+      dataIndex: 'total',
+      key: 'total',
+      render: (total) => `$${total}`
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      render: (status) => (
+        <span style={{ 
+          color: status === 'COMPLETED' ? 'green' : 
+                 status === 'PAID' ? 'blue' : 'gray'
+        }}>
+          {status}
+        </span>
+      )
+    },
+    {
+      title: 'Created At',
+      dataIndex: 'createAt',
+      key: 'createAt',
     },
     {
       title: 'Action',
       key: 'action',
       render: (_, record) => (
-        <>
-          <Button onClick={() => handleEdit(record)}>Edit</Button>
-          <Button onClick={() => handleDelete(record.koiID)} danger>
+        <Space size="middle">
+          {record.status === 'PAID' && (
+            <Button 
+              type="primary"
+              onClick={() => handleEdit(record)}
+            >
+              Mark as Completed
+            </Button>
+          )}
+          <Button 
+            onClick={() => handleDelete(record.id)} 
+            danger
+          >
             Delete
           </Button>
-        </>
+        </Space>
       ),
     },
   ];
@@ -108,7 +190,7 @@ const OrderList = () => {
       </Button>
       <Table dataSource={orders} columns={columns} rowKey="koiID" loading={loading} />
 
-      <Modal title={editingItem ? 'Edit Order' : 'Add Order'} visible={visible} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title={editingItem ? 'Edit Order' : 'Add Order'} open={visible} onOk={handleOk} onCancel={handleCancel}>
         <Form form={form} layout="vertical">
           <Form.Item name="koiID" label="Koi ID" rules={[{ required: true, message: 'Please enter Koi ID' }]}>
             <Input />
@@ -119,13 +201,13 @@ const OrderList = () => {
         </Form>
       </Modal>
       <div className="button-container">
-  <span>
-    <NavLink to="/admin">
-      <button className="form-button2 back-button">Back</button>
-    </NavLink>
-  </span>
+        <span>
+          <NavLink to="/admin">
+            <button className="form-button2 back-button">Back</button>
+          </NavLink>
+        </span>
 
-</div>
+      </div>
 
     </div>
   );

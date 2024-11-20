@@ -39,6 +39,11 @@ const AdminDashboard = () => {
             Manage Koi Farms
           </Link>
         </li>
+        <li>
+          <Link to="/admin/orders" className="manage-link">
+            Manage Order
+          </Link>
+        </li>
         <span>
           <button onClick={handleLogout} className="form-button2 logout-button">Logout</button>
         </span>

@@ -268,3 +268,41 @@ li {
 .ant-input-textarea {
   min-height: 100px;
 }
+
+.status-completed {
+  color: #52c41a;
+  font-weight: bold;
+}
+
+.status-paid {
+  color: #1890ff;
+  font-weight: bold;
+}
+
+.status-pending {
+  color: #faad14;
+  font-weight: bold;
+}
+
+.ant-modal-content {
+  padding: 24px;
+}
+
+.ant-form-item-label {
+  font-weight: 500;
+}
+
+.ant-select {
+  width: 100%;
+}
+
+/* Status colors */
+.status-completed {
+  color: #52c41a;
+  font-weight: 500;
+}
+
+.status-paid {
+  color: #1890ff;
+  font-weight: 500;
+}

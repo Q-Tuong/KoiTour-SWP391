@@ -46,7 +46,7 @@ public class TourService {
         tour.setCreateAt(new Date());
 
         User userRequest = authenticationService.getCurrentUser();
-        tour.setManager(userRequest);
+        tour.setTourStaff(userRequest);
         Tour newTour = tourRepository.save(tour);
         return newTour;
     }

@@ -53,7 +53,7 @@ public class KoiService {
         koi.setKoiFarm(koiFarm);
 
         User userRequest = authenticationService.getCurrentUser();
-        koi.setManager(userRequest);
+        koi.setKoiStaff(userRequest);
 
         return koiRepository.save(koi);
     }

@@ -76,7 +76,7 @@ public class AuthenticationService implements UserDetailsService {
                 user.setRole(Role.CUSTOMER);
                 user.setEmailVerified(false);
                 user.setVerificationToken(tokenService.generateToken(user));
-                user.setVerificationTokenExpiry(new Date(System.currentTimeMillis() + 1000 * 60 * 15)); // 5 phút
+                user.setVerificationTokenExpiry(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 12)); // 12 giờ
                 User newUser = userRepository.save(user);
 
                 EmailDetail emailDetail = new EmailDetail();
@@ -211,7 +211,7 @@ public class AuthenticationService implements UserDetailsService {
 
         // Tạo token mới và cập nhật thời gian hết hạn
         user.setVerificationToken(tokenService.generateToken(user));
-        user.setVerificationTokenExpiry(new Date(System.currentTimeMillis() + 1000 * 60 * 15)); // 15 phút
+        user.setVerificationTokenExpiry(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 12)); // 12 giờ
         userRepository.save(user);
 
         // Gửi lại email xác thực

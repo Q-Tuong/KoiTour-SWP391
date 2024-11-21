@@ -45,7 +45,7 @@ public class OrderAPI {
         }
     }
 
-    @PostMapping("transactions/koi")
+    @PostMapping("/koi/transaction")
     public ResponseEntity createKoiTransaction(@RequestParam UUID orderId) throws Exception {
         koiOrderService.createNewKoiTransactions(orderId);
         return ResponseEntity.ok("Success");
@@ -133,7 +133,7 @@ public class OrderAPI {
         }
     }
 
-    @PostMapping("transactions/tour")
+    @PostMapping("/tour/transaction")
     public ResponseEntity createNewTourTransaction(@RequestParam UUID orderId) throws Exception {
         tourOrderService.createNewTourTransactions(orderId);
         return ResponseEntity.ok("Success");

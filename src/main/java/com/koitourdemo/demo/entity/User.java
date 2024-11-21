@@ -100,15 +100,15 @@ public class User implements UserDetails {
         return true;
     }
 
-    @OneToMany(mappedBy = "manager")
+    @OneToMany(mappedBy = "koiStaff")
     @JsonIgnore
     List<Koi> kois;
 
-    @OneToMany(mappedBy = "manager")
+    @OneToMany(mappedBy = "tourStaff")
     @JsonIgnore
     List<KoiFarm> koiFarms;
 
-    @OneToMany(mappedBy = "manager")
+    @OneToMany(mappedBy = "tourStaff")
     @JsonIgnore
     List<Tour> tours;
 

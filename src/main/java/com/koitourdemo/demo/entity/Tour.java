@@ -43,8 +43,8 @@ public class Tour {
     Date createAt;
 
     @ManyToOne
-    @JoinColumn(name = "manager_id")
-    User manager;
+    @JoinColumn(name = "staff_id")
+    User tourStaff;
 
     @OneToMany(mappedBy = "tour")
     @JsonIgnore

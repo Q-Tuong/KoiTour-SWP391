@@ -43,8 +43,8 @@ public class Koi {
     Date createAt;
 
     @ManyToOne
-    @JoinColumn(name = "manager_id")
-    User manager;
+    @JoinColumn(name = "staff_id")
+    User koiStaff;
 
     @ManyToOne
     @JoinColumn(name = "koiFarm_id")

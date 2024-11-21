@@ -138,12 +138,12 @@ public class KoiOrderService {
         KoiOrder orders = createKoiOrder(orderRequest);
 
         float money = orders.getTotal() * 100;
-        String amount = String.valueOf((int) money);
+        String amount = String.valueOf((long) money);
 
         String tmnCode = "0731HE82";
         String secretKey = "506GUHNO9MTI5Q23PQAUCLTHOWSF3FAM";
         String vnpUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        String returnUrl = "http://localhost:3000/transaction/koi?orderID=" + orders.getId();
+        String returnUrl = "http://localhost:3000/kois/transaction?orderID=" + orders.getId();
         String currCode = "VND";
         UUID orderId = orders.getId();
         String txnRef = orderId.toString();
@@ -251,12 +251,12 @@ public class KoiOrderService {
         String formattedCreateDate = createDate.format(formatter);
 
         float money = order.getTotal() * 100;
-        String amount = String.valueOf((int) money);
+        String amount = String.valueOf((long) money);
 
         String tmnCode = "0731HE82";
         String secretKey = "506GUHNO9MTI5Q23PQAUCLTHOWSF3FAM";
         String vnpUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        String returnUrl = "http://localhost:3000/transaction/koi?orderID=" + order.getId();
+        String returnUrl = "http://localhost:3000/kois/transaction?orderID=" + order.getId();
         String currCode = "VND";
         String txnRef = order.getId().toString();
 
@@ -357,7 +357,7 @@ public class KoiOrderService {
         transactions2.setDescription("CUSTOMER TO ADMIN");
 
         float newBalance = admin.getKoiBalance() + orders.getTotal();
-        transactions2.setAmount(newBalance);
+        transactions2.setAmount(orders.getTotal());
         admin.setKoiBalance(newBalance);
         setTransactions.add(transactions2);
 
@@ -377,7 +377,7 @@ public class KoiOrderService {
             throw new IllegalStateException("Cannot complete unpaid order");
         }
 
-        if (order.getStatus() != OrderStatus.PENDING) {
+        if (order.getStatus() != OrderStatus.PAID) {
             throw new IllegalStateException("Order must be in PENDING state to complete");
         }
 
